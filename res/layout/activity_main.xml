@@ -8,22 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/myOrgsTitle"
-        android:layout_width="wrap_content"
+    <Button 
+        android:layout_width ="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/myOrganizations"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ListView
-        android:id="@+id/orgsList"
-        android:divider="#000"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/myOrgsTitle"
-        android:layout_centerHorizontal="true" >
-    </ListView>
+        android:text="@string/button_send"
+        android:onClick="sendMessage"/>
 
 </RelativeLayout>

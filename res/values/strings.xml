@@ -3,6 +3,7 @@
 
     <string name="app_name">Student Org Manager</string>
     <string name="action_settings">Settings</string>
+    <string name="button_send">Send</string>
     <string name="hello_world">Hello world!</string>
     <string name="myOrganizations">My Organizations</string>
     <string name="title_activity_orgs">OrgsActivity</string>
@@ -16,6 +17,10 @@
     <string name="calendar">Calendar</string>
     <string name="events">Events</string>
     <string name="title_activity_roster">RosterActivity</string>
+    <string name="title_activity_organization_list">Organization List</string>
+    <string name="title_activity_all_users">All Users</string>
+    <string name="title_activity_edit_users">Edit Users</string>
     <string name="addMember">Add Member</string>
+    <string name="hostName">localhost</string>
 
 </resources>
