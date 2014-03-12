@@ -4,7 +4,9 @@ var server = require('http').createServer(app);
 var mysql = require('mysql');
 var path = require('path');
 
+//EXPRESS CONFIG
 app.use(express.bodyParser());
+
 var portNum = 8080;
 
 var connection = mysql.createConnection({
