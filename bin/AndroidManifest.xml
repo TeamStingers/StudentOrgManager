@@ -7,13 +7,14 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.seniordesign.studentorgmanager.OrgsActivity"
+            android:name="com.seniordesign.studentorgmanager.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,7 +45,12 @@
         <activity
             android:name="com.seniordesign.studentorgmanager.EditUserActivity"
             android:label="@string/title_activity_edit_users" >
-        </activity>        
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.OrgsActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
     </application>
 
 </manifest>
