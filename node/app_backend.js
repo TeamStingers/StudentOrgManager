@@ -44,9 +44,28 @@ app.post('/login', function(req, res){
 
 	// post {Username: $Username, Password: $Password}
 	connection.query("SELECT * FROM Users WHERE ?", post, function(err, result){
+		if(result.length > 0) result = [{authenticated:true}];
+		else result = [{authenticated:false}];
 		res.json(result);
 	});
+});
 
+app.post('/get_user_info', function(req, res){
+	var post = req.body;
+
+	connection.query('SELECT * FROM Users WHERE Username= ?', [post.Username], function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
+});
+
+app.post('/get_org_info', function(req, res){
+	var post = req.body;
+
+	connection.query('SELECT * FROM Organizations WHERE OrgName=?', [post.Organization], function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
 });
 
 app.post('/create_user', function(req, res){
@@ -65,7 +84,7 @@ app.post('/delete_user', function(req, res){
 	})
 });
 
-app.post('/edit_user', function(req, res){
+app.post('/update_user', function(req, res){
 	var post = req.body;
 
 	//post all user fields like they are in relational diagram
@@ -80,8 +99,7 @@ app.post('/add_user_to_org', function(req, res){
 	
 	var insertQuery = connection.query('INSERT INTO UserOrgs SET ?', post, function(err, result) {
 		if(err) console.log(err);
-		else
-		{
+		else{
 			var sizeQuery = connection.query('UPDATE Organizations SET Size = Size + 1 WHERE OrgName= ?', 
 			[post.Organization], function(err, result) {
 				if(err) console.log(err);
@@ -211,7 +229,7 @@ app.post('/get_user_orgs', function(req, res){
 	var post = req.body;
 
 	//post {Username: $Username}
-	connection.query("SELECT * FROM UserOrgs WHERE ?", post, function(err, result){
+	connection.query("SELECT Organization, Position FROM UserOrgs WHERE ?", post, function(err, result){
 		res.json(result);
 	});
 });
@@ -234,10 +252,10 @@ app.post('/get_org_events', function(req, res){
 	});
 })
 
-app.post('/get_user_absences_for_org', function(req, res){
+app.post('/get_event_absences', function(req, res){
 	var post = req.body;
 
-	var getAbsSql = "SELECT EventName, Events.Organization, EventDateTime, Location, Description, Type" +
+	var getAbsSql = "SELECT Username, EventName, EventDateTime, Location, Description, Type" +
 					" FROM Events INNER JOIN Absences ON Absences.EventID=Events.EventID" +
 					" WHERE EventID="+ connection.escape(post.EventID);
 
@@ -245,6 +263,22 @@ app.post('/get_user_absences_for_org', function(req, res){
 		res.json(result);
 	});
 });
+
+app.post('/get_user_absences_for_org', function(req, res){
+	var post = req.body;
+
+
+	//post {Username:$username, Organization:$orgname}
+	var getUserAbsSql = "SELECT EventName, EventDateTime, Location, Description, Type" +
+				" FROM Events INNER JOIN Absences ON Absences.EventID=Events.EventID" +
+				" WHERE Organization="+ connection.escape(post.Organization) + " AND" +
+				" Username=" + connection.escape(post.Username);
+
+	connection.query(getUserAbsSql, function(err, result){
+		res.json(result);
+	});
+});
+
 
 app.post('/send_message', function(req, res){
 	var post = req.body;
@@ -256,35 +290,33 @@ app.post('/send_message', function(req, res){
 	connection.query(sendMsgSql, function(err, result){
 		var userMsgSql = "INSERT INTO UserMessage MessageID=" + result.MessageID +
 							", ReceivingMember=" + connection.escape(post.ReceivingMember) +
-							", ReadStatus=0";
+							", ReadStatus=Unread";
 
 		connection.query(userMsgSql, function(err, result){
 			if(err) console.log(err);
 		});
 	});
-
 });
 
 app.post('/read_message', function(req, res){
 	var post = req.body;
 
 	//post {MessageID:$MsgId}
-	var readMsgSql = "UPDATE UserMessage SET ReadStatus=" + "1" + 
+	var readMsgSql = "UPDATE UserMessage SET ReadStatus=" + "Read" + 
 						" WHERE MessageID=" + connection.escape(post.MessageID);
 
 	connection.query(readMsgSql, function(err, results){
 		if(err) console.log(err);
 	});
-
 });
 
 function toSqlDateTime(dateString){
 	return new Date(dateString).toISOString().slice(0, 19).replace('T', ' ');
 }
 
-//pass in any create table statement individuall or executeAllStatements
+//pass in any create table statement individuall or nothing to execute all create table statements.
 
-function createTable(toExecute){
+function createTables(toExecute){
 
 	toExecute = typeof toExecute !== 'undefined' ? toExecute : executeAllStatements;
 
