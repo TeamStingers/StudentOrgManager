@@ -2,20 +2,24 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var mysql = require('mysql');
-var path = require('path');
 
 //EXPRESS CONFIG
 app.use(express.bodyParser());
 
 var portNum = 8080;
+var runCreateTableStatements = false;
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'secret',
-	database : 'db',
-	port 	 : 'port'
+	password : 'password',
+	database : 'StudentOrgManager',
+	port 	 : '3306'
 });
+
+connection.connect();
+if(runCreateTableStatements) createTables();
+server.listen(process.env.PORT || portNum);
 
 /*
 The results are returned from a query have one element in the results array for 
@@ -35,15 +39,75 @@ If the query only contains one statement, reuslts is just an array of json objec
 In this case, the array is just one dimension.
 */
 
-connection.connect();
+//Demo web service methods
 
-server.listen(process.env.PORT || portNum);
+app.get('/login/:Username/:Password', function(req, res){
+	var post = {Username: req.param("Username"), Password: req.param("Password") };
+
+	var sql = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+	var inserts = ['Users', 'Username', post.Username, 'Password', post.Password];
+	sql = mysql.format(sql, inserts);
+
+	queryConnection(sql, function(result){
+		console.log(result);
+
+		if(result.length > 0) result = [{authenticated:true}];
+		else result = [{authenticated:false}];
+		res.json(result);
+	});
+});
+
+app.get('/get_user_orgs/:Username', function(req, res){
+	connection.query("SELECT Organization, Position FROM UserOrgs WHERE Username=?", 
+		[req.param("Username")], function(err, result){
+		
+		res.json(result);
+	});
+});
+
+app.get('/get_all_orgs', function(req, res){
+	connection.query("SELECT * FROM Organizations", function(err, result){
+		res.json(result);
+	});
+});
+
+app.get('/get_user_info/:Username', function(req, res){
+	connection.query('SELECT * FROM Users WHERE Username=?', [req.params.Username], function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
+});
+
+app.get('/get_org_info', function(req, res){
+	connection.query('SELECT * FROM Organizations WHERE OrgName=?', [req.params.Organization], function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
+});
+
+app.get('/delete_user/:username', function(req, res){
+	connection.query('DELETE FROM Users WHERE Username=?', [req.params.username], function(err, result){
+		if(err) console.log(err);
+		res.send("User: " + req.params.username + " successfully deleted.");
+	})
+});
+
+
+////////// Actual WebService
+
 
 app.post('/login', function(req, res){
+	console.log("recv req");
 	var post = req.body;
 
+	var sql = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+	var inserts = ['Users', 'Username', post.Username, 'Password', post.Password];
+	sql = mysql.format(sql, inserts);
+
 	// post {Username: $Username, Password: $Password}
-	connection.query("SELECT * FROM Users WHERE ?", post, function(err, result){
+	queryConnection(sql, function(result){
+		console.log(result);
+
 		if(result.length > 0) result = [{authenticated:true}];
 		else result = [{authenticated:false}];
 		res.json(result);
@@ -53,7 +117,7 @@ app.post('/login', function(req, res){
 app.post('/get_all_orgs', function(req, res){
 	var post = req.body;
 
-	connection.query("SELECT * FROM Organizations", post, function(err, result){
+	connection.query("SELECT * FROM Organizations", function(err, result){
 		res.json(result);
 	});
 });
@@ -117,7 +181,7 @@ app.post('/add_user_to_org', function(req, res){
 });
 
 
-add.post('/remove_user_from_org', function(req, res){
+app.post('/remove_user_from_org', function(req, res){
 	var post = req.body;
 
 	var removeSql = 'DELETE FROM UserOrgs WHERE Username=' + connection.escape(post.Username)+
@@ -146,7 +210,7 @@ app.post('/add_absence', function(req, res){
 app.post('/remove_absence', function(req, res){
 	var post = req.body;
 
-	var removeAbsSql = 'DELETE FROM Absences Where Username=' + connection.escape(post.Username) +
+	var removeAbsSql = 'DELETE FROM Absences WHERE Username=' + connection.escape(post.Username) +
 						' AND Organization=' + connection.escape(post.Organization) +
 						' AND EventID=' + connection.escape(post.EventID);
 
@@ -158,10 +222,10 @@ app.post('/remove_absence', function(req, res){
 app.post('/get_user_position', function(req, res){
 	var post = req.body;
 
-	//post {Username:$username, Organization:$orgname}
-	connection.query("SELECT Position, MemberType FROM UserOrgs WHERE ?", post, function(err, results){
-		
-		if(err) console.log(err);
+	var sql = 	"SELECT Position, MemberType FROM UserOrgs WHERE Username=" + connection.escape(post.Username) +
+				" AND Organization=" + connection.escape(post.Organization);
+
+	queryConnection(sql, function(result){
 		res.json(result);
 	});
 });
@@ -182,9 +246,14 @@ app.post('/change_user_position', function(req, res){
 app.post('/create_org', function(req, res){
 	var post = req.body;
 
-	//Size must be posted with value of 0 when creating org.
-	var createOrgQuery = connection.query('INSERT INTO Organizations SET ?', post, function(err, result){
+	//Post: {OrgName: $orgname, Type:$type, CreatorUser:$creator}
+	var createOrgSql = 	'INSERT INTO Organizations SET OrgName=' + connection.escape(post.OrgName) +
+						", Type=" + connection.escape(post.Type);
+
+	connection.query(createOrgSql, post, function(err, result){
 		if(err) console.log(err);
+		connection.query('INSERT INTO UserOrgs SET ?', [post.CreatorUser], function(err, result){
+		});
 	});
 });
 
@@ -330,6 +399,13 @@ app.post('/read_message', function(req, res){
 	});
 });
 
+function queryConnection(sql, cb){
+	connection.query(sql, function(err, result){
+		if(err) console.log(err);
+		cb(result);
+	});
+}
+
 function toSqlDateTime(dateString){
 	return new Date(dateString).toISOString().slice(0, 19).replace('T', ' ');
 }
@@ -362,6 +438,14 @@ function createTables(toExecute){
 					"Major VARCHAR(255), GraduationYear INT, Bio TEXT, PictureRef TEXT, "+
 					"PRIMARY KEY(Username))";
 	
+		queryConnection(sql, createOrganizationsTable);
+	}
+
+	function createOrganizationsTable(){
+		var sql =	"CREATE TABLE Organizations(" +
+					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 0, "+
+					"PRIMARY KEY(OrgName))";
+
 		queryConnection(sql, createUserOrgsTable);
 	}
 
@@ -372,20 +456,14 @@ function createTables(toExecute){
 					"FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), "+
 					"PRIMARY KEY(Username, Organization))";
 
-		queryConnection(sql, createOrganizationsTable);
-	}
-
-	function createOrganizationsTable(){
-		var sql =	"CREATE TABLE Organizations(" +
-					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT, "+
-					"PRIMARY KEY(Name))";
-
 		queryConnection(sql, createNewsItemsTable);
 	}
 
+
+
 	function createNewsItemsTable(){
 		var sql = 	"CREATE TABLE NewsItems(" +
-					"Organization VARCHAR(255), NewsTimeStamp TIMESTAMP(), Announcement TEXT, " +
+					"Organization VARCHAR(255), NewsTimeStamp TIMESTAMP DEFAULT NOW(), Announcement TEXT, " +
 					"Poster VARCHAR(255), FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), "+
 					"FOREIGN KEY(Poster) REFERENCES Users(Username), PRIMARY KEY(Organization, NewsTimeStamp))";
 	
@@ -396,7 +474,7 @@ function createTables(toExecute){
 		var sql =	"CREATE TABLE Events(" +
 					"EventID INT NOT NULL AUTO_INCREMENT, EventName VARCHAR(255), Organization VARCHAR(255), " +
 					"EventDateTime DATETIME, Location VARCHAR(255), Description TEXT, " +
-					"Type VARCHAR(255), FOREIGN KEY(Organization) REFERENCES Organization(OrgName), " +
+					"Type VARCHAR(255), FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), " +
 					"PRIMARY KEY(EventID))";
 
 		queryConnection(sql, createAbsencesTable);
@@ -407,7 +485,7 @@ function createTables(toExecute){
 		var sql = 	"CREATE TABLE Absences(" +
 					"Username VARCHAR(255), Organization VARCHAR(255), EventID INT, " +
 					"FOREIGN KEY(Username) REFERENCES Users(Username), " +
-					"FOREIGN KEY(Organization) REFERENCES Organization(OrgName), " +
+					"FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), " +
 					"FOREIGN KEY(EventID) REFERENCES Events(EventID), " + 
 					"PRIMARY KEY(Username, Organization, EventID))";
 
@@ -415,10 +493,10 @@ function createTables(toExecute){
 	}
 
 
-	function messagesTable(){
+	function createMessagesTable(){
 		var sql = 	"CREATE TABLE Messages(" + 
 					"MessageID INT NOT NULL AUTO_INCREMENT, SendingUser VARCHAR(255), " +
-					"MsgTimeStamp TIMESTAMP(), MessageType VARCHAR(255), " + 
+					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255), " + 
 					"FOREIGN KEY(SendingUser) REFERENCES Users(Username), " +
 					"PRIMARY KEY(MessageID))";
 
@@ -438,6 +516,7 @@ function createTables(toExecute){
 
 	toExecute();
 }
+
 
 // setInterval(function(){ 
 
