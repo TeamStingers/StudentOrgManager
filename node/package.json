@@ -1,0 +1,9 @@
+{
+	"name": "student_org_mgr_webservice",
+	"description": "Student Org Manager Web Service",
+	"version": "0.0.1",
+	"dependencies": {
+		"express": "latest",
+		"mysql":"latest"
+	}
+}

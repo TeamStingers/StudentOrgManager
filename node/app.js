@@ -11,9 +11,9 @@ var portNum = 8080;
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'secret',
-	database : 'db',
-	port 	 : 'port'
+	password : 'password',
+	database : 'StudentOrgManager',
+	port 	 : '3306'
 });
 
 /*
@@ -38,7 +38,37 @@ connection.connect();
 
 server.listen(process.env.PORT || portNum);
 
+app.get('/login/:Username/:Password', function(req, res){
+	var post = { Username: req.param("Username"), Password: req.param("Password") };
+	// console.log(post);
+
+	var sql = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
+	var inserts = ['users', 'Username', post.Username, 'Password', post.Password];
+	sql = mysql.format(sql, inserts);
+
+	connection.query(sql, function(err, result){
+		if(err) console.log(err);
+		console.log(result);
+
+		if(result.length > 0) result = [{authenticated:true}];
+		else result = [{authenticated:false}];
+		res.json(result);
+	});
+
+	// console.log(query.sql);
+
+	// connection.query("SELECT * FROM Users WHERE Username='vikram' AND Password='password'", post, function(err, result){
+	// 	console.log(result);
+		
+	// 	if(result.length > 0) result = [{authenticated:true}];
+	// 	else result = [{authenticated:false}];
+	// 	res.json(result);
+	// });
+
+});
+
 app.post('/login', function(req, res){
+	console.log("recv req");
 	var post = req.body;
 
 	// post {Username: $Username, Password: $Password}
@@ -116,7 +146,7 @@ app.post('/add_user_to_org', function(req, res){
 });
 
 
-add.post('/remove_user_from_org', function(req, res){
+app.post('/remove_user_from_org', function(req, res){
 	var post = req.body;
 
 	var removeSql = 'DELETE FROM UserOrgs WHERE Username=' + connection.escape(post.Username)+
@@ -361,6 +391,14 @@ function createTables(toExecute){
 					"Major VARCHAR(255), GraduationYear INT, Bio TEXT, PictureRef TEXT, "+
 					"PRIMARY KEY(Username))";
 	
+		queryConnection(sql, createOrganizationsTable);
+	}
+
+	function createOrganizationsTable(){
+		var sql =	"CREATE TABLE Organizations(" +
+					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 0, "+
+					"PRIMARY KEY(OrgName))";
+
 		queryConnection(sql, createUserOrgsTable);
 	}
 
@@ -371,20 +409,14 @@ function createTables(toExecute){
 					"FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), "+
 					"PRIMARY KEY(Username, Organization))";
 
-		queryConnection(sql, createOrganizationsTable);
-	}
-
-	function createOrganizationsTable(){
-		var sql =	"CREATE TABLE Organizations(" +
-					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT, "+
-					"PRIMARY KEY(Name))";
-
 		queryConnection(sql, createNewsItemsTable);
 	}
 
+
+
 	function createNewsItemsTable(){
 		var sql = 	"CREATE TABLE NewsItems(" +
-					"Organization VARCHAR(255), NewsTimeStamp TIMESTAMP(), Announcement TEXT, " +
+					"Organization VARCHAR(255), NewsTimeStamp TIMESTAMP DEFAULT NOW(), Announcement TEXT, " +
 					"Poster VARCHAR(255), FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), "+
 					"FOREIGN KEY(Poster) REFERENCES Users(Username), PRIMARY KEY(Organization, NewsTimeStamp))";
 	
@@ -395,7 +427,7 @@ function createTables(toExecute){
 		var sql =	"CREATE TABLE Events(" +
 					"EventID INT NOT NULL AUTO_INCREMENT, EventName VARCHAR(255), Organization VARCHAR(255), " +
 					"EventDateTime DATETIME, Location VARCHAR(255), Description TEXT, " +
-					"Type VARCHAR(255), FOREIGN KEY(Organization) REFERENCES Organization(OrgName), " +
+					"Type VARCHAR(255), FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), " +
 					"PRIMARY KEY(EventID))";
 
 		queryConnection(sql, createAbsencesTable);
@@ -406,7 +438,7 @@ function createTables(toExecute){
 		var sql = 	"CREATE TABLE Absences(" +
 					"Username VARCHAR(255), Organization VARCHAR(255), EventID INT, " +
 					"FOREIGN KEY(Username) REFERENCES Users(Username), " +
-					"FOREIGN KEY(Organization) REFERENCES Organization(OrgName), " +
+					"FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), " +
 					"FOREIGN KEY(EventID) REFERENCES Events(EventID), " + 
 					"PRIMARY KEY(Username, Organization, EventID))";
 
@@ -414,10 +446,10 @@ function createTables(toExecute){
 	}
 
 
-	function messagesTable(){
+	function createMessagesTable(){
 		var sql = 	"CREATE TABLE Messages(" + 
 					"MessageID INT NOT NULL AUTO_INCREMENT, SendingUser VARCHAR(255), " +
-					"MsgTimeStamp TIMESTAMP(), MessageType VARCHAR(255), " + 
+					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255), " + 
 					"FOREIGN KEY(SendingUser) REFERENCES Users(Username), " +
 					"PRIMARY KEY(MessageID))";
 
@@ -437,6 +469,8 @@ function createTables(toExecute){
 
 	toExecute();
 }
+
+//createTables();
 
 // setInterval(function(){ 
 
