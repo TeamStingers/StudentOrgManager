@@ -12,9 +12,39 @@
         android:id="@+id/orgsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/createOrgButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="17dp" >
+
     </ListView>
+
+    <TextView
+        android:id="@+id/addOrgLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/addOrg"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/createOrgButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/createNewOrg"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/searchOrgButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/searchForOrgs"
+        android:textSize="15sp" />
 
 </RelativeLayout>
