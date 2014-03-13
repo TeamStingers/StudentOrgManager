@@ -1,6 +1,6 @@
 package com.seniordesign.studentorgmanager;
 
-import com.seniordesign.studentorgmanager.data.UserHelper;
+import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 	user     : 'root',
 	password : 'secret',
 	database : 'db',
-	port 	   : 'port'
+	port 	 : 'port'
 });
 
 /*
@@ -46,6 +46,14 @@ app.post('/login', function(req, res){
 	connection.query("SELECT * FROM Users WHERE ?", post, function(err, result){
 		if(result.length > 0) result = [{authenticated:true}];
 		else result = [{authenticated:false}];
+		res.json(result);
+	});
+});
+
+app.post('/get_all_orgs', function(req, res){
+	var post = req.body;
+
+	connection.query("SELECT * FROM Organizations", post, function(err, result){
 		res.json(result);
 	});
 });
@@ -144,6 +152,17 @@ app.post('/remove_absence', function(req, res){
 
 	connection.query(removeAbsSql, function(err, results){
 		if(err) console.log(err);
+	});
+});
+
+app.post('/get_user_position', function(req, res){
+	var post = req.body;
+
+	//post {Username:$username, Organization:$orgname}
+	connection.query("SELECT Position, MemberType FROM UserOrgs WHERE ?", post, function(err, results){
+		
+		if(err) console.log(err);
+		res.json(result);
 	});
 });
 
