@@ -2,6 +2,11 @@ package com.seniordesign.studentorgmanager.datatransfer;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.seniordesign.studentorgmanager.model.User;
+
 //Just here as an example for now
 
 public class UserHelper {
@@ -25,14 +30,29 @@ public class UserHelper {
 	private static final String TAG_PICTUREREF = "PictureRef";
 	
 
+	/**
+	 * Checks if a given username password combination is valid
+	 * @param username Given username
+	 * @param password Given password
+	 * @return Whether combination is valid or not
+	 */
 	public static boolean authenticate(String username, String password) {
 		//TODO
 
 		return true;
 	}
-
-	public static JSONObject createUser(String username, String password, String email, String phoneNumber, String firstName, String lastName, String major, String graduationYear, String bio, String pictureRef){
-		JSONObject user = new JSONObject();
+	
+	/**
+	 * Create a new user in the system given the basic information: username, password, email and return a User object representing user
+	 * @param username Given username
+	 * @param password Given password
+	 * @param email Given email
+	 * @return new User object representing newly created user
+	 */
+	public static User createUser(String username, String password, String email){
+		
+		//Daryl's code ------------------------------
+		/*JSONObject user = new JSONObject();
 		user.put(TAG_USERNAME, username);
 		user.put(TAG_PASSWORD, password);
 		user.put(TAG_EMAIL, email);
@@ -43,11 +63,14 @@ public class UserHelper {
 		user.put(TAG_GRADUATIONYEAR, graduationYear);
 		user.put(TAG_BIO, bio);
 		user.put(TAG_PICTUREREF, pictureRef);
-		return user;
+		return user;*/
+		//End Daryl's code -----------------------------
+		
+		return null;
 	}
 	
 	public static JSONObject updateUser(JSONObject user, String tag, String value){
-		if (tag.equals(TAG_USERNAME)){
+		/*if (tag.equals(TAG_USERNAME)){
 			user.put(TAG_USERNAME, value);
 		}
 		else if (tag.equals(TAG_PASSWORD)){
@@ -77,22 +100,30 @@ public class UserHelper {
 		else if (tag.equals(TAG_PICTUREREF)){
 			user.put(TAG_PICTUREREF, value);
 		}
-		return user;
+		return user;*/
+		
+		return null;
 	}
 	
-	public static JSONObject loadUser(JSONArray usersList, String username){
-		for (JSONObject user : usersList){
+	/**
+	 * Creates a User object populated with the correct data given a particular username
+	 * @param username User's username
+	 * @return User object referring to active user
+	 */
+	public static User loadUser(String username){
+		/*for (JSONObject user : usersList){
 			if (user.get(TAG_USERNAME).equals(username)){
 				return user;
 			}
 			else return null;
-		}
+		}*/
+		return null;
 	}
 	
 	public static void deleteUser(JSONArray usersList, String username){
-		for (int i = 0; i < usersList.length(); i++){
+		/*for (int i = 0; i < usersList.length(); i++){
 			JSONObject userToRemove = usersList.getJSONObject(i);
 			userToRemove.remove(username);
-		}
+		}*/
 	}
 }

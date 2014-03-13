@@ -1,6 +1,7 @@
 package com.seniordesign.studentorgmanager;
 
 import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
+import com.seniordesign.studentorgmanager.model.User;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -128,7 +129,9 @@ public class CreateUserActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			
-			return UserHelper.createUser(mUsername, mPassword, mEmail);
+			User newUser = UserHelper.createUser(mUsername, mPassword, mEmail);
+			
+			return (newUser!=null);
 
 		}
 
