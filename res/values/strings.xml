@@ -7,6 +7,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="myOrganizations">My Organizations</string>
     <string name="title_activity_orgs">OrgsActivity</string>
+    <string name="title_activity_homepage">Organizations Home Page</string>
     <string name="AnOrg">An Organization</string>
     <string name="newsfeed">News Feed</string>
     <string name="roster">Roster</string>
@@ -22,5 +23,6 @@
     <string name="title_activity_edit_users">Edit Users</string>
     <string name="addMember">Add Member</string>
     <string name="hostName">localhost</string>
+    <string name="addOrg">Search for an organization or create a new one to get started!</string>
 
 </resources>

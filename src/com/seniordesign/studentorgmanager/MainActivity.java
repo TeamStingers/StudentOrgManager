@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
@@ -24,33 +25,38 @@ public class MainActivity extends Activity {
 	private ArrayList<String> sampleArray;
 	private ArrayList<String> orgsArray;
 	private String username;
+	private TextView createOrgLabel;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		createOrgLabel = (TextView) findViewById(R.id.addOrgLabel);
 		
 		//Get username
-		Intent loginIntent = getIntent();
-		username = loginIntent.getStringExtra(LoginActivity.UserNameTag);
+		//Intent intent = getIntent();
+		username = "Hi";//= intent.getStringExtra(LoginActivity.UserNameTag);
 		
 		//Get organizations for user
-		orgsArray = UserHelper.getOrganizations(username);
+		try {
+			orgsArray = UserHelper.getOrganizations(username);
+		}
+		catch (Exception e) {
+			String error = e.getMessage();
+			Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+		}
 		
 		//Populate list with user organizations
-		
-		sampleArray = new ArrayList<String>();
-		
-		sampleArray.add("Hello");
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sampleArray);
-		
-		orgListView = (ListView) findViewById(R.id.orgsList);
-		orgListView.setAdapter(adapter);
-		
-		orgListView.setOnItemClickListener(new myItemClickListener(this));
-
-		
+		if (orgsArray == null || orgsArray.size() == 0) {
+			createOrgLabel.setVisibility(0);
+		}
+		else {
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sampleArray);
+			orgListView = (ListView) findViewById(R.id.orgsList);
+			orgListView.setAdapter(adapter);
+			
+			orgListView.setOnItemClickListener(new myItemClickListener(this));
+		}
 		
 	}
 

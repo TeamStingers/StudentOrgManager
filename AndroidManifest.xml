@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name="com.seniordesign.studentorgmanager.MainActivity"
-            android:label="@string/title_activity_orgs" >
+            android:label="@string/title_activity_homepage" >
         </activity>
         <activity
             android:name="com.seniordesign.studentorgmanager.RosterActivity"
@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name="com.seniordesign.studentorgmanager.OrgsActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_activity_orgs"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
     </application>
