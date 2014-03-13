@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.seniordesign.studentorgmanager.datatransfer.OrganizationHelper;
 import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
 import com.seniordesign.studentorgmanager.model.Organization;
+import com.seniordesign.studentorgmanager.model.User;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,20 +30,31 @@ public class MainActivity extends Activity {
 	private ArrayList<Organization> orgsArray;
 	private String username;
 	private TextView createOrgLabel;
+	private Button createOrgButton;
+	private Button searchOrgButton;
+	
+	private User mLoggedIn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//Instantiate UI elements
 		createOrgLabel = (TextView) findViewById(R.id.addOrgLabel);
+		createOrgButton = (Button) findViewById(R.id.createOrgButton);
+		createOrgButton.setOnClickListener(new myButtonClickListener(this, R.id.createOrgButton));
+		searchOrgButton = (Button) findViewById(R.id.searchOrgButton);
+		searchOrgButton.setOnClickListener(new myButtonClickListener(this, R.id.searchOrgButton));
 		
 		//Get username
-		//Intent intent = getIntent();
-		username = "Hi";//= intent.getStringExtra(LoginActivity.UserNameTag);
+		Intent intent = getIntent();
+		username = intent.getStringExtra(LoginActivity.UserNameTag);
+		Toast.makeText(this, "Welcome "+ username + "!", Toast.LENGTH_LONG).show();
 		
 		//Get organizations for user
 		try {
-			orgsArray = UserHelper.getOrganizations(username);
+			orgsArray = OrganizationHelper.getUserOrganizations(username);
 		}
 		catch (Exception e) {
 			String error = e.getMessage();
@@ -60,6 +73,9 @@ public class MainActivity extends Activity {
 			
 			orgListView.setOnItemClickListener(new myItemClickListener(this));
 		}
+		
+		//Load user object
+		mLoggedIn = UserHelper.loadUser(username);
 		
 	}
 
@@ -86,6 +102,32 @@ public class MainActivity extends Activity {
 			Intent clickIntent = new Intent(context, OrgsActivity.class);
 			clickIntent.putExtra(OrgNameTag, orgName);
 			startActivity(clickIntent);
+		}
+		
+	}
+	
+	public class myButtonClickListener implements OnClickListener {
+
+		private int id;
+		private Context mContext;
+		
+		public myButtonClickListener(Context context, int buttonid) {
+			mContext = context;
+			id = buttonid;
+		}
+		@Override
+		public void onClick(View arg0) {
+			switch(id) {
+			case R.id.createOrgButton:
+				Intent createIntent = new Intent(MainActivity.this, CreateOrgActivity.class);
+				createIntent.putExtra(LoginActivity.UserNameTag, username);
+				startActivity(createIntent);
+				break;
+			case R.id.searchOrgButton:
+				Toast.makeText(mContext, "Coming soon!", Toast.LENGTH_SHORT).show();
+				break;
+			}
+			
 		}
 		
 	}

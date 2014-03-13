@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.CreateOrgActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/createNewOrgButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="60dp"
+            android:text="@string/create" />
+
+        <EditText
+            android:id="@+id/orgNameEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="52dp"
+            android:ems="10"
+            android:hint="@string/orgName"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/orgTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/orgNameEdit"
+            android:layout_marginTop="33dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/orgTypeLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/orgTypeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/orgTypeLabel"
+            android:layout_toRightOf="@+id/orgTypeLabel"
+            android:paddingLeft="10dp" />
+
+    </RelativeLayout>
+    
+</FrameLayout>

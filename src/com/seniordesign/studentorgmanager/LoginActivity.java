@@ -6,6 +6,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,7 +15,9 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 	public String jk;
 	public final static String UserNameTag = "USERNAME";
+	public final static String PasswordTag = "PASSWORD";
 	
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -41,12 +45,18 @@ public class LoginActivity extends Activity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	private Button mRegisterButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		
+		mRegisterButton = (Button) findViewById(R.id.registerButton);
+		mRegisterButton.setOnClickListener(new RegisterClickListener(this));
+		
+
 
 		// Set up the login form.
 
@@ -84,7 +94,42 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
-
+	
+	/**
+	 * Class for handling the registration button
+	 * @author Sanchit
+	 *
+	 */
+	public class RegisterClickListener implements OnClickListener {
+		Context mContext;
+		
+		public RegisterClickListener(Context context) {
+			mContext = context;
+		}
+		@Override
+		public void onClick(View v) {
+			register();
+			
+		}
+		
+	}
+	
+	/**
+	 * Transitions to the registration screen
+	 * @author Sanchit
+	 */
+	public void register() {
+		// Store values at the time of registraion
+		mUsername = mUsernameView.getText().toString();
+		mPassword = mPasswordView.getText().toString();
+		Intent registerIntent = new Intent(this, CreateUserActivity.class);
+		Bundle extras = new Bundle();
+		extras.putString(UserNameTag, mUsername);
+		extras.putString(PasswordTag, mPassword);
+		registerIntent.putExtras(extras);
+		startActivity(registerIntent);
+	}
+	
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the

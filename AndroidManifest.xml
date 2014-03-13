@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -50,6 +50,14 @@
             android:name="com.seniordesign.studentorgmanager.OrgsActivity"
             android:label="@string/title_activity_orgs"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.CreateUserActivity"
+            android:label="@string/title_activity_create_user" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.CreateOrgActivity"
+            android:label="@string/title_activity_create_org" >
         </activity>
     </application>
 

@@ -2,6 +2,8 @@ package com.seniordesign.studentorgmanager.datatransfer;
 
 import java.util.ArrayList;
 
+import com.seniordesign.studentorgmanager.model.User;
+
 //Just here as an example for now
 
 public class UserHelper {
@@ -18,9 +20,9 @@ public class UserHelper {
 		return true;
 	}
 	
-	public static boolean loadUser(){
+	public static User loadUser(String username){
 	
-		return true;
+		return null;
 	}
 	
 	public static boolean updateUser(){
@@ -28,7 +30,7 @@ public class UserHelper {
 		return true;
 	}
 	
-	public static boolean createUser(){
+	public static boolean createUser(String username, String password, String email){
 		
 		return true;
 	}
