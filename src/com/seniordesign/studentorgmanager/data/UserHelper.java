@@ -18,10 +18,24 @@ public class UserHelper {
 		return true;
 	}
 	
-	public static ArrayList<String> getOrganizations(String username) {
-		//TODO
-		
-		ArrayList<String> orgs = new ArrayList<String>();
-		return orgs;
+	public static boolean loadUser(){
+	
+		return true;
 	}
+	
+	public static boolean updateUser(){
+		
+		return true;
+	}
+	
+	public static boolean createUser(){
+		
+		return true;
+	}
+	
+	public static boolean deleteUser(){
+		
+		return true;
+	}
+
 }

@@ -50,6 +50,14 @@ app.post('/login', function(req, res){
 	});
 });
 
+app.post('/get_all_orgs', function(req, res){
+	var post = req.body;
+
+	connection.query("SELECT * FROM Organizations", post, function(err, result){
+		res.json(result);
+	});
+});
+
 app.post('/get_user_info', function(req, res){
 	var post = req.body;
 
@@ -144,6 +152,17 @@ app.post('/remove_absence', function(req, res){
 
 	connection.query(removeAbsSql, function(err, results){
 		if(err) console.log(err);
+	});
+});
+
+app.post('/get_user_position', function(req, res){
+	var post = req.body;
+
+	//post {Username:$username, Organization:$orgname}
+	connection.query("SELECT Position, MemberType FROM UserOrgs WHERE ?", post, function(err, results){
+		
+		if(err) console.log(err);
+		res.json(result);
 	});
 });
 
