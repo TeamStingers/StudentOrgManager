@@ -37,6 +37,8 @@ public class MainActivity extends Activity {
 		//Get organizations for user
 		orgsArray = UserHelper.getOrganizations(username);
 		
+		//Populate list with user organizations
+		
 		sampleArray = new ArrayList<String>();
 		
 		sampleArray.add("Hello");
