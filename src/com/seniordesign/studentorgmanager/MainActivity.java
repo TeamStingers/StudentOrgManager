@@ -2,7 +2,9 @@ package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
 
-import com.seniordesign.studentorgmanager.data.UserHelper;
+import com.seniordesign.studentorgmanager.datatransfer.OrganizationHelper;
+import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
+import com.seniordesign.studentorgmanager.model.Organization;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,7 +24,7 @@ public class MainActivity extends Activity {
 	public static final String TAG = MainActivity.class.getSimpleName();
 	private ListView orgListView;
 	private ArrayList<String> sampleArray;
-	private ArrayList<String> orgsArray;
+	private ArrayList<Organization> orgsArray;
 	private String username;
 	
 	@Override
@@ -35,7 +37,7 @@ public class MainActivity extends Activity {
 		username = loginIntent.getStringExtra(LoginActivity.UserNameTag);
 		
 		//Get organizations for user
-		orgsArray = UserHelper.getOrganizations(username);
+		orgsArray = OrganizationHelper.getUserOrganizations(username);
 		
 		//Populate list with user organizations
 		

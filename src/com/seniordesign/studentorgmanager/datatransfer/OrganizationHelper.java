@@ -1,4 +1,4 @@
-package com.seniordesign.studentorgmanager.data;
+package com.seniordesign.studentorgmanager.datatransfer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
