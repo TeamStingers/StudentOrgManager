@@ -1,5 +1,7 @@
 package com.seniordesign.studentorgmanager.data;
 
+import java.util.ArrayList;
+
 //Just here as an example for now
 
 public class UserHelper {
@@ -14,5 +16,12 @@ public class UserHelper {
 		//TODO
 		
 		return true;
+	}
+	
+	public static ArrayList<String> getOrganizations(String username) {
+		//TODO
+		
+		ArrayList<String> orgs = new ArrayList<String>();
+		return orgs;
 	}
 }

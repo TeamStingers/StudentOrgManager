@@ -24,34 +24,35 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int EMail=0x7f08001a;
-        public static final int action_forgot_password=0x7f08001b;
-        public static final int action_settings=0x7f08001c;
-        public static final int addMemberButton=0x7f080016;
-        public static final int btnDelete=0x7f080018;
-        public static final int btnSave=0x7f080017;
-        public static final int buttonCreateUser=0x7f080013;
-        public static final int calendarButton=0x7f08000c;
-        public static final int duesButton=0x7f08000e;
-        public static final int eventsButton=0x7f08000b;
-        public static final int inputEmail=0x7f080012;
-        public static final int inputPassword=0x7f080011;
-        public static final int inputUserName=0x7f080010;
+        public static final int EMail=0x7f08001b;
+        public static final int action_forgot_password=0x7f08001c;
+        public static final int action_settings=0x7f08001d;
+        public static final int addMemberButton=0x7f080017;
+        public static final int btnDelete=0x7f080019;
+        public static final int btnSave=0x7f080018;
+        public static final int buttonCreateUser=0x7f080014;
+        public static final int calendarButton=0x7f08000d;
+        public static final int duesButton=0x7f08000f;
+        public static final int eventsButton=0x7f08000c;
+        public static final int inputEmail=0x7f080013;
+        public static final int inputPassword=0x7f080012;
+        public static final int inputUserName=0x7f080011;
         public static final int login=0x7f080005;
         public static final int loginButton=0x7f080006;
         public static final int login_form=0x7f080002;
         public static final int login_status=0x7f080000;
         public static final int login_status_message=0x7f080001;
-        public static final int membersListView=0x7f080015;
-        public static final int messagesButton=0x7f08000a;
-        public static final int newsfeedButton=0x7f080009;
-        public static final int optionsButton=0x7f08000f;
-        public static final int orgTitle=0x7f080007;
+        public static final int membersListView=0x7f080016;
+        public static final int messagesButton=0x7f08000b;
+        public static final int newsfeedButton=0x7f08000a;
+        public static final int optionsButton=0x7f080010;
+        public static final int orgTitle=0x7f080008;
+        public static final int orgsList=0x7f080007;
         public static final int password=0x7f080004;
-        public static final int profileButton=0x7f08000d;
-        public static final int rosterButton=0x7f080008;
-        public static final int rosterLabel=0x7f080014;
-        public static final int userName=0x7f080019;
+        public static final int profileButton=0x7f08000e;
+        public static final int rosterButton=0x7f080009;
+        public static final int rosterLabel=0x7f080015;
+        public static final int userName=0x7f08001a;
         public static final int username=0x7f080003;
     }
     public static final class layout {
