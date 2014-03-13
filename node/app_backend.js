@@ -10,15 +10,14 @@ app.use(express.bodyParser());
 var portNum = 8080;
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'secret',
-  database : 'db',
-  port 	   : 'port'
+	host     : 'localhost',
+	user     : 'root',
+	password : 'secret',
+	database : 'db',
+	port 	   : 'port'
 });
 
 /*
-
 The results are returned from a query have one element in the results array for 
 each statement in the query. So it is multi dimensional.
 
@@ -34,7 +33,6 @@ connection.query('SELECT 1; SELECT 2', function(err, results) {
 
 If the query only contains one statement, reuslts is just an array of json objects.
 In this case, the array is just one dimension.
-
 */
 
 connection.connect();
@@ -153,6 +151,7 @@ app.post('/change_user_position', function(req, res){
 	var post = req.body;
 
 	var changePosSql = 'UPDATE UserOrgs SET Position=' + connection.escape(post.Position) +
+						', MemberType=' + connection.escape(post.MemberType) +
 						' WHERE Organization=' +connection.escape(post.Organization) + 
 						' AND Username=' + connection.escape(post.Username);
 
@@ -339,7 +338,7 @@ function createTables(toExecute){
 
 	function createUsersTable(){
 		var sql = 	"CREATE TABLE Users(" +
-					"Username VARCHAR(255), Password VARCHAR(255), EMail VARCHAR(255), " +
+					"Username VARCHAR(255) NOT NULL, Password VARCHAR(255) NOT NULL, EMail VARCHAR(255) NOT NULL, " +
 					"PhoneNumber VARCHAR(255), FirstName VARCHAR(255), LastName VARCHAR(255), "+
 					"Major VARCHAR(255), GraduationYear INT, Bio TEXT, PictureRef TEXT, "+
 					"PRIMARY KEY(Username))";
@@ -349,7 +348,7 @@ function createTables(toExecute){
 
 	function createUserOrgsTable(){
 		var sql = 	"CREATE TABLE UserOrgs(" +
-					"Username VARCHAR(255), Organization VARCHAR(255), Position VARCHAR(255)," +
+					"Username VARCHAR(255), Organization VARCHAR(255), Position VARCHAR(255), MemberType VARCHAR(255), " +
 					"FOREIGN KEY(Username) REFERENCES Users(Username), "+
 					"FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), "+
 					"PRIMARY KEY(Username, Organization))";
@@ -409,7 +408,7 @@ function createTables(toExecute){
 
 
 	function createUserMessageTable(){
-		var sql = 	"CREATE TABLE UserOrgs(" +
+		var sql = 	"CREATE TABLE UserMessage(" +
 					"MessageID INT, ReceivingMember VARCHAR(255), ReadStatus VARCHAR(255), " +
 					"FOREIGN KEY(MessageID) REFERENCES Messages(MessageID), " +
 					"FOREIGN KEY(ReceivingMember) REFERENCES Users(Username), " + 
