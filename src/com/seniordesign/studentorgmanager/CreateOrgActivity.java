@@ -1,11 +1,14 @@
 package com.seniordesign.studentorgmanager;
 
+import com.seniordesign.studentorgmanager.datatransfer.OrganizationHelper;
 import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
+import com.seniordesign.studentorgmanager.model.Organization;
 import com.seniordesign.studentorgmanager.model.User;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -30,6 +33,7 @@ public class CreateOrgActivity extends Activity {
 	private User mLoggedIn;
 	private String mOrgName;
 	private String mGroupType;
+	private OrgCreateTask mOrgCreateTask;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,43 @@ public class CreateOrgActivity extends Activity {
 		if (TextUtils.isEmpty(mOrgName)) {
 			orgNameEdit.setError(getString(R.string.error_field_required));
 			orgNameEdit.requestFocus();
+		}
+		else {
+			mOrgCreateTask = new OrgCreateTask();
+			mOrgCreateTask.execute((Void) null);
+		}
+	}
+	
+	public class OrgCreateTask extends AsyncTask<Void, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			
+			Organization newOrg = OrganizationHelper.createOrganization(mOrgName, mGroupType, username);
+			if (newOrg == null) {
+				return false;
+			}
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(final Boolean success) {
+			mOrgCreateTask = null;
+			
+			if (success) {
+				
+				//Here's where we transition
+				Intent returnIntent = new Intent(CreateOrgActivity.this, MainActivity.class);
+				returnIntent.putExtra(LoginActivity.UserNameTag, username);
+				startActivity(returnIntent);
+				finish();
+			} else {
+				Toast.makeText(CreateOrgActivity.this, "Error creating organization!", Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		@Override
+		protected void onCancelled() {
+			mOrgCreateTask = null;
 		}
 	}
 	

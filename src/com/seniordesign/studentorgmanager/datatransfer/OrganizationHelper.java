@@ -17,7 +17,14 @@ public class OrganizationHelper {
 		return true;
 	}
 	
-	public static Organization createOrganization(){
+	/**
+	 * Create a new organization in the DB
+	 * @param orgname Name of the organization
+	 * @param orgtype Type of the organization
+	 * @param creatingUsername The username of the user that created the organization (to be added as a member)
+	 * @return an Organization object representing the newly created organization
+	 */
+	public static Organization createOrganization(String orgname, String orgtype, String creatingUsername){
 		
 		return null;
 	}
