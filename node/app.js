@@ -18,8 +18,8 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-server.listen(process.env.PORT || portNum);
 if(runCreateTableStatements) createTables();
+server.listen(process.env.PORT || portNum);
 
 /*
 The results are returned from a query have one element in the results array for 
