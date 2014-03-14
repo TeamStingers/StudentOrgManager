@@ -58,7 +58,7 @@ app.get('/login/:Username/:Password', function(req, res){
 });
 
 app.get('/get_user_orgs/:Username', function(req, res){
-	connection.query("SELECT Organization, Position FROM UserOrgs WHERE Username=?", 
+	connection.query("SELECT Organization, Position, MemberType FROM UserOrgs WHERE Username=?", 
 		[req.param("Username")], function(err, result){
 		
 		res.json(result);
@@ -78,7 +78,7 @@ app.get('/get_user_info/:Username', function(req, res){
 	});
 });
 
-app.get('/get_org_info', function(req, res){
+app.get('/get_org_info/:Organization', function(req, res){
 	connection.query('SELECT * FROM Organizations WHERE OrgName=?', [req.params.Organization], function(err, result){
 		if(err) console.log(err);
 		res.json(result);
@@ -169,6 +169,7 @@ app.post('/update_user', function(req, res){
 app.post('/add_user_to_org', function(req, res){
 	var post = req.body;
 	
+	//need to post Position = Member and MemberType=RegularMember by default.
 	var insertQuery = connection.query('INSERT INTO UserOrgs SET ?', post, function(err, result) {
 		if(err) console.log(err);
 		else{
@@ -318,7 +319,7 @@ app.post('/get_user_orgs', function(req, res){
 	var post = req.body;
 
 	//post {Username: $Username}
-	connection.query("SELECT Organization, Position FROM UserOrgs WHERE ?", post, function(err, result){
+	connection.query("SELECT Organization, Position, MemberType FROM UserOrgs WHERE ?", post, function(err, result){
 		res.json(result);
 	});
 });
