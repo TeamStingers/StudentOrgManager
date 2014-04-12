@@ -26,7 +26,7 @@ import android.widget.Toast;
  * Activity which displays a login screen to the user.
  */
 public class LoginActivity extends Activity {
-	public String jk;
+	public String jkf;
 	public final static String UserNameTag = "USERNAME";
 	public final static String PasswordTag = "PASSWORD";
 	
@@ -227,9 +227,7 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			
 			return UserHelper.authenticate(mUsername, mPassword);
-
 		}
 
 		@Override
@@ -238,7 +236,6 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				
 				//Here's where we transition
 				Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
 				loginIntent.putExtra(UserNameTag, mUsername);

@@ -6,7 +6,7 @@ var mysql = require('mysql');
 //EXPRESS CONFIG
 app.use(express.bodyParser());
 
-var portNum = 8080;
+var portNum = 80;
 var runCreateTableStatements = false;
 
 var connection = mysql.createConnection({
@@ -106,10 +106,6 @@ app.post('/login', function(req, res){
 
 	// post {Username: $Username, Password: $Password}
 	queryConnection(sql, function(result){
-		console.log(result);
-
-		if(result.length > 0) result = [{authenticated:true}];
-		else result = [{authenticated:false}];
 		res.json(result);
 	});
 });
@@ -247,7 +243,7 @@ app.post('/change_user_position', function(req, res){
 app.post('/create_org', function(req, res){
 	var post = req.body;
 
-	//Post: {OrgName: $orgname, Type:$type, CreatorUser:$creator}
+	//Post: {OrgName: $orgname, Type:$type, CreatorUser:$creator, AnnualDues}
 	var createOrgSql = 	'INSERT INTO Organizations SET OrgName=' + connection.escape(post.OrgName) +
 						", Type=" + connection.escape(post.Type);
 
@@ -400,6 +396,32 @@ app.post('/read_message', function(req, res){
 	});
 });
 
+app.post('/get_dues_status', function(req, res){
+	var post = req.body;
+
+	//post {Organization:$orgname, Username:$un}
+	var getDuesStatusSql = "SELECT DuesPaid FROM UserOrgs WHERE Username=" + 
+		connection.escape(post.Username) + " AND Organization="+connection.escape(post.Organization);
+
+	connection.query(getDuesStatusSql, function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
+});
+
+app.post('/update_dues_status', function(req, res){
+	var post = req.body;
+
+	//post {OrgName:$orgname, Username:$un, Status:} .. where status is a 1 or 0
+	var updateDuesSql = "UPDATE UserOrgs SET DuesPaid=" + connect.escape(post.Status) +
+		" WHERE Username=" + connection.escape(post.Username) + " AND Organization=" +
+		connection.escape(post.Organization);
+
+	connection.query(updateDuesSql, function(err, result){
+		if(err) console.log(err);
+	});
+});
+
 function queryConnection(sql, cb){
 	connection.query(sql, function(err, result){
 		if(err) console.log(err);
@@ -444,7 +466,7 @@ function createTables(toExecute){
 
 	function createOrganizationsTable(){
 		var sql =	"CREATE TABLE Organizations(" +
-					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 0, "+
+					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 0, AnnualDues FLOAT"+
 					"PRIMARY KEY(OrgName))";
 
 		queryConnection(sql, createUserOrgsTable);
@@ -452,15 +474,14 @@ function createTables(toExecute){
 
 	function createUserOrgsTable(){
 		var sql = 	"CREATE TABLE UserOrgs(" +
-					"Username VARCHAR(255), Organization VARCHAR(255), Position VARCHAR(255), MemberType VARCHAR(255), " +
+					"Username VARCHAR(255), Organization VARCHAR(255), Position VARCHAR(255), " +
+					"MemberType VARCHAR(255), DuesPaid VARCHAR(255)," +
 					"FOREIGN KEY(Username) REFERENCES Users(Username), "+
 					"FOREIGN KEY(Organization) REFERENCES Organizations(OrgName), "+
 					"PRIMARY KEY(Username, Organization))";
 
 		queryConnection(sql, createNewsItemsTable);
 	}
-
-
 
 	function createNewsItemsTable(){
 		var sql = 	"CREATE TABLE NewsItems(" +

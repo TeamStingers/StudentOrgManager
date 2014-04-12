@@ -1,9 +1,17 @@
 package com.seniordesign.studentorgmanager.datatransfer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.util.Log;
 
 import com.seniordesign.studentorgmanager.model.User;
 
@@ -28,6 +36,7 @@ public class UserHelper {
 	private static final String TAG_GRADUATIONYEAR = "GraduationYear";
 	private static final String TAG_BIO = "Bio";
 	private static final String TAG_PICTUREREF = "PictureRef";
+	private static final JSONParser jParser = new JSONParser();
 	
 
 	/**
@@ -37,9 +46,20 @@ public class UserHelper {
 	 * @return Whether combination is valid or not
 	 */
 	public static boolean authenticate(String username, String password) {
-		//TODO
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("Username", username));
+		params.add(new BasicNameValuePair("Password", password));
+				
+		JSONArray jArr = jParser.makeHttpRequest("http://10.0.2.2/login", "POST", params);
 
-		return true;
+		if(jArr.length() > 0){
+//			Log.d("Debug", "authed!");
+			return true;
+		}{
+//			Log.d("Debug", "bad attempt!");	
+			return false;
+		}
+		
 	}
 	
 	/**
