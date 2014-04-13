@@ -31,14 +31,29 @@ public class OrganizationDTO extends Helper{
 	 * @param creatingUsername The username of the user that created the organization (to be added as a member)
 	 * @return an Organization object representing the newly created organization
 	 */
-	public static OrganizationDAO createOrganization(String name, String type, String creatingUsername){
+	
+	public static OrganizationDAO createOrganization(String orgName, String type, 
+			String creatingUsername, String annualDues){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_ORGNAME, orgName));
+		params.add(new BasicNameValuePair(TAG_TYPE, type));
+		params.add(new BasicNameValuePair(TAG_ANNUALDUES, annualDues));
+		params.add(new BasicNameValuePair("CreatorUser", creatingUsername));		
+		
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/create_org", "POST", params);
+		
+		if(jArr.length()>0) return new OrganizationDAO(orgName, type, "1", annualDues);
 		
 		return null;
 	}
 	
-	public static boolean deleteOrganization(){
+	public static boolean deleteOrganization(String orgName){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_ORGNAME, orgName));
+
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/delete_org", "POST", params);
 		
-		return true;
+		return jArr.length() > 0;
 	}	
 	
 	

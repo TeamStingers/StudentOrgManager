@@ -41,6 +41,10 @@ In this case, the array is just one dimension.
 
 //Demo web service methods
 
+app.get('/blah', function(req, res){
+	res.json([{success:"blah"}]);
+});
+
 app.get('/login/:Username/:Password', function(req, res){
 	var post = {Username: req.param("Username"), Password: req.param("Password") };
 
@@ -203,15 +207,16 @@ app.post('/remove_user_from_org', function(req, res){
 	});
 });
 
-//**********************
 
 app.post('/add_absence', function(req, res){
 	var post = req.body;
 
 	var addAbsQuery = connection.query('INSERT INTO Absences SET ?', post, function(err, result) {
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	});
 });
+
 
 app.post('/remove_absence', function(req, res){
 	var post = req.body;
@@ -222,8 +227,10 @@ app.post('/remove_absence', function(req, res){
 
 	connection.query(removeAbsSql, function(err, results){
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	});
 });
+
 
 app.post('/get_user_position', function(req, res){
 	var post = req.body;
@@ -236,6 +243,7 @@ app.post('/get_user_position', function(req, res){
 	});
 });
 
+
 app.post('/change_user_position', function(req, res){
 	var post = req.body;
 
@@ -246,15 +254,18 @@ app.post('/change_user_position', function(req, res){
 
 	connection.query(changePosSql, function(err, results){
 		if(err) console.log(err);
+		res.send([{success:true}]);		
 	});
 });
+
 
 app.post('/create_org', function(req, res){
 	var post = req.body;
 
-	//Post: {OrgName: $orgname, Type:$type, CreatorUser:$creator, AnnualDues}
+	//Post: {OrgName: $orgname, Type:$type, CreatorUser:$creator, AnnualDues:$dues}
 	var createOrgSql = 	'INSERT INTO Organizations SET OrgName=' + connection.escape(post.OrgName) +
-						", Type=" + connection.escape(post.Type);
+						", Type=" + connection.escape(post.Type) +
+						", AnnualDues=" + parseFloat(post.AnnualDues);
 
 	connection.query(createOrgSql, post, function(err, result){
 		if(err) console.log(err);
@@ -263,14 +274,18 @@ app.post('/create_org', function(req, res){
 	});
 });
 
+
 app.post('/delete_org', function(req, res){
 	var post = req.body;
 
 	//post {OrgName : 'OrgName'}
 	var deleteOrgQuery = connection.query('DELETE FROM Organizations WHERE ?', post, function(err ,result){
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	});
 });
+
+//**********************
 
 app.post('/create_news_item', function(req, res){
 	var post = req.body;

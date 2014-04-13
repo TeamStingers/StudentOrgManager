@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class OrganizationDAO {
 
-	private String orgName;
-	private String type;
-	private int size;
-	private int annualDues;
+	String orgName;
+	String type;
+	int size;
+	int annualDues;
 //	
-//	private ArrayList<User> memberList;
-//	private ArrayList<String> positionNames;
+//	ArrayList<User> memberList;
+//	ArrayList<String> positionNames;
 	
 	public OrganizationDAO(String orgName, String type, String size, String annualDues) {
 		this.orgName = orgName;

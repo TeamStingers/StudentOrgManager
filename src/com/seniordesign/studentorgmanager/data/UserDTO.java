@@ -22,11 +22,7 @@ public class UserDTO extends Helper{
 				
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/login", "POST", params);
 
-		if(jArr.length() > 0){
-			return true;
-		}{
-			return false;
-		}
+		return (jArr.length() > 0);
 		
 	}
 	
@@ -106,10 +102,10 @@ public class UserDTO extends Helper{
 		return jArr.length() > 0;
 	}
 	
-	public static boolean addUserToOrg(String username, String orgName){
+	public static boolean addUserToOrg(String username, String organization){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
-		params.add(new BasicNameValuePair(TAG_ORGNAME, orgName));
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
 		params.add(new BasicNameValuePair(TAG_POSITION, "Member"));
 		params.add(new BasicNameValuePair(TAG_MEMBERTYPE, "RegularMember"));
 		params.add(new BasicNameValuePair(TAG_DUESPAID, "Unpaid"));
@@ -119,15 +115,72 @@ public class UserDTO extends Helper{
 		return jArr.length() > 0;
 	}
 	
-	public static boolean removeUserFromOrg(String username, String orgName){
+	public static boolean removeUserFromOrg(String username, String organization){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
-		params.add(new BasicNameValuePair(TAG_ORGNAME, orgName));
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
 		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/remove_user_from_org", "POST", params);
 
 		return jArr.length() > 0;		
 	}
+
+	public static String getUserPosition(String username, String organization) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_USERNAME, username));
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
+		
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_user_position", "POST", params);
+
+		if(jArr.length() > 0){
+			try {
+				JSONObject jo = jArr.getJSONObject(0);
+				return (String) jo.get(TAG_POSITION);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	public static String getUserMemberType(String username, String organization) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_USERNAME, username));
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
+		
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_user_position", "POST", params);
+
+		if(jArr.length() > 0){
+			try {
+				JSONObject jo = jArr.getJSONObject(0);
+				return (String) jo.get(TAG_MEMBERTYPE);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return null;
+	}
+	
+	public static boolean changeUserPosition(String position, String memberType, 
+			String organization, String username){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_USERNAME, username));
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
+		params.add(new BasicNameValuePair(TAG_POSITION, position));
+		params.add(new BasicNameValuePair(TAG_MEMBERTYPE, memberType));
+		
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/change_user_position", "POST", params);
+
+		return jArr.length() > 0;
+	}
+	
+	
 	
 	
 
