@@ -58,7 +58,7 @@ app.get('/login/:Username/:Password', function(req, res){
 });
 
 app.get('/get_user_orgs/:Username', function(req, res){
-	connection.query("SELECT Organization, Position, MemberType FROM UserOrgs WHERE Username=?", 
+	connection.query("SELECT * FROM UserOrgs WHERE Username=?", 
 		[req.param("Username")], function(err, result){
 		
 		res.json(result);
@@ -97,7 +97,6 @@ app.get('/delete_user/:username', function(req, res){
 
 
 app.post('/login', function(req, res){
-	console.log("recv req");
 	var post = req.body;
 
 	var sql = "SELECT * FROM ?? WHERE ?? = ? AND ?? = ?";
@@ -109,6 +108,7 @@ app.post('/login', function(req, res){
 		res.json(result);
 	});
 });
+
 
 app.post('/get_all_orgs', function(req, res){
 	var post = req.body;
@@ -127,6 +127,7 @@ app.post('/get_user_info', function(req, res){
 	});
 });
 
+
 app.post('/get_org_info', function(req, res){
 	var post = req.body;
 
@@ -141,6 +142,7 @@ app.post('/create_user', function(req, res){
 	//post all user fields like they are in relational diagram
 	connection.query('INSERT INTO Users SET ?', post, function(err, result) {
 		if(err) console.log(err);
+		res.send(result);
 	});
 });
 
@@ -149,8 +151,10 @@ app.post('/delete_user', function(req, res){
 	//post {Username:$Username}
 	connection.query('DELETE FROM Users WHERE ?', post, function(err, result){
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	})
 });
+
 
 app.post('/update_user', function(req, res){
 	var post = req.body;
@@ -159,19 +163,22 @@ app.post('/update_user', function(req, res){
 	connection.query('UPDATE Users SET ? WHERE Username=' + 
 		connection.escape(post.Username), post, function(err, result){
 			if(err) console.log(err);
+			res.send([{success:true}]);
 	});
 });
+
 
 app.post('/add_user_to_org', function(req, res){
 	var post = req.body;
 	
-	//need to post Position = Member and MemberType=RegularMember by default.
+	//need to post Position = Member and MemberType=RegularMember and DuesPaid=Unpaid by default
 	var insertQuery = connection.query('INSERT INTO UserOrgs SET ?', post, function(err, result) {
 		if(err) console.log(err);
 		else{
 			var sizeQuery = connection.query('UPDATE Organizations SET Size = Size + 1 WHERE OrgName= ?', 
 			[post.Organization], function(err, result) {
 				if(err) console.log(err);
+				res.send([{success:true}]);
 			})
 		}
 	});
@@ -186,15 +193,17 @@ app.post('/remove_user_from_org', function(req, res){
 
 	connection.query(removeSql, function(err, results) {
 		if(err) console.log(err);
-		else
-		{
+		else{
 			var sizeQuery = connection.query('UPDATE Organizations SET Size = Size - 1 WHERE OrgName= ?', 
 			[post.Organization], function(err, result) {
 				if(err) console.log(err);
+				res.send([{success:true}]);
 			});
 		} 
 	});
 });
+
+//**********************
 
 app.post('/add_absence', function(req, res){
 	var post = req.body;
@@ -315,7 +324,7 @@ app.post('/get_user_orgs', function(req, res){
 	var post = req.body;
 
 	//post {Username: $Username}
-	connection.query("SELECT Organization, Position, MemberType FROM UserOrgs WHERE ?", post, function(err, result){
+	connection.query("SELECT * FROM UserOrgs WHERE ?", post, function(err, result){
 		res.json(result);
 	});
 });
@@ -396,23 +405,35 @@ app.post('/read_message', function(req, res){
 	});
 });
 
-app.post('/get_dues_status', function(req, res){
+// app.post('/get_dues_status', function(req, res){
+// 	var post = req.body;
+
+// 	//post {Organization:$orgname, Username:$un}
+// 	var getDuesStatusSql = "SELECT DuesPaid FROM UserOrgs WHERE Username=" + 
+// 		connection.escape(post.Username) + " AND Organization="+connection.escape(post.Organization);
+
+// 	connection.query(getDuesStatusSql, function(err, result){
+// 		if(err) console.log(err);
+// 		res.json(result);
+// 	});
+// });
+
+app.post('/update_org_dues', function(req, res){
 	var post = req.body;
 
-	//post {Organization:$orgname, Username:$un}
-	var getDuesStatusSql = "SELECT DuesPaid FROM UserOrgs WHERE Username=" + 
-		connection.escape(post.Username) + " AND Organization="+connection.escape(post.Organization);
+	//post {Organization:$orgname, AnnualDues:$anualdue}
+	var updateDuesSql = "UPDATE Organizations SET AnnualDues=" + connect.escape(post.AnnualDues) +
+		" WHERE Organization=" + connection.escape(post.Organization);
 
-	connection.query(getDuesStatusSql, function(err, result){
+	connection.query(updateDuesSql, function(err, result){
 		if(err) console.log(err);
-		res.json(result);
 	});
 });
 
-app.post('/update_dues_status', function(req, res){
+app.post('/update_user_dues', function(req, res){
 	var post = req.body;
 
-	//post {OrgName:$orgname, Username:$un, Status:} .. where status is a 1 or 0
+	//post {OrgName:$orgname, Username:$un, Status:} .. where status is paid or unpaid
 	var updateDuesSql = "UPDATE UserOrgs SET DuesPaid=" + connect.escape(post.Status) +
 		" WHERE Username=" + connection.escape(post.Username) + " AND Organization=" +
 		connection.escape(post.Organization);

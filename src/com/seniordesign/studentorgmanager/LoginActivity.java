@@ -1,6 +1,6 @@
 package com.seniordesign.studentorgmanager;
 
-import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
+import com.seniordesign.studentorgmanager.data.UserDTO;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -227,7 +227,7 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			return UserHelper.authenticate(mUsername, mPassword);
+			return UserDTO.authenticate(mUsername, mPassword);
 		}
 
 		@Override

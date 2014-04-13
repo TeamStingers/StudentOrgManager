@@ -1,9 +1,9 @@
 package com.seniordesign.studentorgmanager;
 
-import com.seniordesign.studentorgmanager.datatransfer.OrganizationHelper;
-import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
-import com.seniordesign.studentorgmanager.model.Organization;
-import com.seniordesign.studentorgmanager.model.User;
+import com.seniordesign.studentorgmanager.data.OrganizationDAO;
+import com.seniordesign.studentorgmanager.data.OrganizationDTO;
+import com.seniordesign.studentorgmanager.data.UserDAO;
+import com.seniordesign.studentorgmanager.data.UserDTO;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +30,7 @@ public class CreateOrgActivity extends Activity {
 	private Spinner orgTypeSpinner;
 	private Button createOrgButton;
 	private String username;
-	private User mLoggedIn;
+	private UserDAO mLoggedIn;
 	private String mOrgName;
 	private String mGroupType;
 	private OrgCreateTask mOrgCreateTask;
@@ -42,7 +42,7 @@ public class CreateOrgActivity extends Activity {
 		
 		Intent intent = getIntent();
 		username = intent.getStringExtra(LoginActivity.UserNameTag);
-		mLoggedIn = UserHelper.loadUser(username);
+		mLoggedIn = UserDTO.getUser(username);
 		
 		orgNameEdit = (EditText) findViewById(R.id.orgNameEdit);
 		orgTypeSpinner = (Spinner) findViewById(R.id.orgTypeSpinner);
@@ -88,7 +88,7 @@ public class CreateOrgActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			
-			Organization newOrg = OrganizationHelper.createOrganization(mOrgName, mGroupType, username);
+			OrganizationDAO newOrg = OrganizationDTO.createOrganization(mOrgName, mGroupType, username);
 			if (newOrg == null) {
 				return false;
 			}

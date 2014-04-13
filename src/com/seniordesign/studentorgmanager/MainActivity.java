@@ -2,10 +2,10 @@ package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
 
-import com.seniordesign.studentorgmanager.datatransfer.OrganizationHelper;
-import com.seniordesign.studentorgmanager.datatransfer.UserHelper;
-import com.seniordesign.studentorgmanager.model.Organization;
-import com.seniordesign.studentorgmanager.model.User;
+import com.seniordesign.studentorgmanager.data.OrganizationDAO;
+import com.seniordesign.studentorgmanager.data.OrganizationDTO;
+import com.seniordesign.studentorgmanager.data.UserDAO;
+import com.seniordesign.studentorgmanager.data.UserDTO;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -27,13 +27,13 @@ public class MainActivity extends Activity {
 	public static final String TAG = MainActivity.class.getSimpleName();
 	private ListView orgListView;
 	private ArrayList<String> sampleArray;
-	private ArrayList<Organization> orgsArray;
+	private ArrayList<OrganizationDAO> orgsArray;
 	private String username;
 	private TextView createOrgLabel;
 	private Button createOrgButton;
 	private Button searchOrgButton;
 	
-	private User mLoggedIn;
+	private UserDAO mLoggedIn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +54,13 @@ public class MainActivity extends Activity {
 		
 		//Get organizations for user
 		try {
-			orgsArray = OrganizationHelper.getUserOrganizations(username);
+			orgsArray = OrganizationDTO.getUserOrganizations(username);
 		}
 		catch (Exception e) {
 			String error = e.getMessage();
 			Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
 		}
-		orgsArray = OrganizationHelper.getUserOrganizations(username);
+		orgsArray = OrganizationDTO.getUserOrganizations(username);
 		
 		//Populate list with user organizations
 		if (orgsArray == null || orgsArray.size() == 0) {
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 		}
 		
 		//Load user object
-		mLoggedIn = UserHelper.loadUser(username);
+		mLoggedIn = UserDTO.getUser(username);
 		
 	}
 

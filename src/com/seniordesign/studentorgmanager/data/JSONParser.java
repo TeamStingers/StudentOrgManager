@@ -1,4 +1,4 @@
-package com.seniordesign.studentorgmanager.datatransfer;
+package com.seniordesign.studentorgmanager.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
