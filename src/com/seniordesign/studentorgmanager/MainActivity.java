@@ -2,15 +2,15 @@ package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
 
+import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.OrganizationDAO;
-import com.seniordesign.studentorgmanager.data.OrganizationDTO;
 import com.seniordesign.studentorgmanager.data.UserDAO;
-import com.seniordesign.studentorgmanager.data.UserDTO;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("Debug", "on Create");
 		setContentView(R.layout.activity_main);
 		
 		//Instantiate UI elements
@@ -54,13 +55,14 @@ public class MainActivity extends Activity {
 		
 		//Get organizations for user
 		try {
-			orgsArray = OrganizationDTO.getUserOrganizations(username);
+			//This also does not work.
+			orgsArray = DataTransfer.getUserOrganizations(username);
 		}
 		catch (Exception e) {
+			Log.d("Debug", "Get User Orgs Exception.");
 			String error = e.getMessage();
 			Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
 		}
-		orgsArray = OrganizationDTO.getUserOrganizations(username);
 		
 		//Populate list with user organizations
 		if (orgsArray == null || orgsArray.size() == 0) {
@@ -75,13 +77,15 @@ public class MainActivity extends Activity {
 		}
 		
 		//Load user object
-		mLoggedIn = UserDTO.getUser(username);
+		//This doesnt work
+//		mLoggedIn = UserHelper.getUser(username);
 		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		Log.d("Debug", "create menu");
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}

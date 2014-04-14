@@ -1,6 +1,7 @@
 package com.seniordesign.studentorgmanager;
 
-import com.seniordesign.studentorgmanager.data.UserDTO;
+
+import com.seniordesign.studentorgmanager.data.DataTransfer;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -26,7 +28,6 @@ import android.widget.Toast;
  * Activity which displays a login screen to the user.
  */
 public class LoginActivity extends Activity {
-	public String jkf;
 	public final static String UserNameTag = "USERNAME";
 	public final static String PasswordTag = "PASSWORD";
 	
@@ -227,7 +228,7 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			return UserDTO.authenticate(mUsername, mPassword);
+			return DataTransfer.authenticate(mUsername, mPassword);
 		}
 
 		@Override
@@ -236,6 +237,7 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
+				Log.d("Debug", "success auth");
 				//Here's where we transition
 				Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
 				loginIntent.putExtra(UserNameTag, mUsername);

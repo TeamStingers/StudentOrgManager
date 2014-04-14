@@ -1,7 +1,7 @@
 package com.seniordesign.studentorgmanager;
 
+import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.UserDAO;
-import com.seniordesign.studentorgmanager.data.UserDTO;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -129,7 +129,7 @@ public class CreateUserActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			
-			UserDAO newUser = UserDTO.createUser(mUsername, mPassword, mEmail);
+			UserDAO newUser = DataTransfer.createUser(mUsername, mPassword, mEmail);
 			
 			return (newUser!=null);
 		}

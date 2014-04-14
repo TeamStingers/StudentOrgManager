@@ -109,13 +109,15 @@ app.post('/login', function(req, res){
 
 	// post {Username: $Username, Password: $Password}
 	queryConnection(sql, function(result){
+		console.log('login req');
 		res.json(result);
 	});
 });
 
-
 app.post('/get_all_orgs', function(req, res){
 	var post = req.body;
+
+	console.log('get user info');
 
 	connection.query("SELECT * FROM Organizations", function(err, result){
 		res.json(result);
@@ -125,12 +127,14 @@ app.post('/get_all_orgs', function(req, res){
 app.post('/get_user_info', function(req, res){
 	var post = req.body;
 
+	console.log('get user info');
+
 	connection.query('SELECT * FROM Users WHERE Username= ?', [post.Username], function(err, result){
 		if(err) console.log(err);
+		console.log('req recv');
 		res.json(result);
 	});
 });
-
 
 app.post('/get_org_info', function(req, res){
 	var post = req.body;
@@ -159,7 +163,6 @@ app.post('/delete_user', function(req, res){
 	})
 });
 
-
 app.post('/update_user', function(req, res){
 	var post = req.body;
 
@@ -170,7 +173,6 @@ app.post('/update_user', function(req, res){
 			res.send([{success:true}]);
 	});
 });
-
 
 app.post('/add_user_to_org', function(req, res){
 	var post = req.body;
@@ -187,7 +189,6 @@ app.post('/add_user_to_org', function(req, res){
 		}
 	});
 });
-
 
 app.post('/remove_user_from_org', function(req, res){
 	var post = req.body;
@@ -207,7 +208,6 @@ app.post('/remove_user_from_org', function(req, res){
 	});
 });
 
-
 app.post('/add_absence', function(req, res){
 	var post = req.body;
 
@@ -216,7 +216,6 @@ app.post('/add_absence', function(req, res){
 		res.send([{success:true}]);
 	});
 });
-
 
 app.post('/remove_absence', function(req, res){
 	var post = req.body;
@@ -231,7 +230,6 @@ app.post('/remove_absence', function(req, res){
 	});
 });
 
-
 app.post('/get_user_position', function(req, res){
 	var post = req.body;
 
@@ -242,7 +240,6 @@ app.post('/get_user_position', function(req, res){
 		res.json(result);
 	});
 });
-
 
 app.post('/change_user_position', function(req, res){
 	var post = req.body;
@@ -258,7 +255,6 @@ app.post('/change_user_position', function(req, res){
 	});
 });
 
-
 app.post('/create_org', function(req, res){
 	var post = req.body;
 
@@ -270,10 +266,10 @@ app.post('/create_org', function(req, res){
 	connection.query(createOrgSql, post, function(err, result){
 		if(err) console.log(err);
 		connection.query('INSERT INTO UserOrgs SET ?', [post.CreatorUser], function(err, result){
+			res.send([{success:true}]);
 		});
 	});
 });
-
 
 app.post('/delete_org', function(req, res){
 	var post = req.body;
@@ -285,8 +281,6 @@ app.post('/delete_org', function(req, res){
 	});
 });
 
-//**********************
-
 app.post('/create_news_item', function(req, res){
 	var post = req.body;
 
@@ -296,6 +290,7 @@ app.post('/create_news_item', function(req, res){
 
 	connection.query(createNewsSql, function(err, results){
 		if(err) console.log(err);
+		res.send([{success:true}]);		
 	});
 });
 
@@ -309,6 +304,7 @@ app.post('/delete_news_item', function(req, res){
 	//POST {Organization:'OrgName' AND Announcement='AnouncementText'}
 	connection.query(deleteNewsSql, function(err, result){
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	});
 });
 
@@ -324,6 +320,7 @@ app.post('/create_event', function(req, res){
 
 	connection.query(createEventSql, function(err, results){
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	});
 });
 
@@ -332,6 +329,7 @@ app.post('/delete_event', function(req, res){
 	//post {EventID : '$EventID'}
 	connection.query('DELETE FROM Events WHERE ?', post, function(err, result){
 		if(err) console.log(err);
+		res.send([{success:true}]);
 	});
 });
 
@@ -360,12 +358,12 @@ app.post('/get_org_events', function(req, res){
 	connection.query("SELECT * FROM Events WHERE ?", post, function(err, result){
 		res.json(result);
 	});
-})
+});
 
 app.post('/get_event_absences', function(req, res){
 	var post = req.body;
 
-	var getAbsSql = "SELECT Username, EventName, EventDateTime, Location, Description, Type" +
+	var getAbsSql = "SELECT Username, Organization" +
 					" FROM Events INNER JOIN Absences ON Absences.EventID=Events.EventID" +
 					" WHERE EventID="+ connection.escape(post.EventID);
 
@@ -377,9 +375,8 @@ app.post('/get_event_absences', function(req, res){
 app.post('/get_user_absences_for_org', function(req, res){
 	var post = req.body;
 
-
 	//post {Username:$username, Organization:$orgname}
-	var getUserAbsSql = "SELECT EventName, EventDateTime, Location, Description, Type" +
+	var getUserAbsSql = "SELECT EventID, Username, Organization" +
 				" FROM Events INNER JOIN Absences ON Absences.EventID=Events.EventID" +
 				" WHERE Organization="+ connection.escape(post.Organization) + " AND" +
 				" Username=" + connection.escape(post.Username);
@@ -389,21 +386,34 @@ app.post('/get_user_absences_for_org', function(req, res){
 	});
 });
 
+app.post('/get_user_msgs', function(req, res){
+	var post = req.body;
+
+	var sql = "SELECT ReadStatus, MsgContent, SendingUser, MsgTimeStamp, MessageType FROM " +
+				"Messages INNER JOIN UserMessage ON Messages.MessageID=UserMessage.MessageID " +
+				"WHERE ReceivingMember=" + connection.escape(post.Username);
+
+	connection.query(sql, function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
+});
 
 app.post('/send_message', function(req, res){
 	var post = req.body;
 
-	var sendMsgSql = "INSERT INTO Message SET SendingUser="+connection.escape(post.SendingUser)+
+	var sendMsgSql = "INSERT INTO Messages SET SendingUser="+connection.escape(post.SendingUser)+
 						", MsgTimeStamp=NOW(), MessageType='StandardMessage'";
 
 	//post {SendingUser:$senderusername, ReceivingMember:$recverUsername}
 	connection.query(sendMsgSql, function(err, result){
-		var userMsgSql = "INSERT INTO UserMessage MessageID=" + result.MessageID +
+		var userMsgSql = "INSERT INTO UserMessage MessageID=" + result[0].MessageID +
 							", ReceivingMember=" + connection.escape(post.ReceivingMember) +
-							", ReadStatus=Unread";
+							", ReadStatus='Unread'";
 
 		connection.query(userMsgSql, function(err, result){
 			if(err) console.log(err);
+			res.send([{success:true}]);
 		});
 	});
 });
@@ -412,26 +422,47 @@ app.post('/read_message', function(req, res){
 	var post = req.body;
 
 	//post {MessageID:$MsgId}
-	var readMsgSql = "UPDATE UserMessage SET ReadStatus=" + "Read" + 
+	var readMsgSql = "UPDATE UserMessage SET ReadStatus='Read'" + 
 						" WHERE MessageID=" + connection.escape(post.MessageID);
 
 	connection.query(readMsgSql, function(err, results){
 		if(err) console.log(err);
+		res.send([{success:true}]);	
 	});
 });
 
-// app.post('/get_dues_status', function(req, res){
+//implement if there is time left, need to insert into UserMessage for each receiving member
+
+// app.post('/send_notification', function(req, res){
 // 	var post = req.body;
 
-// 	//post {Organization:$orgname, Username:$un}
-// 	var getDuesStatusSql = "SELECT DuesPaid FROM UserOrgs WHERE Username=" + 
-// 		connection.escape(post.Username) + " AND Organization="+connection.escape(post.Organization);
+// 	var sendMsgSql = "INSERT INTO Messages SET SendingUser="+connection.escape(post.SendingUser)+
+// 						", MsgTimeStamp=NOW(), MessageType='Notification'";
 
-// 	connection.query(getDuesStatusSql, function(err, result){
-// 		if(err) console.log(err);
-// 		res.json(result);
+// 	//post {SendingUser:$senderusername, ReceivingMember:$recverUsername}
+// 	connection.query(sendMsgSql, function(err, result){
+// 		var userMsgSql = "INSERT INTO UserMessage MessageID=" + result[0].MessageID +
+// 							", ReceivingMember=" + connection.escape(post.ReceivingMember) +
+// 							", ReadStatus='Unread'";
+
+// 		connection.query(userMsgSql, function(err, result){
+// 			if(err) console.log(err);
+// 		});
 // 	});
 // });
+
+app.post('/get_dues_status', function(req, res){
+	var post = req.body;
+
+	//post {Organization:$orgname, Username:$un}
+	var getDuesStatusSql = "SELECT DuesPaid FROM UserOrgs WHERE Username=" + 
+		connection.escape(post.Username) + " AND Organization="+connection.escape(post.Organization);
+
+	connection.query(getDuesStatusSql, function(err, result){
+		if(err) console.log(err);
+		res.json(result);
+	});
+});
 
 app.post('/update_org_dues', function(req, res){
 	var post = req.body;
@@ -442,8 +473,10 @@ app.post('/update_org_dues', function(req, res){
 
 	connection.query(updateDuesSql, function(err, result){
 		if(err) console.log(err);
+		res.send([{success:true}]);	
 	});
 });
+//**********************
 
 app.post('/update_user_dues', function(req, res){
 	var post = req.body;
@@ -455,6 +488,7 @@ app.post('/update_user_dues', function(req, res){
 
 	connection.query(updateDuesSql, function(err, result){
 		if(err) console.log(err);
+		res.send([{success:true}]);	
 	});
 });
 
@@ -502,7 +536,7 @@ function createTables(toExecute){
 
 	function createOrganizationsTable(){
 		var sql =	"CREATE TABLE Organizations(" +
-					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 0, AnnualDues FLOAT"+
+					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 1, AnnualDues FLOAT"+
 					"PRIMARY KEY(OrgName))";
 
 		queryConnection(sql, createUserOrgsTable);
@@ -553,7 +587,7 @@ function createTables(toExecute){
 
 	function createMessagesTable(){
 		var sql = 	"CREATE TABLE Messages(" + 
-					"MessageID INT NOT NULL AUTO_INCREMENT, SendingUser VARCHAR(255), " +
+					"MessageID INT NOT NULL AUTO_INCREMENT, MsgContent TEXT, SendingUser VARCHAR(255), " +
 					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255), " + 
 					"FOREIGN KEY(SendingUser) REFERENCES Users(Username), " +
 					"PRIMARY KEY(MessageID))";

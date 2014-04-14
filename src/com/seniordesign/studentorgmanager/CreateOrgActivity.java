@@ -1,9 +1,8 @@
 package com.seniordesign.studentorgmanager;
 
+import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.OrganizationDAO;
-import com.seniordesign.studentorgmanager.data.OrganizationDTO;
 import com.seniordesign.studentorgmanager.data.UserDAO;
-import com.seniordesign.studentorgmanager.data.UserDTO;
 
 import android.app.Activity;
 import android.content.Context;
@@ -42,7 +41,7 @@ public class CreateOrgActivity extends Activity {
 		
 		Intent intent = getIntent();
 		username = intent.getStringExtra(LoginActivity.UserNameTag);
-		mLoggedIn = UserDTO.getUser(username);
+		mLoggedIn = DataTransfer.getUser(username);
 		
 		orgNameEdit = (EditText) findViewById(R.id.orgNameEdit);
 		orgTypeSpinner = (Spinner) findViewById(R.id.orgTypeSpinner);
@@ -88,10 +87,11 @@ public class CreateOrgActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			
-			OrganizationDAO newOrg = OrganizationDTO.createOrganization(mOrgName, mGroupType, username);
-			if (newOrg == null) {
-				return false;
-			}
+			//Need to implement input for annual dues for the org.
+//			OrganizationDAO newOrg = OrganizationHelper.createOrganization(mOrgName, mGroupType, username);
+//			if (newOrg == null) {
+//				return false;
+//			}
 			return true;
 		}
 
