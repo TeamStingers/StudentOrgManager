@@ -62,9 +62,6 @@ public class DataTransfer extends Helper{
 	
 	public static UserDAO createUser(String username, String password, String email){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair(TAG_USERNAME, username));
-		params.add(new BasicNameValuePair(TAG_PASSWORD, password));
-		params.add(new BasicNameValuePair(TAG_EMAIL, email));
 		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/create_user", "POST", params);
 		

@@ -4,13 +4,13 @@ import org.joda.time.DateTime;
 
 public class EventDAO {
 	
-	String id;
-	String name;
-	String organization;
-	DateTime dateTime;
-	String location;
-	String description;
-	String type;
+	public String id;
+	public String name;
+	public String organization;
+	public DateTime dateTime;
+	public String location;
+	public String description;
+	public String type;
 
 	public EventDAO(String id, String name, String org, String dt, String loc, 
 			String desc, String type){		

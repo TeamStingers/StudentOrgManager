@@ -4,10 +4,10 @@ import org.joda.time.DateTime;
 
 public class NewsItemDAO {
 //	DateTime dt = new DateTime("2004-12-13T21:39:45.618-08:00");
-	String organization;
-	DateTime timeStamp;
-	String announcement;
-	String poster;
+	public String organization;
+	public DateTime timeStamp;
+	public String announcement;
+	public String poster;
 
 	public NewsItemDAO(String org, String time, String announce, String poster){		
 		this.organization = org;

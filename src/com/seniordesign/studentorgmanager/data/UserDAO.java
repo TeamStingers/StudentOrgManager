@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class UserDAO {
 
-	String firstName, lastName, username, major, bio, email, phoneNumber, pictureRef, gradYear;
+	public String firstName, lastName, username, major, bio, email, phoneNumber, pictureRef, gradYear;
 	
 //	private ArrayList<Organization> groups;
 //	private ArrayList<Absence> absences;
