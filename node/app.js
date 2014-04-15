@@ -537,7 +537,7 @@ function createTables(toExecute){
 
 	function createOrganizationsTable(){
 		var sql =	"CREATE TABLE Organizations(" +
-					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 1, AnnualDues FLOAT"+
+					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 1, AnnualDues FLOAT, "+
 					"PRIMARY KEY(OrgName))";
 
 		queryConnection(sql, createUserOrgsTable);
