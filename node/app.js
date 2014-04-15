@@ -610,7 +610,6 @@ function createTables(toExecute){
 	toExecute();
 }
 
-
 // setInterval(function(){ 
 
 // 	//mailer job
