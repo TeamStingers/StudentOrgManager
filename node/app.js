@@ -150,7 +150,7 @@ app.post('/create_user', function(req, res){
 	//post all user fields like they are in relational diagram
 	connection.query('INSERT INTO Users SET ?', post, function(err, result) {
 		if(err) console.log(err);
-		res.send(result);
+		res.send([{success:true}]);
 	});
 });
 
@@ -476,7 +476,6 @@ app.post('/update_org_dues', function(req, res){
 		res.send([{success:true}]);	
 	});
 });
-//**********************
 
 app.post('/update_user_dues', function(req, res){
 	var post = req.body;
@@ -491,6 +490,8 @@ app.post('/update_user_dues', function(req, res){
 		res.send([{success:true}]);	
 	});
 });
+
+//**********************
 
 function queryConnection(sql, cb){
 	connection.query(sql, function(err, result){
