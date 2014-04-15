@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
 	public static final String OrgNameTag = "ORG NAME";
 	public static final String TAG = MainActivity.class.getSimpleName();
 	private ListView orgListView;
-	private ArrayList<String> sampleArray;
 	private ArrayList<OrganizationDAO> orgsArray;
 	private String username;
 	private TextView createOrgLabel;
