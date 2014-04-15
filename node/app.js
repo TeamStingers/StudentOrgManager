@@ -6,13 +6,13 @@ var mysql = require('mysql');
 //EXPRESS CONFIG
 app.use(express.bodyParser());
 
-var portNum = 80;
-var runCreateTableStatements = false;
+var portNum = 8080;
+var runCreateTableStatements = true;
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'password',
+	password : 'kopaka',
 	database : 'StudentOrgManager',
 	port 	 : '3306'
 });
@@ -536,7 +536,7 @@ function createTables(toExecute){
 
 	function createOrganizationsTable(){
 		var sql =	"CREATE TABLE Organizations(" +
-					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 1, AnnualDues FLOAT"+
+					"OrgName VARCHAR(255), Type VARCHAR(255), Size INT DEFAULT 1, AnnualDues FLOAT, "+
 					"PRIMARY KEY(OrgName))";
 
 		queryConnection(sql, createUserOrgsTable);
