@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class OrganizationDAO {
 
-	String name;
-	String type;
-	int size;
-	int annualDues;
+	public String name;
+	public String type;
+	public int size;
+	public int annualDues;
 //	
 //	ArrayList<User> memberList;
 //	ArrayList<String> positionNames;

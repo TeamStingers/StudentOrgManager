@@ -41,7 +41,6 @@ public class CreateOrgActivity extends Activity {
 		
 		Intent intent = getIntent();
 		username = intent.getStringExtra(LoginActivity.UserNameTag);
-		mLoggedIn = DataTransfer.getUser(username);
 		
 		orgNameEdit = (EditText) findViewById(R.id.orgNameEdit);
 		orgTypeSpinner = (Spinner) findViewById(R.id.orgTypeSpinner);
@@ -88,10 +87,10 @@ public class CreateOrgActivity extends Activity {
 		protected Boolean doInBackground(Void... params) {
 			
 			//Need to implement input for annual dues for the org.
-//			OrganizationDAO newOrg = OrganizationHelper.createOrganization(mOrgName, mGroupType, username);
-//			if (newOrg == null) {
-//				return false;
-//			}
+			OrganizationDAO newOrg = DataTransfer.createOrganization(mOrgName, mGroupType, username, "0.0");
+			if (newOrg == null) {
+				return false;
+			}
 			return true;
 		}
 

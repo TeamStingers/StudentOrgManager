@@ -6,6 +6,7 @@ import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.OrganizationDAO;
 import com.seniordesign.studentorgmanager.data.UserDAO;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -25,14 +26,18 @@ import android.view.View;
 public class MainActivity extends Activity {
 	public static final String OrgNameTag = "ORG NAME";
 	public static final String TAG = MainActivity.class.getSimpleName();
+	
 	private ListView orgListView;
-	private ArrayList<OrganizationDAO> orgsArray;
-	private String username;
+	private ArrayList<String> sampleArray;
 	private TextView createOrgLabel;
 	private Button createOrgButton;
 	private Button searchOrgButton;
 	
+	//Variables representing user
+	private String username;
 	private UserDAO mLoggedIn;
+	private ArrayList<OrganizationDAO> orgsArray;
+	private ArrayList<String> orgNames;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,23 +57,16 @@ public class MainActivity extends Activity {
 		username = intent.getStringExtra(LoginActivity.UserNameTag);
 		Toast.makeText(this, "Welcome "+ username + "!", Toast.LENGTH_LONG).show();
 		
-		//Get organizations for user
-		try {
-			//This also does not work.
-			orgsArray = DataTransfer.getUserOrganizations(username);
-		}
-		catch (Exception e) {
-			Log.d("Debug", "Get User Orgs Exception.");
-			String error = e.getMessage();
-			Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-		}
+		//Run DB actions
+		InitTask mInitTask = new InitTask();
+		mInitTask.execute((Void) null);
 		
 		//Populate list with user organizations
 		if (orgsArray == null || orgsArray.size() == 0) {
 			createOrgLabel.setVisibility(0);
 		}
 		else {
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sampleArray);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, orgNames);
 			orgListView = (ListView) findViewById(R.id.orgsList);
 			orgListView.setAdapter(adapter);
 			
@@ -79,6 +77,19 @@ public class MainActivity extends Activity {
 		//This doesnt work
 //		mLoggedIn = UserHelper.getUser(username);
 		
+	}
+	
+	public class InitTask extends AsyncTask<Void, Void, Void> {
+		protected Void doInBackground(Void... params) {
+			mLoggedIn = DataTransfer.getUser(username);
+			orgsArray = DataTransfer.getUserOrganizations(username);
+			return null;
+		}
+		protected void onPostExecute(final Void param) {
+			for (OrganizationDAO org : orgsArray) {
+				orgNames.add(org.name);
+			}
+		}
 	}
 
 	@Override
