@@ -31,7 +31,6 @@ public class DataTransfer extends Helper{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
 		
-//		JSONArray jArr = jp.makeHttpRequest(HOST+"/get_user_info", "POST", params);
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_user_info", "POST", params);
 		UserDAO result = null;
 		
@@ -62,6 +61,9 @@ public class DataTransfer extends Helper{
 	
 	public static UserDAO createUser(String username, String password, String email){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_USERNAME, username));
+		params.add(new BasicNameValuePair(TAG_PASSWORD, password));		
+		params.add(new BasicNameValuePair(TAG_EMAIL, email));
 		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/create_user", "POST", params);
 		
@@ -157,18 +159,14 @@ public class DataTransfer extends Helper{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_user_orgs", "POST", params);
+				
+		JSONObject jo;	
 		
-		JSONObject jo;
-
 		for(int i=0; i < jArr.length(); i++){
 			try {
 				jo = jArr.getJSONObject(i);
 				String name = (String) jo.get(TAG_ORGANIZATION);
-				String type = (String) jo.get(TAG_TYPE);
-				String size = (String) jo.get(TAG_FIRSTNAME);
-				String annualDues = (String) jo.get(TAG_LASTNAME);
-				OrganizationDAO o = new OrganizationDAO(name, type, size, annualDues);
-				result.add(o);					
+				result.add(new OrganizationDAO(name, null, null, null));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

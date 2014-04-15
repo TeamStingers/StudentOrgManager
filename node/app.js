@@ -147,6 +147,7 @@ app.post('/get_org_info', function(req, res){
 
 app.post('/create_user', function(req, res){
 	var post = req.body;
+	console.log('req rec');
 	//post all user fields like they are in relational diagram
 	connection.query('INSERT INTO Users SET ?', post, function(err, result) {
 		if(err) console.log(err);
@@ -265,7 +266,17 @@ app.post('/create_org', function(req, res){
 
 	connection.query(createOrgSql, post, function(err, result){
 		if(err) console.log(err);
-		connection.query('INSERT INTO UserOrgs SET ?', [post.CreatorUser], function(err, result){
+			//need to post Username, Organization, Position = Member and MemberType=RegularMember and DuesPaid=Unpaid by default
+		
+		var insertSql = 'INSERT INTO UserOrgs SET Username=' + connection.escape(post.CreatorUser) +
+					", Organization=" + connection.escape(post.OrgName) +
+					", Position=" + "'Admin'" +
+					", MemberType=" + "'Admin'" +
+					", DuesPaid=" + "'Unpaid'";
+
+		connection.query(insertSql, function(err, result){
+			console.log(insertSql);
+			console.log('in the thing');
 			res.send([{success:true}]);
 		});
 	});

@@ -36,13 +36,12 @@ public class MainActivity extends Activity {
 	//Variables representing user
 	private String username;
 	private UserDAO mLoggedIn;
-	private ArrayList<OrganizationDAO> orgsArray;
-	private ArrayList<String> orgNames;
+	protected ArrayList<OrganizationDAO> orgsArray;
+	protected ArrayList<String> orgNames;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("Debug", "on Create");
 		setContentView(R.layout.activity_main);
 		
 		//Instantiate UI elements
@@ -60,6 +59,8 @@ public class MainActivity extends Activity {
 		//Run DB actions
 		InitTask mInitTask = new InitTask();
 		mInitTask.execute((Void) null);
+
+		Log.d("a", new Integer(orgsArray.size()).toString());
 		
 		//Populate list with user organizations
 		if (orgsArray == null || orgsArray.size() == 0) {
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, orgNames);
 			orgListView = (ListView) findViewById(R.id.orgsList);
 			orgListView.setAdapter(adapter);
-			
+
 			orgListView.setOnItemClickListener(new myItemClickListener(this));
 		}
 		
@@ -81,8 +82,9 @@ public class MainActivity extends Activity {
 	
 	public class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
-			mLoggedIn = DataTransfer.getUser(username);
+//			mLoggedIn = DataTransfer.getUser(username);
 			orgsArray = DataTransfer.getUserOrganizations(username);
+			orgNames = new ArrayList<String>();
 			return null;
 		}
 		protected void onPostExecute(final Void param) {

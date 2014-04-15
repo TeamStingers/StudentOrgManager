@@ -6,8 +6,8 @@ public class OrganizationDAO {
 
 	public String name;
 	public String type;
-	public int size;
-	public int annualDues;
+	public Integer size;
+	public Float annualDues;
 //	
 //	ArrayList<User> memberList;
 //	ArrayList<String> positionNames;
@@ -15,8 +15,12 @@ public class OrganizationDAO {
 	public OrganizationDAO(String orgName, String type, String size, String annualDues) {
 		this.name = orgName;
 		this.type = type;
-		this.size = Integer.parseInt(size);
-		this.annualDues = Integer.parseInt(annualDues);
+		
+		if(size==null) this.size=null;
+		else this.size=Integer.parseInt(size);
+
+		if(annualDues==null) this.annualDues=null;
+		else this.annualDues=Float.parseFloat(annualDues);
 	}
 
 }

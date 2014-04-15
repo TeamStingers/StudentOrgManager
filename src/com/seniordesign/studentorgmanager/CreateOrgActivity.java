@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,6 +89,7 @@ public class CreateOrgActivity extends Activity {
 			
 			//Need to implement input for annual dues for the org.
 			OrganizationDAO newOrg = DataTransfer.createOrganization(mOrgName, mGroupType, username, "0.0");
+			
 			if (newOrg == null) {
 				return false;
 			}
@@ -99,7 +101,6 @@ public class CreateOrgActivity extends Activity {
 			mOrgCreateTask = null;
 			
 			if (success) {
-				
 				//Here's where we transition
 				Intent returnIntent = new Intent(CreateOrgActivity.this, MainActivity.class);
 				returnIntent.putExtra(LoginActivity.UserNameTag, username);
