@@ -12,7 +12,7 @@ var runCreateTableStatements = false;
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'kopaka',
+	password : 'password',
 	database : 'StudentOrgManager',
 	port 	 : '3306'
 });
