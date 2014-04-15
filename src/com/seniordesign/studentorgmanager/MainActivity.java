@@ -1,6 +1,9 @@
 package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.OrganizationDAO;
@@ -60,7 +63,18 @@ public class MainActivity extends Activity {
 		InitTask mInitTask = new InitTask();
 		mInitTask.execute((Void) null);
 
-		Log.d("a", new Integer(orgsArray.size()).toString());
+		try {
+			mInitTask.get(15000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Populate list with user organizations
 		if (orgsArray == null || orgsArray.size() == 0) {
