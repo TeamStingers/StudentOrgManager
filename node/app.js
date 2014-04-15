@@ -6,13 +6,13 @@ var mysql = require('mysql');
 //EXPRESS CONFIG
 app.use(express.bodyParser());
 
-var portNum = 8080;
-var runCreateTableStatements = true;
+var portNum = 80;
+var runCreateTableStatements = false;
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'kopaka',
+	password : 'password',
 	database : 'StudentOrgManager',
 	port 	 : '3306'
 });
