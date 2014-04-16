@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<!--         @string/app_name
+ -->    
     <string name="app_name">Student Org Manager</string>
     <string name="action_settings">Settings</string>
     <string name="button_send">Send</string>
@@ -35,10 +37,13 @@
     <string name="orgName">Organization Name</string>
     <string name="orgTypeLabel">Organization Type</string>
     <string name="create">Create</string>
+
     <string-array name="group_types">
         <item>Fraternity</item>
         <item>Club</item>
         <item>Sports</item>
     </string-array>
+
+    <string name="title_activity_orgs_search">OrgsSearchActivity</string>
 
 </resources>

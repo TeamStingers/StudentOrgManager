@@ -22,5 +22,7 @@ public class OrganizationDAO {
 		if(annualDues==null) this.annualDues=null;
 		else this.annualDues=Float.parseFloat(annualDues);
 	}
+	
+	
 
 }

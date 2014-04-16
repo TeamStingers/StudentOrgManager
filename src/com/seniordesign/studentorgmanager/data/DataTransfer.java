@@ -11,8 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
+@SuppressLint("UseValueOf")
 public class DataTransfer extends Helper{
 
 	//USER
@@ -235,8 +237,8 @@ public class DataTransfer extends Helper{
 				JSONObject jo = jArr.getJSONObject(0);
 				String orgName = (String) jo.get(TAG_ORGNAME);
 				String type = (String) jo.get(TAG_TYPE);
-				String size = (String) jo.get(TAG_SIZE);
-				String annualDues = (String) jo.get(TAG_ANNUALDUES);
+				String size = new Integer((Integer) jo.get(TAG_SIZE)).toString();
+				String annualDues = new Integer((Integer) jo.get(TAG_ANNUALDUES)).toString();
 				
 				return new OrganizationDAO(orgName, type, size, annualDues);				
 			} catch (JSONException e) {
@@ -252,21 +254,20 @@ public class DataTransfer extends Helper{
 		return null;
 	}
 	
-	public static HashMap<String, OrganizationDAO> getAllOrganizations(){
+	public static ArrayList<OrganizationDAO> getAllOrganizations(){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_all_orgs", "POST", params);
-		HashMap<String, OrganizationDAO> result = new HashMap<String, OrganizationDAO>();
+		ArrayList<OrganizationDAO> result = new ArrayList<OrganizationDAO>();
 		
 		for(int i=0; i<jArr.length(); i++){
 			try {
 				JSONObject jo = jArr.getJSONObject(i);
 				String orgName = (String) jo.get(TAG_ORGNAME);
 				String type = (String) jo.get(TAG_TYPE);
-				String size = (String) jo.get(TAG_SIZE);
-				String annualDues = (String) jo.get(TAG_ANNUALDUES);
-				
+				String size = new Integer((Integer) jo.get(TAG_SIZE)).toString();
+				String annualDues = new Integer((Integer) jo.get(TAG_ANNUALDUES)).toString();
 				OrganizationDAO o = new OrganizationDAO(orgName, type, size, annualDues);
-				result.put(orgName, o);
+				result.add(o);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

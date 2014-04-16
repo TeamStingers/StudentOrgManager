@@ -442,6 +442,17 @@ app.post('/read_message', function(req, res){
 	});
 });
 
+app.post('/get_users_for_org', function(req, res){
+	var post = req.body;
+
+	var sql = "SELECT Username FROM UserOrgs WHERE Organization=" + connection.escape(post.Organization);
+
+	connection.query(sql, function(err, results){
+		if(err) console.log(err);
+		res.send(results);	
+	});
+});
+
 //implement if there is time left, need to insert into UserMessage for each receiving member
 
 // app.post('/send_notification', function(req, res){

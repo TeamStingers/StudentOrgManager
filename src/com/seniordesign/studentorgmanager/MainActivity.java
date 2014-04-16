@@ -134,7 +134,7 @@ public class MainActivity extends Activity {
 			startActivity(clickIntent);
 		}
 		
-	}
+	}	
 	
 	public class myButtonClickListener implements OnClickListener {
 
@@ -148,16 +148,19 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			switch(id) {
-			case R.id.createOrgButton:
-				Intent createIntent = new Intent(MainActivity.this, CreateOrgActivity.class);
-				createIntent.putExtra(LoginActivity.UserNameTag, username);
-				startActivity(createIntent);
-				break;
-			case R.id.searchOrgButton:
-				Toast.makeText(mContext, "Coming soon!", Toast.LENGTH_SHORT).show();
-				break;
+				case R.id.createOrgButton:
+					Intent createIntent = new Intent(MainActivity.this, CreateOrgActivity.class);
+					createIntent.putExtra(LoginActivity.UserNameTag, username);
+					startActivity(createIntent);
+					break;
+				case R.id.searchOrgButton:
+					Intent i = new Intent(MainActivity.this, OrgsSearchActivity.class);
+					i.putExtra(LoginActivity.UserNameTag, username);
+					startActivity(i);				
+					break;
+				default:
+					break;
 			}
-			
 		}
 		
 	}

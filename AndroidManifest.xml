@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
@@ -60,6 +60,10 @@
         <activity
             android:name="com.seniordesign.studentorgmanager.CreateOrgActivity"
             android:label="@string/title_activity_create_org" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.OrgsSearchActivity"
+            android:label="@string/title_activity_orgs_search" >
         </activity>
     </application>
 
