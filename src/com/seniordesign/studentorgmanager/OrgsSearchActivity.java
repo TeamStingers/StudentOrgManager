@@ -7,8 +7,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.seniordesign.studentorgmanager.MainActivity.InitTask;
-import com.seniordesign.studentorgmanager.MainActivity.myItemClickListener;
 import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.OrganizationDAO;
 
@@ -17,16 +15,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.os.Build;
 
 public class OrgsSearchActivity extends Activity {
 	public static final String SelectedOrgTag = "SelectedOrgTag_OrgsSearchActivity";
@@ -98,20 +93,20 @@ public class OrgsSearchActivity extends Activity {
 			orgsNames = new ArrayList<String>();
 			
 			for(OrganizationDAO o:orgsArray){
-				orgsNames.add(o.name);
+				if(o.type.equals("Public")) orgsNames.add(o.name);
 			}
 			
-			Collections.sort(orgsArray, new Comparator<OrganizationDAO>(){
-		        public int compare(OrganizationDAO  o1, OrganizationDAO  o2){
-		            return  o1.name.compareTo(o2.name);
-		        }
-			});
+//			Collections.sort(orgsArray, new Comparator<OrganizationDAO>(){
+//		        public int compare(OrganizationDAO  o1, OrganizationDAO  o2){
+//		            return  o1.name.compareTo(o2.name);
+//		        }
+//			});
 			
 			return null;
 		}
 		
 		protected void onPostExecute(final Void param) {
-
+			return;
 		}
 	}
 	

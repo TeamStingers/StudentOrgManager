@@ -39,9 +39,8 @@
     <string name="create">Create</string>
 
     <string-array name="group_types">
-        <item>Fraternity</item>
-        <item>Club</item>
-        <item>Sports</item>
+        <item>Public</item>
+        <item>Private</item>
     </string-array>
 
     <string name="title_activity_orgs_search">OrgsSearchActivity</string>
