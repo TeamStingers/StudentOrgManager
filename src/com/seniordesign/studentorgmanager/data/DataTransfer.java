@@ -538,4 +538,24 @@ public class DataTransfer extends Helper{
 		return (jArr.length() > 0);
 	}
 	
+	public static ArrayList<String> getUsersForOrg(String org){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, org));
+		ArrayList<String> result = new ArrayList<String>();
+		
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_users_for_org", "POST", params);
+		JSONObject jo;
+		
+		for(int i=0; i<jArr.length(); i++){
+			try{
+				jo = jArr.getJSONObject(i);
+				result.add((String) jo.get(TAG_USERNAME) );				
+			}catch(Exception e){
+				
+			}
+		}
+		
+		return result;
+	}
+	
 }
