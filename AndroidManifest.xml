@@ -49,7 +49,7 @@
             android:label="@string/title_activity_edit_users" >
         </activity>
         <activity
-            android:name="com.seniordesign.studentorgmanager.OrgsActivity"
+            android:name="com.seniordesign.studentorgmanager.OrgsPrivateActivity"
             android:label="@string/title_activity_orgs"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
@@ -62,8 +62,12 @@
             android:label="@string/title_activity_create_org" >
         </activity>
         <activity
-            android:name="com.seniordesign.studentorgmanager.OrgsSearchActivity"
+            android:name="com.seniordesign.studentorgmanager.OrgsBrowseActivity"
             android:label="@string/title_activity_orgs_search" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.OrgsPublicActivity"
+            android:label="@string/title_activity_orgs_public" >
         </activity>
     </application>
 

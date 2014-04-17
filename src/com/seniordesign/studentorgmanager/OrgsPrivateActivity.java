@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class OrgsActivity extends Activity {
+public class OrgsPrivateActivity extends Activity {
 
 	private String orgName;
 	
@@ -44,8 +44,7 @@ public class OrgsActivity extends Activity {
 		duesButton = (Button) findViewById(R.id.duesButton);
 		newsfeedButton = (Button) findViewById(R.id.newsfeedButton);
 		eventsButton = (Button) findViewById(R.id.eventsButton);
-		optionsButton = (Button) findViewById(R.id.optionsButton);
-		
+		optionsButton = (Button) findViewById(R.id.optionsButton);	
 	}
 
 	private class ButtonClickListener implements OnClickListener {

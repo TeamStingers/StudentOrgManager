@@ -1154,14 +1154,16 @@ containing a value of this type.
         public static final int activity_main=0x7f03001b;
         public static final int activity_orgs=0x7f03001c;
         public static final int activity_orgs_list=0x7f03001d;
-        public static final int activity_orgs_search=0x7f03001e;
-        public static final int activity_roster=0x7f03001f;
-        public static final int edit_users=0x7f030020;
-        public static final int fragment_create_org=0x7f030021;
-        public static final int fragment_create_user=0x7f030022;
-        public static final int fragment_orgs_search=0x7f030023;
-        public static final int list_users=0x7f030024;
-        public static final int support_simple_spinner_dropdown_item=0x7f030025;
+        public static final int activity_orgs_public=0x7f03001e;
+        public static final int activity_orgs_search=0x7f03001f;
+        public static final int activity_roster=0x7f030020;
+        public static final int edit_users=0x7f030021;
+        public static final int fragment_create_org=0x7f030022;
+        public static final int fragment_create_user=0x7f030023;
+        public static final int fragment_orgs_public=0x7f030024;
+        public static final int fragment_orgs_search=0x7f030025;
+        public static final int list_users=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
         public static final int create_org=0x7f0d0000;
@@ -1169,8 +1171,9 @@ containing a value of this type.
         public static final int login=0x7f0d0002;
         public static final int main=0x7f0d0003;
         public static final int orgs=0x7f0d0004;
-        public static final int orgs_search=0x7f0d0005;
-        public static final int roster=0x7f0d0006;
+        public static final int orgs_public=0x7f0d0005;
+        public static final int orgs_search=0x7f0d0006;
+        public static final int roster=0x7f0d0007;
     }
     public static final class string {
         public static final int AnOrg=0x7f0a0014;
@@ -1214,15 +1217,14 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int action_forgot_password=0x7f0a0036;
-        public static final int action_register=0x7f0a0035;
+        public static final int action_forgot_password=0x7f0a0037;
+        public static final int action_register=0x7f0a0036;
         public static final int action_settings=0x7f0a000e;
-        public static final int action_sign_in_register=0x7f0a0033;
-        public static final int action_sign_in_short=0x7f0a0034;
+        public static final int action_sign_in_register=0x7f0a0034;
+        public static final int action_sign_in_short=0x7f0a0035;
         public static final int addMember=0x7f0a0021;
         public static final int addOrg=0x7f0a0023;
-        /**          @string/app_name
- 
+        /**           @string/app_name 
          */
         public static final int app_name=0x7f0a000d;
         public static final int button_send=0x7f0a000f;
@@ -1232,15 +1234,15 @@ containing a value of this type.
         public static final int createNewOrg=0x7f0a0024;
         public static final int dues=0x7f0a0017;
         public static final int email=0x7f0a002a;
-        public static final int error_field_required=0x7f0a003c;
-        public static final int error_incorrect_password=0x7f0a003b;
-        public static final int error_invalid_email=0x7f0a0038;
-        public static final int error_invalid_password=0x7f0a0039;
-        public static final int error_password_mismatch=0x7f0a003a;
+        public static final int error_field_required=0x7f0a003d;
+        public static final int error_incorrect_password=0x7f0a003c;
+        public static final int error_invalid_email=0x7f0a0039;
+        public static final int error_invalid_password=0x7f0a003a;
+        public static final int error_password_mismatch=0x7f0a003b;
         public static final int events=0x7f0a001c;
         public static final int hello_world=0x7f0a0010;
         public static final int hostName=0x7f0a0022;
-        public static final int login_progress_signing_in=0x7f0a0037;
+        public static final int login_progress_signing_in=0x7f0a0038;
         public static final int messages=0x7f0a0019;
         public static final int myOrganizations=0x7f0a0011;
         public static final int newsfeed=0x7f0a0015;
@@ -1249,10 +1251,10 @@ containing a value of this type.
         public static final int orgTypeLabel=0x7f0a002d;
         public static final int password=0x7f0a0028;
         public static final int profile=0x7f0a001a;
-        public static final int prompt_password=0x7f0a0032;
+        public static final int prompt_password=0x7f0a0033;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f0a0031;
+        public static final int prompt_username=0x7f0a0032;
         public static final int roster=0x7f0a0016;
         public static final int searchForOrgs=0x7f0a0025;
         public static final int title_activity_all_users=0x7f0a001f;
@@ -1260,9 +1262,10 @@ containing a value of this type.
         public static final int title_activity_create_user=0x7f0a0026;
         public static final int title_activity_edit_users=0x7f0a0020;
         public static final int title_activity_homepage=0x7f0a0013;
-        public static final int title_activity_login=0x7f0a0030;
+        public static final int title_activity_login=0x7f0a0031;
         public static final int title_activity_organization_list=0x7f0a001e;
         public static final int title_activity_orgs=0x7f0a0012;
+        public static final int title_activity_orgs_public=0x7f0a0030;
         public static final int title_activity_orgs_search=0x7f0a002f;
         public static final int title_activity_roster=0x7f0a001d;
         public static final int username=0x7f0a0027;

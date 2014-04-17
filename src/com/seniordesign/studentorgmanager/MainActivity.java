@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
 				long id) {
 			//Toast.makeText(context, (String)adapter.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
 			String orgName = (String) adapter.getItemAtPosition(position);
-			Intent clickIntent = new Intent(context, OrgsActivity.class);
+			Intent clickIntent = new Intent(context, OrgsPrivateActivity.class);
 			clickIntent.putExtra(OrgNameTag, orgName);
 			startActivity(clickIntent);
 		}
@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
 					startActivity(createIntent);
 					break;
 				case R.id.searchOrgButton:
-					Intent i = new Intent(MainActivity.this, OrgsSearchActivity.class);
+					Intent i = new Intent(MainActivity.this, OrgsBrowseActivity.class);
 					i.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(i);				
 					break;

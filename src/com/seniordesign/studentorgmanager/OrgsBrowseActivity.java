@@ -23,7 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class OrgsSearchActivity extends Activity {
+public class OrgsBrowseActivity extends Activity {
 	public static final String SelectedOrgTag = "SelectedOrgTag_OrgsSearchActivity";
 	private ListView orgsLV;
 	
@@ -122,7 +122,7 @@ public class OrgsSearchActivity extends Activity {
 				long id) {
 			//Toast.makeText(context, (String)adapter.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
 			String orgName = (String) adapter.getItemAtPosition(position);
-			Intent clickIntent = new Intent(context, OrgsActivity.class);
+			Intent clickIntent = new Intent(context, OrgsPrivateActivity.class);
 			clickIntent.putExtra(SelectedOrgTag, orgName);
 			startActivity(clickIntent);
 		}
