@@ -125,15 +125,20 @@ public class ProfileActivity extends Activity {
 		public void onClick(View v) {
 			switch (id) {
 				case R.id.doneButton:
+					
 					saveInfo();
 					
-					//Save info
+					
+					
+					Intent saveIntent = new Intent(ProfileActivity.this, MainActivity.class);
+					saveIntent.putExtra(LoginActivity.UserNameTag, username);
+					startActivity(saveIntent);
+					
 				case R.id.cancelButton:
 					Intent cancelIntent = new Intent(ProfileActivity.this, MainActivity.class);
 					cancelIntent.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(cancelIntent);
 			}
-			
 		}
 		
 		public void saveInfo() {
@@ -159,12 +164,25 @@ public class ProfileActivity extends Activity {
 			else {
 				SaveTask mSaveTask = new SaveTask();
 				mSaveTask.execute((Void) null);
+				
+				try {
+					mSaveTask.get(15000, TimeUnit.MILLISECONDS);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TimeoutException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
 		public class SaveTask extends AsyncTask<Void, Void, Void> {
 			protected Void doInBackground(Void... params) {
-				
+				//Update user fields DataTransfer.updateUser
 				return null;
 			}
 		}
