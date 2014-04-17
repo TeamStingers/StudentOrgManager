@@ -86,9 +86,10 @@ public class DataTransfer extends Helper{
 		return jArr.length() > 0;
 	}	
 	
-	public static boolean updateUser(String firstName, String lastName, String password, 
+	public static boolean updateUser(String username, String firstName, String lastName, String password, 
 			String major, String bio, String email, String phoneNumber, String gradYear){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_USERNAME, username));
 		params.add(new BasicNameValuePair(TAG_FIRSTNAME, firstName));
 		params.add(new BasicNameValuePair(TAG_LASTNAME, lastName));
 		params.add(new BasicNameValuePair(TAG_PASSWORD, password));
@@ -230,6 +231,8 @@ public class DataTransfer extends Helper{
 
 	public static OrganizationDAO getOrganization(String name) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair(TAG_ORGANIZATION, name));
+		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_org_info", "POST", params);
 		
 		if(jArr.length() > 0){

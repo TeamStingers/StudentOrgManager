@@ -1,26 +1,101 @@
 package com.seniordesign.studentorgmanager;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import com.seniordesign.studentorgmanager.MainActivity.InitTask;
+import com.seniordesign.studentorgmanager.MainActivity.myButtonClickListener;
+import com.seniordesign.studentorgmanager.data.DataTransfer;
+import com.seniordesign.studentorgmanager.data.OrganizationDAO;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Build;
 
 public class OrgsPublicActivity extends Activity {
 
+	private String username;
 	private String orgName;
+	private ArrayList<OrganizationDAO> orgsArray;
+	private OrganizationDAO org;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orgs_public);
 
-		orgName = getIntent().getStringExtra(OrgsBrowseActivity.SelectedOrgTag);
+		orgName = getIntent().getStringExtra(MainActivity.OrgNameTag);
+		username = getIntent().getStringExtra(LoginActivity.UserNameTag);
+
+		TextView orgPublicName = (TextView) findViewById(R.id.orgsPublicNameTextView);
+		orgPublicName.setText(orgName);
+		
+		TextView typeVal = (TextView) findViewById(R.id.orgsPublicTypeVal);
+		TextView sizeVal = (TextView) findViewById(R.id.orgsPublicSizeVal);
+		TextView duesVal = (TextView) findViewById(R.id.orgsPublicDuesVal);
+		
+		//Run DB actions
+		InitTask mInitTask = new InitTask();
+		mInitTask.execute((Void) null);
+
+		boolean done = false;
+		
+		try {
+			mInitTask.get(15000, TimeUnit.MILLISECONDS);
+			typeVal.setText(org.type);
+			sizeVal.setText(new Integer(org.size).toString());
+			
+			if(org.annualDues == 0) duesVal.setText("No dues required.");
+			else duesVal.setText(org.annualDues.toString());	
+			
+			done = true;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//
+		
+		if(!done){
+			typeVal.setText("CONNECTION TIMEOUT");
+		}
+		
+		Button joinBtn = (Button) findViewById(R.id.joinOrgBtn);
+		joinBtn.setOnClickListener(new jbClickListner(R.id.joinOrgBtn));
 	}
 
+	public class InitTask extends AsyncTask<Void, Void, Void> {
+		protected Void doInBackground(Void... params) {
+			org = DataTransfer.getOrganization(orgName);
+			
+			return null;
+		}
+		
+		protected void onPostExecute(final Void param) {
+			return;
+		}
+	}	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -41,6 +116,52 @@ public class OrgsPublicActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public interface FI{
+		public void doWork(boolean res);
+	}
+	
+	public class JoinOrgTask extends AsyncTask<Void, Void, Boolean> {
+		private FI functionInterface;
+		
+		public JoinOrgTask(FI fi){
+			functionInterface = fi;
+		}
+		
+		protected Boolean doInBackground(Void... params) {
+			boolean res = DataTransfer.addUserToOrganization(username, orgName);
+			return res;
+		}
+		protected void onPostExecute(Boolean result) {
+			functionInterface.doWork(result);
+		}
+	}
+	
 
+	public class jbClickListner implements OnClickListener {
+
+		private int id;
+		
+		public jbClickListner(int buttonid) {
+			id = buttonid;
+		}
+		
+		@Override
+		public void onClick(View arg0) {
+			
+			JoinOrgTask jot = new JoinOrgTask(new FI(){
+				public void doWork(boolean result){
+					if(result){
+						Toast.makeText(OrgsPublicActivity.this, "Joined " + orgName, Toast.LENGTH_LONG).show();
+					}else{
+						Toast.makeText(OrgsPublicActivity.this, "Already a member", Toast.LENGTH_SHORT).show();						
+					}
+				}
+			});
+			
+			jot.execute((Void) null);
+			
+		}
+		
+	}
 
 }

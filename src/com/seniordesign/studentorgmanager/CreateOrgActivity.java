@@ -53,7 +53,6 @@ public class CreateOrgActivity extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 		orgTypeSpinner.setAdapter(adapter);
-
 	}
 
 	public class ButtonClickListener implements OnClickListener {

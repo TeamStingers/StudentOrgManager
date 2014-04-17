@@ -24,9 +24,9 @@
     <string name="title_activity_edit_users">Edit Users</string>
     <string name="addMember">Add Member</string>
     <string name="hostName">localhost</string>
-    <string name="addOrg">Search for an organization or create a new one to get started!</string>
+    <string name="addOrg">Browse for an organization or create a new one to get started!</string>
     <string name="createNewOrg">Create new Org</string>
-    <string name="searchForOrgs">Search for Orgs</string>
+    <string name="searchForOrgs">Browse for Orgs</string>
     <string name="title_activity_create_user">Register</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -36,13 +36,17 @@
     <string name="orgName">Organization Name</string>
     <string name="orgTypeLabel">Organization Type</string>
     <string name="create">Create</string>
-
+	<string name="title_activity_orgs_browse">Browse Public Organizations</string>
+    <string name="type">Type</string>
+    <string name="size">Size</string>
+    <string name="annualDues">Annual Dues</string>
+    	
+	
     <string-array name="group_types">
         <item>Public</item>
         <item>Private</item>
     </string-array>
 
-    <string name="title_activity_orgs_search">OrgsSearchActivity</string>
-    <string name="title_activity_orgs_public">OrgsPublicActivity</string>
+    <string name="title_activity_orgs_public">Public Profile</string>
 
 </resources>

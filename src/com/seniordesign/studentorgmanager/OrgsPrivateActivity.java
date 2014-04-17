@@ -29,10 +29,11 @@ public class OrgsPrivateActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_orgs);
+		setContentView(R.layout.activity_orgs_private);
 		
 		Intent intent = getIntent();
 		orgName = intent.getStringExtra(MainActivity.OrgNameTag);
+		
 		nameLabel = (TextView) findViewById(R.id.orgTitle);
 		nameLabel.setText(orgName);
 		

@@ -183,8 +183,12 @@ app.post('/add_user_to_org', function(req, res){
 		else{
 			var sizeQuery = connection.query('UPDATE Organizations SET Size = Size + 1 WHERE OrgName= ?', 
 			[post.Organization], function(err, result) {
-				if(err) console.log(err);
-				res.send([{success:true}]);
+				if(err){
+					console.log(err);
+					res.send([]);
+				}else{
+					res.send([{success:true}]);					
+				}
 			})
 		}
 	});

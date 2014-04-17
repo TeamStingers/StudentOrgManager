@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,11 +25,13 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class OrgsBrowseActivity extends Activity {
-	public static final String SelectedOrgTag = "SelectedOrgTag_OrgsSearchActivity";
 	private ListView orgsLV;
 	
 	private ArrayList<OrganizationDAO> orgsArray;
+	private ArrayList<OrganizationDAO> userOrgsArray;
+	private ArrayList<String> userOrgsNames;
 	private ArrayList<String> orgsNames;
+	private String username;
 
 	
 	@Override
@@ -36,6 +39,8 @@ public class OrgsBrowseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orgs_search);
 
+		username = getIntent().getStringExtra(LoginActivity.UserNameTag);
+		
 		InitTask mInitTask = new InitTask();
 		mInitTask.execute((Void) null);
 	
@@ -87,13 +92,23 @@ public class OrgsBrowseActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	
 	public class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
 			orgsArray = DataTransfer.getAllOrganizations();
+
+			
+			userOrgsArray = DataTransfer.getUserOrganizations(username);
+			
 			orgsNames = new ArrayList<String>();
+			userOrgsNames = new ArrayList<String>();
 			
 			for(OrganizationDAO o:orgsArray){
 				if(o.type.equals("Public")) orgsNames.add(o.name);
+			}
+			
+			for(OrganizationDAO o: userOrgsArray){
+				userOrgsNames.add(o.name);
 			}
 			
 //			Collections.sort(orgsArray, new Comparator<OrganizationDAO>(){
@@ -122,9 +137,21 @@ public class OrgsBrowseActivity extends Activity {
 				long id) {
 			//Toast.makeText(context, (String)adapter.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
 			String orgName = (String) adapter.getItemAtPosition(position);
-			Intent clickIntent = new Intent(context, OrgsPrivateActivity.class);
-			clickIntent.putExtra(SelectedOrgTag, orgName);
-			startActivity(clickIntent);
+			
+			Intent clickIntent = new Intent(context, OrgsPublicActivity.class);
+			clickIntent.putExtra(MainActivity.OrgNameTag, orgName);
+			clickIntent.putExtra(LoginActivity.UserNameTag, username);				
+			startActivity(clickIntent);				
+			
+//			if(userOrgsNames.contains(orgName)){
+//				Intent clickIntent = new Intent(context, OrgsPrivateActivity.class);
+//				clickIntent.putExtra(MainActivity.OrgNameTag, orgName);
+//				clickIntent.putExtra(LoginActivity.UserNameTag, username);
+//				startActivity(clickIntent);				
+//			}else{
+//			
+//			}
+			
 		}
 		
 	}

@@ -63,7 +63,7 @@
         </activity>
         <activity
             android:name="com.seniordesign.studentorgmanager.OrgsBrowseActivity"
-            android:label="@string/title_activity_orgs_search" >
+            android:label="@string/title_activity_orgs_browse" >
         </activity>
         <activity
             android:name="com.seniordesign.studentorgmanager.OrgsPublicActivity"
