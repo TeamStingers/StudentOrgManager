@@ -30,11 +30,13 @@ public class MainActivity extends Activity {
 	public static final String OrgNameTag = "ORG NAME";
 	public static final String TAG = MainActivity.class.getSimpleName();
 	
+	//UI elements
 	private ListView orgListView;
 	private ArrayList<String> sampleArray;
 	private TextView createOrgLabel;
 	private Button createOrgButton;
 	private Button searchOrgButton;
+	private Button myProfileButton;
 	
 	//Variables representing user
 	private String username;
@@ -53,6 +55,8 @@ public class MainActivity extends Activity {
 		createOrgButton.setOnClickListener(new myButtonClickListener(this, R.id.createOrgButton));
 		searchOrgButton = (Button) findViewById(R.id.searchOrgButton);
 		searchOrgButton.setOnClickListener(new myButtonClickListener(this, R.id.searchOrgButton));
+		myProfileButton = (Button) findViewById(R.id.myProfileButton);
+		myProfileButton.setOnClickListener(new myButtonClickListener(this, R.id.myProfileButton));
 		
 		//Get username
 		Intent intent = getIntent();
@@ -63,6 +67,7 @@ public class MainActivity extends Activity {
 		InitTask mInitTask = new InitTask();
 		mInitTask.execute((Void) null);
 
+		//Wait for db tasks to finish
 		try {
 			mInitTask.get(15000, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
@@ -87,10 +92,6 @@ public class MainActivity extends Activity {
 
 			orgListView.setOnItemClickListener(new myItemClickListener(this));
 		}
-		
-		//Load user object
-		//This doesnt work
-//		mLoggedIn = UserHelper.getUser(username);
 		
 	}
 	
@@ -158,6 +159,10 @@ public class MainActivity extends Activity {
 					i.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(i);				
 					break;
+				case R.id.myProfileButton:
+					Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+					profileIntent.putExtra(LoginActivity.UserNameTag, username);
+					startActivity(profileIntent);
 				default:
 					break;
 			}
