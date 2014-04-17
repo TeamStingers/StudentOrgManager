@@ -28,6 +28,7 @@ public class ProfileActivity extends Activity {
 
 	//UI elements
 	EditText mUsernameEdit;
+	EditText mEmailEdit;
 	EditText mFirstNameEdit;
 	EditText mLastNameEdit;
 	EditText mMajorEdit;
@@ -38,6 +39,7 @@ public class ProfileActivity extends Activity {
 	
 	//Input variables
 	String mUsernameChange;
+	String mEmailChange;
 	String mFirstNameChange;
 	String mLastNameChange;
 	String mMajorChange;
@@ -55,6 +57,7 @@ public class ProfileActivity extends Activity {
 		
 		//Instantiate UI elements
 		mUsernameEdit = (EditText) findViewById(R.id.usernameEdit);
+		mEmailEdit = (EditText) findViewById(R.id.emailEdit);
 		mFirstNameEdit = (EditText) findViewById(R.id.firstNameEdit);
 		mLastNameEdit = (EditText) findViewById(R.id.lastNameEdit);
 		mMajorEdit = (EditText) findViewById(R.id.majorEdit);
@@ -87,6 +90,9 @@ public class ProfileActivity extends Activity {
 		
 		//Populate fields
 		mUsernameEdit.setText(username);
+		if (mLoggedIn.email != null && mLoggedIn.email != "" && mLoggedIn.email != "NULL") {
+			mEmailEdit.setText(mLoggedIn.email);
+		}
 		if (mLoggedIn.firstName != null && mLoggedIn.firstName != "" && mLoggedIn.firstName != "NULL") {
 			mFirstNameEdit.setText(mLoggedIn.firstName);
 		}
@@ -128,8 +134,6 @@ public class ProfileActivity extends Activity {
 					
 					saveInfo();
 					
-					
-					
 					Intent saveIntent = new Intent(ProfileActivity.this, MainActivity.class);
 					saveIntent.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(saveIntent);
@@ -147,6 +151,7 @@ public class ProfileActivity extends Activity {
 			mUsernameEdit.setError(null);
 			
 			mUsernameChange = mUsernameEdit.getText().toString();
+			mEmailChange = mEmailEdit.getText().toString();
 			mFirstNameChange = mFirstNameEdit.getText().toString();
 			mLastNameChange = mLastNameEdit.getText().toString();
 			mMajorChange = mMajorEdit.getText().toString();
