@@ -197,8 +197,18 @@ public class DataTransfer extends Helper{
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
 		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
 		
+		Log.d("removeFrom", "in");
+		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/remove_user_from_org", "POST", params);
-
+		
+		try {
+			Boolean res = (Boolean) jArr.getJSONObject(0).get("success");
+			Log.d("removeFromRes", "res");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return jArr.length() > 0;		
 	}
 	

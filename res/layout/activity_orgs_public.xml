@@ -6,51 +6,6 @@
     tools:context="com.seniordesign.studentorgmanager.OrgsPublicActivity"
     tools:ignore="MergeRootFrame" >
 
-    <Button
-        android:id="@+id/joinOrgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="53dp"
-        android:text="Join Organization" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_marginTop="50dp"
-        android:layout_toLeftOf="@+id/joinOrgBtn"
-        android:text="Size" />
-
-    <TextView
-        android:id="@+id/orgsPublicNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/orgsPublicTypeVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
-        android:layout_toRightOf="@+id/joinOrgBtn"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/orgsPublicSizeVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignLeft="@+id/orgsPublicTypeVal"
-        android:text="TextView" />
-
     <TextView
         android:id="@+id/orgsPublicDuesVal"
         android:layout_width="wrap_content"
@@ -60,14 +15,13 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/orgsPublicNameTextView"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="21dp"
-        android:layout_toLeftOf="@+id/joinOrgBtn"
-        android:text="Type" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="25dp"
+        android:text="Size" />
 
     <TextView
         android:id="@+id/textView3"
@@ -75,7 +29,64 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:text="Dues" />
+
+    <Button
+        android:id="@+id/leaveOrgBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/joinOrgBtn"
+        android:layout_below="@+id/joinOrgBtn"
+        android:text="Leave" />
+
+    <Button
+        android:id="@+id/joinOrgBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="18dp"
+        android:text="Join" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="60dp"
+        android:text="Type" />
+
+    <TextView
+        android:id="@+id/orgsPublicNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/orgsPublicTypeVal"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_marginBottom="16dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/orgsPublicTypeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="38dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/orgsPublicSizeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/orgsPublicTypeVal"
+        android:text="TextView" />
 
 </RelativeLayout>

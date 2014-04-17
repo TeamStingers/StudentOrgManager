@@ -179,7 +179,10 @@ app.post('/add_user_to_org', function(req, res){
 	
 	//need to post Position = Member and MemberType=RegularMember and DuesPaid=Unpaid by default
 	var insertQuery = connection.query('INSERT INTO UserOrgs SET ?', post, function(err, result) {
-		if(err) console.log(err);
+		if(err){
+			console.log(err);
+			res.send([]);
+		}
 		else{
 			var sizeQuery = connection.query('UPDATE Organizations SET Size = Size + 1 WHERE OrgName= ?', 
 			[post.Organization], function(err, result) {
@@ -201,11 +204,17 @@ app.post('/remove_user_from_org', function(req, res){
 					' AND Organization=' + connection.escape(post.Organization);
 
 	connection.query(removeSql, function(err, results) {
-		if(err) console.log(err);
+		if(err){
+			console.log(err);
+			res.send([]);		
+		}
 		else{
 			var sizeQuery = connection.query('UPDATE Organizations SET Size = Size - 1 WHERE OrgName= ?', 
 			[post.Organization], function(err, result) {
-				if(err) console.log(err);
+				if(err){
+					console.log(err);
+					res.send([]);					
+				}
 				res.send([{success:true}]);
 			});
 		} 

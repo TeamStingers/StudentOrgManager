@@ -81,7 +81,9 @@ public class OrgsPublicActivity extends Activity {
 		}
 		
 		Button joinBtn = (Button) findViewById(R.id.joinOrgBtn);
+		Button leaveBtn = (Button) findViewById(R.id.leaveOrgBtn);
 		joinBtn.setOnClickListener(new jbClickListner(R.id.joinOrgBtn));
+		leaveBtn.setOnClickListener(new jbClickListner(R.id.leaveOrgBtn));
 	}
 
 	public class InitTask extends AsyncTask<Void, Void, Void> {
@@ -116,11 +118,11 @@ public class OrgsPublicActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public interface FI{
+	private interface FI{
 		public void doWork(boolean res);
 	}
 	
-	public class JoinOrgTask extends AsyncTask<Void, Void, Boolean> {
+	private class JoinOrgTask extends AsyncTask<Void, Void, Boolean> {
 		private FI functionInterface;
 		
 		public JoinOrgTask(FI fi){
@@ -136,9 +138,23 @@ public class OrgsPublicActivity extends Activity {
 		}
 	}
 	
+	private class LeaveOrgTask extends AsyncTask<Void, Void, Boolean> {
+		private FI functionInterface;
+		
+		public LeaveOrgTask(FI fi){
+			functionInterface = fi;
+		}
+		
+		protected Boolean doInBackground(Void... params) {
+			boolean res = DataTransfer.removeUserFromOrganization(username, orgName);
+			return res;
+		}
+		protected void onPostExecute(Boolean result) {
+			functionInterface.doWork(result);
+		}
+	}	
 
-	public class jbClickListner implements OnClickListener {
-
+	private class jbClickListner implements OnClickListener {
 		private int id;
 		
 		public jbClickListner(int buttonid) {
@@ -148,17 +164,39 @@ public class OrgsPublicActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			
-			JoinOrgTask jot = new JoinOrgTask(new FI(){
-				public void doWork(boolean result){
-					if(result){
-						Toast.makeText(OrgsPublicActivity.this, "Joined " + orgName, Toast.LENGTH_LONG).show();
-					}else{
-						Toast.makeText(OrgsPublicActivity.this, "Already a member", Toast.LENGTH_SHORT).show();						
-					}
-				}
-			});
+			switch(id){
+				case R.id.leaveOrgBtn:
+					LeaveOrgTask lot = new LeaveOrgTask(new FI(){
+						public void doWork(boolean result){
+							if(result){
+								Toast.makeText(OrgsPublicActivity.this, "You have left", Toast.LENGTH_LONG).show();
+							}else{
+								Toast.makeText(OrgsPublicActivity.this, "Not a member", Toast.LENGTH_SHORT).show();						
+							}							
+						}
+					});
+					
+					lot.execute((Void) null);
+					break;
+				case R.id.joinOrgBtn:
+					JoinOrgTask jot = new JoinOrgTask(new FI(){
+						public void doWork(boolean result){
+							if(result){
+								Toast.makeText(OrgsPublicActivity.this, "Joined " + orgName, Toast.LENGTH_LONG).show();
+							}else{
+								Toast.makeText(OrgsPublicActivity.this, "Already a member", Toast.LENGTH_SHORT).show();						
+							}
+						}
+					});
+					
+					jot.execute((Void) null);
+					break;
+				default:
+					break;
+			}
 			
-			jot.execute((Void) null);
+
+			
 			
 		}
 		
