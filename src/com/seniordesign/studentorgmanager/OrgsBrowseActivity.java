@@ -70,7 +70,12 @@ public class OrgsBrowseActivity extends Activity {
 		
 	}
 	
-	
+	@Override
+	public void onBackPressed() {
+		Intent refreshMain = new Intent(this, MainActivity.class);
+		refreshMain.putExtra(LoginActivity.UserNameTag, username);
+		startActivity(refreshMain);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

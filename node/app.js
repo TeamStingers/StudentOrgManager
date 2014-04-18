@@ -130,7 +130,8 @@ app.post('/get_user_info', function(req, res){
 
 	connection.query('SELECT * FROM Users WHERE Username= ?', [post.Username], function(err, result){
 		if(err) console.log(err);
-		console.log('req recv');
+		console.log('req recv' + post.Username);
+		console.log(result);
 		res.json(result);
 	});
 });

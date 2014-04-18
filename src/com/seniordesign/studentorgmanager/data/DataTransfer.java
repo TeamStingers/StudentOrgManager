@@ -41,13 +41,13 @@ public class DataTransfer extends Helper{
 			try {
 				jo = jArr.getJSONObject(0);
 				String email = (String) jo.get(TAG_EMAIL);
-				String phoneNumber = (String) jo.get(TAG_PHONENUMBER);
-				String firstName = (String) jo.get(TAG_FIRSTNAME);
-				String lastName = (String) jo.get(TAG_LASTNAME);
-				String major = (String) jo.get(TAG_MAJOR);
-				String gradYear = (String) jo.get(TAG_GRADUATIONYEAR);
-				String bio = (String) jo.get(TAG_BIO);
-				String pictureRef = (String) jo.get(TAG_PICTUREREF);
+				String phoneNumber = jo.get(TAG_PHONENUMBER).toString();
+				String firstName = (String) jo.get(TAG_FIRSTNAME).toString();
+				String lastName = (String) jo.get(TAG_LASTNAME).toString();
+				String major = (String) jo.get(TAG_MAJOR).toString();
+				String gradYear = (String) jo.get(TAG_GRADUATIONYEAR).toString();
+				String bio = (String) jo.get(TAG_BIO).toString();
+				String pictureRef = (String) jo.get(TAG_PICTUREREF).toString();
 				
 				result = new UserDAO(firstName, lastName, username, major, bio, email,
 						phoneNumber, pictureRef, gradYear);
@@ -86,13 +86,12 @@ public class DataTransfer extends Helper{
 		return jArr.length() > 0;
 	}	
 	
-	public static boolean updateUser(String username, String firstName, String lastName, String password, 
-			String major, String bio, String email, String phoneNumber, String gradYear){
+	public static boolean updateUser(String username, String firstName, String lastName, String major, 
+			String bio, String email, String phoneNumber, String gradYear){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
 		params.add(new BasicNameValuePair(TAG_FIRSTNAME, firstName));
 		params.add(new BasicNameValuePair(TAG_LASTNAME, lastName));
-		params.add(new BasicNameValuePair(TAG_PASSWORD, password));
 		params.add(new BasicNameValuePair(TAG_MAJOR, major));
 		params.add(new BasicNameValuePair(TAG_BIO, bio));
 		params.add(new BasicNameValuePair(TAG_EMAIL, email));
