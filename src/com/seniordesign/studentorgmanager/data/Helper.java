@@ -1,6 +1,7 @@
 package com.seniordesign.studentorgmanager.data;
 
-import org.joda.time.DateTime;
+import java.text.SimpleDateFormat;
+
 
 public abstract class Helper {
 
@@ -59,15 +60,19 @@ public abstract class Helper {
 	protected static final String TAG_RECEIVINGMEMBER = "ReceivingMember";
 	protected static final String TAG_READSTATUS = "ReadStatus";
 	
-	public static DateTime sqlToDateTime(String sqlString){
-		int year = Integer.parseInt(sqlString.substring(0,4));
-		int monthOfYear = Integer.parseInt(sqlString.substring(5,7));
-		int dayOfMonth = Integer.parseInt(sqlString.substring(8,10));
-		int hourOfDay = Integer.parseInt(sqlString.substring(11,13));
-		int minuteOfHour = Integer.parseInt(sqlString.substring(14,16));
-		int secondOfMinute = Integer.parseInt(sqlString.substring(17)); 
+	public static SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+
+	public static String dateToString(int year, int monthOfYear, int dayOfMonth, 
+			int hourOfDay, int minuteOfHour, int secondOfMinute){
+		String result = dayOfMonth+"-"+monthOfYear + "-" + year + " " + 
+			hourOfDay + ":" + minuteOfHour + ":" + secondOfMinute;
 		
-		return new DateTime(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute);
+		return result;
+		
+	}
+	
+	public static String formatJsonDate(String jd){
+		return jd.substring(0,19).replace('T', ' ');
 	}
 	
 //	public static String dateTimeToSql(DateTime dt){

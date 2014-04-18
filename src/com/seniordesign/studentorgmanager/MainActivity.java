@@ -60,8 +60,13 @@ public class MainActivity extends Activity {
 		
 		//Get username
 		Intent intent = getIntent();
-		username = intent.getStringExtra(LoginActivity.UserNameTag);
-		Toast.makeText(this, "Welcome "+ username + "!", Toast.LENGTH_LONG).show();
+		username = intent.getExtras().getString(LoginActivity.UserNameTag);
+		
+		//only welcome on log in
+		if(intent.getExtras().getString(LoginActivity.WelcomeTag)!=null) 
+			Toast.makeText(this, "Welcome "+ username + "!", Toast.LENGTH_LONG).show();
+		
+
 		
 		//Run DB actions
 		InitTask mInitTask = new InitTask();
@@ -131,7 +136,12 @@ public class MainActivity extends Activity {
 			//Toast.makeText(context, (String)adapter.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
 			String orgName = (String) adapter.getItemAtPosition(position);
 			Intent clickIntent = new Intent(context, OrgsPrivateActivity.class);
-			clickIntent.putExtra(OrgNameTag, orgName);
+			Bundle extras = new Bundle();
+
+			extras.putString(LoginActivity.UserNameTag, username);
+			extras.putString(OrgNameTag, orgName);
+			clickIntent.putExtras(extras);
+			
 			startActivity(clickIntent);
 		}
 		

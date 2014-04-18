@@ -371,6 +371,7 @@ app.post('/get_org_news', function(req, res){
 
 	//post {Organization:$OrgName}
 	connection.query("SELECT * FROM NewsItems WHERE ?", post, function(err, result){
+
 		res.json(result);
 	});
 });

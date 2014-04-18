@@ -1,11 +1,10 @@
 package com.seniordesign.studentorgmanager.data;
 
-import org.joda.time.DateTime;
 
 public class MessageDAO {
 
 	public String messageID, messageContent, sendingUser, messageType;
-	public DateTime messageDateTime;
+	public String messageDateTime;
 
 	public MessageDAO(String id, String cont, String sendUser, 
 			String msgType, String ts){
@@ -13,7 +12,7 @@ public class MessageDAO {
 		messageContent = cont;
 		sendingUser = sendUser;
 		messageType = msgType;
-		messageDateTime = Helper.sqlToDateTime(ts);	
+		messageDateTime = Helper.formatJsonDate(ts);;	
 	}
 	
 }

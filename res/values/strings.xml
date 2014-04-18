@@ -48,5 +48,6 @@
 
     <string name="title_activity_orgs_public">Public Profile</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_news_feed">NewsFeedActivity</string>
 
 </resources>

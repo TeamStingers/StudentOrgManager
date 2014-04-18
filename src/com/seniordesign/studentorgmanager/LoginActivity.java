@@ -30,6 +30,7 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 	public final static String UserNameTag = "USERNAME";
 	public final static String PasswordTag = "PASSWORD";
+	public final static String WelcomeTag = "WELCOMETAG";
 	
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -47,7 +48,7 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	private Button mRegisterButton;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,8 +56,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		mRegisterButton = (Button) findViewById(R.id.registerButton);
-		mRegisterButton.setOnClickListener(new RegisterClickListener(this));
-		
+		mRegisterButton.setOnClickListener(new RegisterClickListener(this));		
 
 
 		// Set up the login form.
@@ -239,8 +239,14 @@ public class LoginActivity extends Activity {
 			if (success) {
 				Log.d("Debug", "success auth");
 				//Here's where we transition
-				Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-				loginIntent.putExtra(UserNameTag, mUsername);
+				Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);				
+				Bundle extras = new Bundle();
+				
+				extras.putString(UserNameTag, mUsername);
+				extras.putString(WelcomeTag,"Welcome");
+				
+				loginIntent.putExtras(extras);
+				
 				startActivity(loginIntent);
 				finish();
 			} else {

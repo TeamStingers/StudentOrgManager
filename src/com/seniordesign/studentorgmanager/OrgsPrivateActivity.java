@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class OrgsPrivateActivity extends Activity {
 
 	private String orgName;
+	private String username;
 	
 	private TextView nameLabel;
 	private Button rosterButton;
@@ -32,7 +33,8 @@ public class OrgsPrivateActivity extends Activity {
 		setContentView(R.layout.activity_orgs_private);
 		
 		Intent intent = getIntent();
-		orgName = intent.getStringExtra(MainActivity.OrgNameTag);
+		orgName = intent.getExtras().getString(MainActivity.OrgNameTag);
+		username = intent.getExtras().getString(LoginActivity.UserNameTag);
 		
 		nameLabel = (TextView) findViewById(R.id.orgTitle);
 		nameLabel.setText(orgName);
@@ -44,6 +46,7 @@ public class OrgsPrivateActivity extends Activity {
 		profileButton = (Button) findViewById(R.id.profileButton);
 		duesButton = (Button) findViewById(R.id.duesButton);
 		newsfeedButton = (Button) findViewById(R.id.newsfeedButton);
+		newsfeedButton.setOnClickListener(new ButtonClickListener(this, newsfeedButton.getId()));
 		eventsButton = (Button) findViewById(R.id.eventsButton);
 		optionsButton = (Button) findViewById(R.id.optionsButton);	
 	}
@@ -65,6 +68,13 @@ public class OrgsPrivateActivity extends Activity {
 				Intent rosterIntent = new Intent(mContext, RosterActivity.class);
 				rosterIntent.putExtra(MainActivity.OrgNameTag, orgName);
 				startActivity(rosterIntent);
+			case R.id.newsfeedButton:
+				Intent nfi = new Intent(mContext, NewsFeedActivity.class);
+				Bundle extras = new Bundle();
+				extras.putString(LoginActivity.UserNameTag, username);
+				extras.putString(MainActivity.OrgNameTag, orgName);
+				nfi.putExtras(extras);
+				startActivity(nfi);				
 			}
 			
 		}

@@ -1,13 +1,11 @@
 package com.seniordesign.studentorgmanager.data;
 
-import org.joda.time.DateTime;
-
 public class EventDAO {
 	
 	public String id;
 	public String name;
 	public String organization;
-	public DateTime dateTime;
+	public String dateTime;
 	public String location;
 	public String description;
 	public String type;
@@ -17,7 +15,7 @@ public class EventDAO {
 		this.id = id;
 		this.name = name;
 		organization = org;
-		dateTime = Helper.sqlToDateTime(dt);
+		dateTime = Helper.formatJsonDate(dt);
 		location = loc;
 		description = desc;
 		this.type = type;

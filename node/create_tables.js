@@ -35,7 +35,7 @@ function createTables(toExecute){
 		var sql = 	"CREATE TABLE Users(" +
 					"Username VARCHAR(255) NOT NULL, Password VARCHAR(255) NOT NULL, EMail VARCHAR(255) NOT NULL, " +
 					"PhoneNumber VARCHAR(255), FirstName VARCHAR(255), LastName VARCHAR(255), "+
-					"Major VARCHAR(255), GraduationYear INT, Bio TEXT, PictureRef TEXT, "+
+					"Major VARCHAR(255), GraduationYear VARCHAR(255), Bio TEXT, PictureRef TEXT, "+
 					"PRIMARY KEY(Username))";
 	
 		queryConnection(sql, createOrganizationsTable);
@@ -95,7 +95,7 @@ function createTables(toExecute){
 	function createMessagesTable(){
 		var sql = 	"CREATE TABLE Messages(" + 
 					"MessageID INT NOT NULL AUTO_INCREMENT, MsgContent TEXT, SendingUser VARCHAR(255), " +
-					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255), " + 
+					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255) " + 
 					"FOREIGN KEY(SendingUser) REFERENCES Users(Username), " +
 					"PRIMARY KEY(MessageID))";
 

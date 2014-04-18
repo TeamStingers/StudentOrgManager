@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -296,6 +295,8 @@ public class DataTransfer extends Helper{
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_org_news", "POST", params);
 		ArrayList<NewsItemDAO> result = new ArrayList<NewsItemDAO>();
 		
+		Log.d("dd" , new Integer(jArr.length()).toString());
+		
 		for(int i=0; i<jArr.length(); i++){
 			try {
 				JSONObject jo = jArr.getJSONObject(i);
@@ -305,13 +306,14 @@ public class DataTransfer extends Helper{
 				String poster = (String) jo.get(TAG_POSTER);
 				
 				NewsItemDAO n = new NewsItemDAO(orgName, ts, announcement, poster);
-				result.add(n);			
+				result.add(n);				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+		Log.d("getOrgNews", "" + result.size());
+
 		return result;
 	}
 	
@@ -358,10 +360,10 @@ public class DataTransfer extends Helper{
 		return (jArr.length() > 0);
 	}
 
-	public static boolean deleteNewsItem(String org, DateTime ts) {
+	public static boolean deleteNewsItem(String org, String ts) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_ORGANIZATION, org));
-		params.add(new BasicNameValuePair(TAG_NEWSTIMESTAMP, ts.toString()));
+		params.add(new BasicNameValuePair(TAG_NEWSTIMESTAMP, ts));
 		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/delete_news_item", "POST", params);
 

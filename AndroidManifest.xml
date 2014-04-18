@@ -73,6 +73,10 @@
             android:name="com.seniordesign.studentorgmanager.ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.NewsFeedActivity"
+            android:label="@string/title_activity_news_feed" >
+        </activity>
     </application>
 
 </manifest>
