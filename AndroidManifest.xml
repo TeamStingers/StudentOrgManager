@@ -85,6 +85,10 @@
             android:name="com.seniordesign.studentorgmanager.MessageViewActivity"
             android:label="@string/title_activity_message_view" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.PublicProfileActivity"
+            android:label="@string/title_activity_public_profile" >
+        </activity>
     </application>
 
 </manifest>

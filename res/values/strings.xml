@@ -51,5 +51,6 @@
     <string name="title_activity_news_feed">NewsFeedActivity</string>
     <string name="title_activity_mail_box">MailBoxActivity</string>
     <string name="title_activity_message_view">MessageViewActivity</string>
+    <string name="title_activity_public_profile">PublicProfileActivity</string>
 
 </resources>

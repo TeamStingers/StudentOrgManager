@@ -65,6 +65,7 @@ public class OrgsPrivateActivity extends Activity {
 				case R.id.rosterButton:
 					Intent rosterIntent = new Intent(mContext, RosterActivity.class);
 					rosterIntent.putExtra(MainActivity.OrgNameTag, orgName);
+					rosterIntent.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(rosterIntent);
 					break;
 				case R.id.newsfeedButton:

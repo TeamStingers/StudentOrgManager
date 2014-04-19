@@ -1,0 +1,156 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.PublicProfileActivity1"
+    tools:ignore="MergeRootFrame" >
+
+
+<TextView
+        android:id="@+id/usernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/usernameEdit"
+        android:layout_alignParentLeft="true"
+        android:text="@string/username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/lastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/firstNameLabel"
+        android:layout_marginTop="10dp"
+        android:text="Last Name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/publicUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/usernameLabel"
+        android:ems="12">
+    
+    </TextView>
+
+    <TextView
+        android:id="@+id/publicFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/firstNameLabel"
+        android:layout_alignParentRight="true"
+        android:ems="12" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/publicLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lastNameLabel"
+        android:layout_alignParentRight="true"
+        android:ems="12" />
+
+    <TextView
+        android:id="@+id/firstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/emailLabel"
+        android:layout_marginTop="15dp"
+        android:text="First Name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/majorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lastNameLabel"
+        android:layout_marginTop="15dp"
+        android:text="Major"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/publicMajor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/majorLabel"
+        android:layout_alignParentRight="true"
+        android:ems="12" />
+
+    <TextView
+        android:id="@+id/gradLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/majorLabel"
+        android:layout_marginTop="14dp"
+        android:text="Graduation Year"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/bioLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/phoneNumberLabel"
+        android:layout_marginTop="16dp"
+        android:text="Bio"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/publicBio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bioLabel"
+        android:ems="10"/>
+    
+    <TextView
+        android:id="@+id/emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/usernameLabel"
+        android:layout_marginTop="15dp"
+        android:text="@string/email"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/publicEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emailLabel"
+        android:layout_alignParentRight="true"
+        android:ems="12" />
+
+    <TextView
+        android:id="@+id/phoneNumberLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gradLabel"
+        android:layout_marginTop="15dp"
+        android:text="Phone Number"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/publicPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/phoneNumberLabel"
+        android:layout_alignParentRight="true"
+        android:ems="11" />
+
+    <TextView
+        android:id="@+id/publicGradYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/phoneNumberLabel"
+        android:layout_alignParentRight="true"
+        android:ems="8" />
+
+</RelativeLayout>

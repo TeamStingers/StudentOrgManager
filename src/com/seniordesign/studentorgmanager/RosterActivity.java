@@ -35,7 +35,8 @@ import android.widget.Toast;
 
 public class RosterActivity extends Activity {
 	private String orgName;
-	private String username;	
+	private String actionUser;
+	private String username;
 	private TextView nameLabel;
 	private ArrayList<String> sampleMembers;
 	private ListView membersListView;
@@ -50,6 +51,7 @@ public class RosterActivity extends Activity {
 		
 		Intent intent = getIntent();
 		orgName = intent.getStringExtra(MainActivity.OrgNameTag);
+		username = intent.getStringExtra(LoginActivity.UserNameTag);
 		nameLabel = (TextView) findViewById(R.id.orgTitle);
 		nameLabel.setText(orgName);
 		
@@ -81,7 +83,7 @@ public class RosterActivity extends Activity {
 
 	private class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
-//			mLoggedIn = DataTransfer.getUser(username);
+//			mLoggedIn = DataTransfer.getUser(actionUser);
 			orgMembers = DataTransfer.getUsersForOrg(orgName);
 			return null;
 		}
@@ -96,7 +98,7 @@ public class RosterActivity extends Activity {
 		}
 		
 		protected Boolean doInBackground(Void... params) {
-			boolean res = DataTransfer.addUserToOrganization(username, orgName);
+			boolean res = DataTransfer.addUserToOrganization(actionUser, orgName);
 			return res;
 		}
 		protected void onPostExecute(Boolean result) {
@@ -112,7 +114,7 @@ public class RosterActivity extends Activity {
 		}
 		
 		protected Boolean doInBackground(Void... params) {
-			boolean res = DataTransfer.removeUserFromOrganization(username, orgName);
+			boolean res = DataTransfer.removeUserFromOrganization(actionUser, orgName);
 			return res;
 		}
 		protected void onPostExecute(Boolean result) {
@@ -181,7 +183,7 @@ public class RosterActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> adapter, View arg1, int index,
 				long arg3) {
-			username = (String) ((TextView) arg1).getText();
+			actionUser = (String) ((TextView) arg1).getText();
 			AlertDialog.Builder memberAlert = new AlertDialog.Builder(mContext);
 			memberAlert.setTitle("Member Options");
 			String[] options = {"Profile","Report Absence", "Remove Member"};
@@ -203,6 +205,10 @@ public class RosterActivity extends Activity {
 				switch (which) {
 					case 0:
 						//profile
+						Intent i = new Intent(RosterActivity.this, PublicProfileActivity.class);
+						i.putExtra(LoginActivity.UserNameTag, username);
+						i.putExtra(PublicProfileActivity.UserBeingViewedTag, actionUser);
+						startActivity(i);
 						break;
 					case 1:
 						//absence
