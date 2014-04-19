@@ -35,14 +35,6 @@
         android:text="@string/newsfeed" />
 
     <Button
-        android:id="@+id/messagesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/orgTitle"
-        android:text="@string/messages" />
-
-    <Button
         android:id="@+id/eventsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

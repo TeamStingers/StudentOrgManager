@@ -221,9 +221,7 @@ public class ProfileActivity extends Activity {
 			mSaveTask.execute((Void) null);
 			
 			try {
-				Log.d("SaveInfoBefore", "st");
 				mSaveTask.get(15000, TimeUnit.MILLISECONDS);
-				Log.d("SaveInfoAfter", "st");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -77,6 +77,14 @@
             android:name="com.seniordesign.studentorgmanager.NewsFeedActivity"
             android:label="@string/title_activity_news_feed" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.MailBoxActivity"
+            android:label="@string/title_activity_mail_box" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.MessageViewActivity"
+            android:label="@string/title_activity_message_view" >
+        </activity>
     </application>
 
 </manifest>

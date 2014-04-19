@@ -12,7 +12,7 @@ public class MessageDAO {
 		messageContent = cont;
 		sendingUser = sendUser;
 		messageType = msgType;
-		messageDateTime = Helper.formatJsonDate(ts);;	
+		messageDateTime = Helper.formatJsonDate(ts);
 	}
 	
 }

@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.NewsFeedActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <ListView
+        android:id="@+id/mailBoxList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/newMessageButton"
+        android:layout_below="@+id/mailBoxLabel"
+        android:layout_centerHorizontal="true" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/newMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Compose Message" />
+
+    <TextView
+        android:id="@+id/mailBoxLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/orgTitle"
+        android:layout_alignBottom="@+id/orgTitle"
+        android:layout_centerHorizontal="true"
+        android:text="Messages for Username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+ </RelativeLayout>

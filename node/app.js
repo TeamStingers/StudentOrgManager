@@ -414,7 +414,7 @@ app.post('/get_user_absences_for_org', function(req, res){
 app.post('/get_user_msgs', function(req, res){
 	var post = req.body;
 
-	var sql = "SELECT ReadStatus, MsgContent, SendingUser, MsgTimeStamp, MessageType FROM " +
+	var sql = "SELECT Messages.MessageID, ReadStatus, MsgContent, SendingUser, MsgTimeStamp, MessageType FROM " +
 				"Messages INNER JOIN UserMessage ON Messages.MessageID=UserMessage.MessageID " +
 				"WHERE ReceivingMember=" + connection.escape(post.Username);
 
@@ -424,20 +424,44 @@ app.post('/get_user_msgs', function(req, res){
 	});
 });
 
+app.post('/delete_message', function(req, res){
+	var post = req.body;
+
+	var sql = "DELETE FROM UserMessages WHERE MessageID=" + connection.escape(post.MessageID);
+
+	connection.query(sql, function(err, result){
+		if(err){
+			res.send([]);
+			console.log(err);
+		}
+			res.send([{success:true}]);	
+	});
+});
+
 app.post('/send_message', function(req, res){
 	var post = req.body;
 
 	var sendMsgSql = "INSERT INTO Messages SET SendingUser="+connection.escape(post.SendingUser)+
-						", MsgTimeStamp=NOW(), MessageType='StandardMessage'";
+						", MsgTimeStamp=NOW(), MessageType='StandardMessage'" +
+						", MsgContent=" + connection.escape(post.MsgContent);
 
 	//post {SendingUser:$senderusername, ReceivingMember:$recverUsername}
 	connection.query(sendMsgSql, function(err, result){
-		var userMsgSql = "INSERT INTO UserMessage MessageID=" + result[0].MessageID +
+		if(err){
+			console.log(err);
+			res.send([]);
+		}
+
+		var userMsgSql = "INSERT INTO UserMessage SET MessageID=" + connection.escape(result.insertId) +
 							", ReceivingMember=" + connection.escape(post.ReceivingMember) +
 							", ReadStatus='Unread'";
 
 		connection.query(userMsgSql, function(err, result){
-			if(err) console.log(err);
+			if(err){
+				console.log(err);
+				res.send([]);
+			}
+
 			res.send([{success:true}]);
 		});
 	});

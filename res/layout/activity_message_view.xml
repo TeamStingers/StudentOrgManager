@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.MessageViewActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/mailViewSenderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="17dp"
+        android:text="Sender: " />
+
+    <TextView
+        android:id="@+id/mailViewSenderVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mailViewSenderLabel"
+        android:layout_alignBottom="@+id/mailViewSenderLabel"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="22dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/mailViewDateTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mailViewSenderLabel"
+        android:layout_below="@+id/mailViewSenderLabel"
+        android:layout_marginTop="14dp"
+        android:text="Date Time:" />
+
+    <Button
+        android:id="@+id/replyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/mailViewSenderVal"
+        android:layout_marginBottom="16dp"
+        android:text="Reply" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mailViewContent"
+        android:layout_below="@+id/mailViewContent"
+        android:text="Delete" />
+
+    <TextView
+        android:id="@+id/mailViewDateTimeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mailViewDateTimeLabel"
+        android:layout_alignBottom="@+id/mailViewDateTimeLabel"
+        android:layout_alignLeft="@+id/replyButton"
+        android:layout_alignRight="@+id/mailViewSenderVal"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/mailViewContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/replyButton"
+        android:layout_alignLeft="@+id/mailViewDateTimeLabel"
+        android:layout_alignRight="@+id/replyButton"
+        android:layout_below="@+id/mailViewDateTimeLabel"
+        android:layout_marginTop="44dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

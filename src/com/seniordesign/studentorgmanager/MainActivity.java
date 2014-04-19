@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
 	private Button createOrgButton;
 	private Button searchOrgButton;
 	private Button myProfileButton;
+	private Button messagesButton;
 	
 	//Variables representing user
 	private String username;
@@ -57,6 +58,8 @@ public class MainActivity extends Activity {
 		searchOrgButton.setOnClickListener(new myButtonClickListener(this, R.id.searchOrgButton));
 		myProfileButton = (Button) findViewById(R.id.myProfileButton);
 		myProfileButton.setOnClickListener(new myButtonClickListener(this, R.id.myProfileButton));
+		messagesButton = (Button) findViewById(R.id.messagesButton);
+		messagesButton.setOnClickListener(new myButtonClickListener(this, R.id.messagesButton));
 		
 		//Get username
 		Intent intent = getIntent();
@@ -67,6 +70,7 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, "Welcome "+ username + "!", Toast.LENGTH_LONG).show();
 		
 
+		
 		
 		//Run DB actions
 		InitTask mInitTask = new InitTask();
@@ -145,7 +149,8 @@ public class MainActivity extends Activity {
 			startActivity(clickIntent);
 		}
 		
-	}	
+	}
+
 	
 	public class myButtonClickListener implements OnClickListener {
 
@@ -173,6 +178,12 @@ public class MainActivity extends Activity {
 					Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
 					profileIntent.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(profileIntent);
+					break;
+				case R.id.messagesButton:
+					Intent mbi = new Intent(MainActivity.this, MailBoxActivity.class);
+					mbi.putExtra(LoginActivity.UserNameTag, username);
+					startActivity(mbi);	
+					break;		
 				default:
 					break;
 			}

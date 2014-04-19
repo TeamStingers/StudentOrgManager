@@ -28,6 +28,16 @@ public class DataTransfer extends Helper{
 		return (jArr.length() > 0);
 	}
 	
+	public static boolean deleteMessage(String messageID){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("MessageID", messageID));
+				
+		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/delete_message", "POST", params);
+
+		return (jArr.length() > 0);
+	
+	}
+	
 	public static UserDAO getUser(String username){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
@@ -480,12 +490,12 @@ public class DataTransfer extends Helper{
 		for(int i=0; i<jArr.length() ;i++){
 			try{
 				jo = jArr.getJSONObject(i);
-				String id = (String) jo.get(TAG_MESSAGEID);
+				String id = "" + jo.get(TAG_MESSAGEID);
 				String content = (String) jo.get(TAG_MSGCONTENT);
 				String sender = (String) jo.get(TAG_SENDINGUSER);
-				String type = (String) jo.get(TAG_TYPE);
+				String type = (String) jo.get("MessageType");
 				String ts = (String) jo.get(TAG_MSGTIMESTAMP);
-				
+
 				MessageDAO m = new MessageDAO(id, content, sender, type, ts);
 				result.add(m);
 			}catch(JSONException e){
@@ -496,10 +506,11 @@ public class DataTransfer extends Helper{
 		return result;
 	}
 	
-	public static boolean sendMessage(String sender, String receiver){
+	public static boolean sendMessage(String sender, String receiver, String content){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_SENDINGUSER, sender));
 		params.add(new BasicNameValuePair(TAG_RECEIVINGMEMBER, receiver));
+		params.add(new BasicNameValuePair(TAG_MSGCONTENT, content));
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/send_message", "POST", params);
 		
 		return jArr.length() > 0;

@@ -24,7 +24,6 @@ public class OrgsPrivateActivity extends Activity {
 	private Button newsfeedButton;
 	private Button duesButton;
 	private Button optionsButton;
-	private Button messagesButton;
 	
 	
 	@Override
@@ -42,7 +41,6 @@ public class OrgsPrivateActivity extends Activity {
 		rosterButton = (Button) findViewById(R.id.rosterButton);
 		rosterButton.setOnClickListener(new ButtonClickListener(this, rosterButton.getId()));
 		calendarButton = (Button) findViewById(R.id.calendarButton);
-		messagesButton = (Button) findViewById(R.id.messagesButton);
 		profileButton = (Button) findViewById(R.id.profileButton);
 		duesButton = (Button) findViewById(R.id.duesButton);
 		newsfeedButton = (Button) findViewById(R.id.newsfeedButton);
@@ -77,6 +75,7 @@ public class OrgsPrivateActivity extends Activity {
 					nfi.putExtras(extras);
 					startActivity(nfi);	
 					break;
+				
 			}
 			
 		}

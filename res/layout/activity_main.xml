@@ -48,11 +48,20 @@
         android:textSize="15sp" />
 
     <Button
+        android:id="@+id/messagesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/searchOrgButton"
+        android:layout_alignRight="@+id/searchOrgButton"
+        android:text="@string/messages" />
+
+    <Button
         android:id="@+id/myProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/createOrgButton"
-        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@+id/messagesButton"
+        android:layout_alignBottom="@+id/messagesButton"
+        android:layout_alignLeft="@+id/orgsList"
         android:text="My Profile" />
 
 </RelativeLayout>
