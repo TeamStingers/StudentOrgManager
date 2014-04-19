@@ -427,7 +427,7 @@ app.post('/get_user_msgs', function(req, res){
 app.post('/delete_message', function(req, res){
 	var post = req.body;
 
-	var sql = "DELETE FROM UserMessages WHERE MessageID=" + connection.escape(post.MessageID);
+	var sql = "DELETE FROM UserMessage WHERE MessageID=" + connection.escape(post.MessageID);
 
 	connection.query(sql, function(err, result){
 		if(err){

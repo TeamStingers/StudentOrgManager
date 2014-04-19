@@ -1026,7 +1026,7 @@ containing a value of this type.
         public static final int createOrgButton=0x7f050054;
         public static final int default_activity_button=0x7f050028;
         public static final int deleteAcctBtn=0x7f050086;
-        public static final int deleteButton=0x7f05005d;
+        public static final int deleteButton=0x7f05005b;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int doneButton=0x7f050085;
@@ -1069,11 +1069,11 @@ containing a value of this type.
         public static final int mailBoxLabel=0x7f05004f;
         public static final int mailBoxList=0x7f05004d;
         public static final int mailBoxSender=0x7f050091;
-        public static final int mailViewContent=0x7f05005c;
-        public static final int mailViewDateTimeLabel=0x7f05005a;
-        public static final int mailViewDateTimeVal=0x7f050059;
+        public static final int mailViewContent=0x7f050059;
+        public static final int mailViewDateTimeLabel=0x7f050058;
+        public static final int mailViewDateTimeVal=0x7f05005c;
         public static final int mailViewSenderLabel=0x7f050057;
-        public static final int mailViewSenderVal=0x7f050058;
+        public static final int mailViewSenderVal=0x7f05005d;
         public static final int majorEdit=0x7f05007d;
         public static final int majorLabel=0x7f05007c;
         public static final int membersListView=0x7f050088;
@@ -1110,7 +1110,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
         public static final int registerButton=0x7f050045;
-        public static final int replyButton=0x7f05005b;
+        public static final int replyButton=0x7f05005a;
         public static final int rosterButton=0x7f050065;
         public static final int rosterLabel=0x7f050087;
         public static final int searchOrgButton=0x7f050055;
