@@ -299,9 +299,21 @@ app.post('/delete_org', function(req, res){
 	var post = req.body;
 
 	//post {OrgName : 'OrgName'}
-	var deleteOrgQuery = connection.query('DELETE FROM Organizations WHERE ?', post, function(err ,result){
-		if(err) console.log(err);
-		res.send([{success:true}]);
+	connection.query('DELETE FROM UserOrgs WHERE Organization=' +connection.escape(post.OrgName), 
+		post, function(err ,result){
+		
+		if(err){
+			console.log(err);
+			res.send([]);
+		}
+
+		connection.query('DELETE FROM Organizations WHERE ?', post, function(err ,result){
+			if(err){
+				console.log(err);
+				res.send([]);
+			}
+			res.send([{success:true}]);
+		});
 	});
 });
 

@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/replyButton"
         android:layout_alignLeft="@+id/mailViewDateTimeLabel"
-        android:layout_alignRight="@+id/deleteButton"
+        android:layout_alignRight="@+id/replyButton"
         android:layout_below="@+id/mailViewDateTimeLabel"
         android:layout_marginTop="44dp"
         android:text="Large Text"
@@ -55,22 +55,20 @@
         android:text="TextView" />
 
     <Button
-        android:id="@+id/replyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/mailViewContent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:text="Reply" />
-
-    <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/replyButton"
-        android:layout_alignBottom="@+id/replyButton"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
+        android:layout_alignLeft="@+id/mailViewDateTimeLabel"
+        android:layout_below="@+id/mailViewContent"
         android:text="Delete" />
+
+    <Button
+        android:id="@+id/replyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="22dp"
+        android:text="Reply" />
 
 </RelativeLayout>
