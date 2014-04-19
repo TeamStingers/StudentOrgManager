@@ -138,7 +138,6 @@ public class MailBoxActivity extends Activity {
 			else preview = content;
 			
 			map.put("contentPreview", preview);
-			map.put("content", content);
 			map.put("sender", m.sendingUser);
 			map.put("date-time", m.messageDateTime);
 			
