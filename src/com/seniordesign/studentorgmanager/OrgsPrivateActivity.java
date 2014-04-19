@@ -64,17 +64,19 @@ public class OrgsPrivateActivity extends Activity {
 		public void onClick(View arg0) {
 			
 			switch(id) {
-			case R.id.rosterButton:
-				Intent rosterIntent = new Intent(mContext, RosterActivity.class);
-				rosterIntent.putExtra(MainActivity.OrgNameTag, orgName);
-				startActivity(rosterIntent);
-			case R.id.newsfeedButton:
-				Intent nfi = new Intent(mContext, NewsFeedActivity.class);
-				Bundle extras = new Bundle();
-				extras.putString(LoginActivity.UserNameTag, username);
-				extras.putString(MainActivity.OrgNameTag, orgName);
-				nfi.putExtras(extras);
-				startActivity(nfi);				
+				case R.id.rosterButton:
+					Intent rosterIntent = new Intent(mContext, RosterActivity.class);
+					rosterIntent.putExtra(MainActivity.OrgNameTag, orgName);
+					startActivity(rosterIntent);
+					break;
+				case R.id.newsfeedButton:
+					Intent nfi = new Intent(mContext, NewsFeedActivity.class);
+					Bundle extras = new Bundle();
+					extras.putString(LoginActivity.UserNameTag, username);
+					extras.putString(MainActivity.OrgNameTag, orgName);
+					nfi.putExtras(extras);
+					startActivity(nfi);	
+					break;
 			}
 			
 		}

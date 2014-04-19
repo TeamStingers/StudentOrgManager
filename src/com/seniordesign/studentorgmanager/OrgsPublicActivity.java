@@ -41,7 +41,7 @@ public class OrgsPublicActivity extends Activity {
 
 		orgName = getIntent().getStringExtra(MainActivity.OrgNameTag);
 		username = getIntent().getStringExtra(LoginActivity.UserNameTag);
-
+	
 		TextView orgPublicName = (TextView) findViewById(R.id.orgsPublicNameTextView);
 		orgPublicName.setText(orgName);
 		
@@ -73,6 +73,8 @@ public class OrgsPublicActivity extends Activity {
 		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
 		}
 		//
 		
@@ -82,14 +84,14 @@ public class OrgsPublicActivity extends Activity {
 		
 		Button joinBtn = (Button) findViewById(R.id.joinOrgBtn);
 		Button leaveBtn = (Button) findViewById(R.id.leaveOrgBtn);
-		joinBtn.setOnClickListener(new jbClickListner(R.id.joinOrgBtn));
-		leaveBtn.setOnClickListener(new jbClickListner(R.id.leaveOrgBtn));
+		joinBtn.setOnClickListener(new ClickListener(R.id.joinOrgBtn));
+		leaveBtn.setOnClickListener(new ClickListener(R.id.leaveOrgBtn));
 	}
 
 	public class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
 			org = DataTransfer.getOrganization(orgName);
-			
+			Log.d("InitTask", org.name);
 			return null;
 		}
 		
@@ -118,10 +120,6 @@ public class OrgsPublicActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private interface FI{
-		public void doWork(boolean res);
-	}
-	
 	private class JoinOrgTask extends AsyncTask<Void, Void, Boolean> {
 		private FI functionInterface;
 		
@@ -154,10 +152,10 @@ public class OrgsPublicActivity extends Activity {
 		}
 	}	
 
-	private class jbClickListner implements OnClickListener {
+	private class ClickListener implements OnClickListener {
 		private int id;
 		
-		public jbClickListner(int buttonid) {
+		public ClickListener(int buttonid) {
 			id = buttonid;
 		}
 		

@@ -75,6 +75,7 @@ public class OrgsBrowseActivity extends Activity {
 		Intent refreshMain = new Intent(this, MainActivity.class);
 		refreshMain.putExtra(LoginActivity.UserNameTag, username);
 		startActivity(refreshMain);
+		finish();
 	}
 
 	@Override
@@ -146,16 +147,7 @@ public class OrgsBrowseActivity extends Activity {
 			Intent clickIntent = new Intent(context, OrgsPublicActivity.class);
 			clickIntent.putExtra(MainActivity.OrgNameTag, orgName);
 			clickIntent.putExtra(LoginActivity.UserNameTag, username);				
-			startActivity(clickIntent);				
-			
-//			if(userOrgsNames.contains(orgName)){
-//				Intent clickIntent = new Intent(context, OrgsPrivateActivity.class);
-//				clickIntent.putExtra(MainActivity.OrgNameTag, orgName);
-//				clickIntent.putExtra(LoginActivity.UserNameTag, username);
-//				startActivity(clickIntent);				
-//			}else{
-//			
-//			}
+			startActivity(clickIntent);
 			
 		}
 		

@@ -124,10 +124,9 @@ public class LoginActivity extends Activity {
 		mUsername = mUsernameView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 		Intent registerIntent = new Intent(this, CreateUserActivity.class);
-		Bundle extras = new Bundle();
-		extras.putString(UserNameTag, mUsername);
-		extras.putString(PasswordTag, mPassword);
-		registerIntent.putExtras(extras);
+		registerIntent.putExtra(UserNameTag, mUsername);
+		registerIntent.putExtra(PasswordTag, mPassword);
+		registerIntent.putExtras(registerIntent);
 		startActivity(registerIntent);
 	}
 	
