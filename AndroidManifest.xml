@@ -101,6 +101,10 @@
             android:name="com.seniordesign.studentorgmanager.ViewAbsencesActivity"
             android:label="@string/title_activity_view_absences" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.NewEventActivity"
+            android:label="@string/title_activity_new_event" >
+        </activity>
     </application>
 
 </manifest>

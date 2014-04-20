@@ -230,7 +230,10 @@ public class EventActivity extends Activity {
 		
 		@Override
 		public void onClick(View v) {
-			// Add new event activity
+			Intent i = new Intent(EventActivity.this, NewEventActivity.class);
+			i.putExtra(LoginActivity.UserNameTag, username);
+			i.putExtra(MainActivity.OrgNameTag, orgName);
+			startActivity(i);
 			
 		}
 		

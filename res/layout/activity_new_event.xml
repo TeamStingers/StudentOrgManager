@@ -1,0 +1,142 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+<RelativeLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/newEventTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="New Event"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/newEventNameEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/newEventNameLabel"
+        android:layout_alignParentRight="true"
+        android:inputType="text"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/newEventNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventTitle"
+        android:layout_marginTop="20dp"
+        android:text="Event Name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/newEventLocationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventNameLabel"
+        android:layout_marginTop="15dp"
+        android:text="Location"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/newEventLocationEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/newEventLocationLabel"
+        android:layout_alignParentRight="true"
+        android:inputType="text"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/newEventTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventLocationLabel"
+        android:layout_marginTop="15dp"
+        android:text="Event Type"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/newEventTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/newEventTypeLabel"
+        android:paddingLeft="5dp"
+        android:layout_toRightOf="@+id/newEventTypeLabel" />
+
+    <TextView
+        android:id="@+id/newEventDescriptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventTypeSpinner"
+        android:layout_marginTop="15dp"
+        android:text="Event Description"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/newEventDescriptionEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newEventDescriptionLabel"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:id="@+id/newEventDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventDescriptionEdit"
+        android:layout_marginTop="15dp"
+        android:text="Event Date"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <DatePicker
+        android:id="@+id/newEventDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventDateLabel" />
+    
+    <TextView
+        android:id="@+id/newEventTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newEventDatePicker"
+        android:layout_marginTop="15dp"
+        android:text="Event Time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TimePicker
+        android:id="@+id/newEventTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newEventTimeLabel"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/createNewEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newEventTimePicker"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="Create Event" />
+    
+</RelativeLayout>
+
+</ScrollView>
