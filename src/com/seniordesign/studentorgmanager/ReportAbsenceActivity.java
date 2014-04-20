@@ -12,7 +12,9 @@ import com.seniordesign.studentorgmanager.data.*;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -52,7 +55,10 @@ public class ReportAbsenceActivity extends Activity {
 	private Map<String, EventDAO> nameToEvent; // Store mapping for retrieval
 	private EventDAO selectedEvent;
 	
+	// Storing previous absences of user
 	private ArrayList<AbsenceDAO> absences;
+	private Map<String, AbsenceDAO> nameToAbsence;
+	private AbsenceDAO absenceToClear;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,9 @@ public class ReportAbsenceActivity extends Activity {
 		
 		eventNames = new ArrayList<String>();
 		nameToEvent = new HashMap<String, EventDAO>();
+		nameToAbsence = new HashMap<String, AbsenceDAO>();
 
+		//Represents currently selected element of event spinner
 		selectedEvent = null;
 		
 		
@@ -100,8 +108,8 @@ public class ReportAbsenceActivity extends Activity {
 					e.printStackTrace();
 				}
 				
-		setEventSpinner();
-		setPreviousAbsences();
+		setEventSpinner(); // Populate spinner with all events for org
+		setPreviousAbsences(); // Populate list with previous absences of user
 		
 	}
 
@@ -110,6 +118,7 @@ public class ReportAbsenceActivity extends Activity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eventNames);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mEventSpinner.setAdapter(adapter);
+		mEventSpinner.setOnItemSelectedListener(new MyItemSelectedListener());
 	}
 	
 	public void setPreviousAbsences() {
@@ -120,13 +129,14 @@ public class ReportAbsenceActivity extends Activity {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		for (AbsenceDAO absence : absences) {
 			map = new HashMap<String, Object>();
-			map.put("event name", absence.eventID);
-			map.put("timestamp", "nothing right now");
+			map.put("event name", absence.eventName);
+			map.put("timestamp", absence.eventDateTime);
 			fillMaps.add(map);
 		}
 		
 		SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.previous_absence, from, to);
 		mListView.setAdapter(adapter);
+		mListView.setOnItemClickListener(new MyItemClickListener(this));
 	}
 	
 	public class InitTask extends AsyncTask<Void, Void, Void> {
@@ -139,6 +149,9 @@ public class ReportAbsenceActivity extends Activity {
 			for (EventDAO event : events) {
 				eventNames.add(event.name);
 				nameToEvent.put(event.name, event);
+			}
+			for (AbsenceDAO absence : absences) {
+				nameToAbsence.put(absence.eventName, absence);
 			}
 		}
 	}
@@ -158,6 +171,79 @@ public class ReportAbsenceActivity extends Activity {
 			
 		}
 		
+	}
+	
+	public class MyItemClickListener implements OnItemClickListener {
+
+		private Context mContext;
+		
+		public MyItemClickListener(Context context) {
+			mContext = context;
+		}
+		
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			String eventName = ((TextView) view.findViewById(R.id.prevAbsenceEvent)).getText().toString();
+			AbsenceDAO prev = nameToAbsence.get(eventName);
+			AlertDialog.Builder absenceAlert = new AlertDialog.Builder(mContext);
+			absenceAlert.setTitle("Absence Options");
+			String[] options = {"Clear Absence"};
+			absenceAlert.setItems(options, new OptionsListener(mContext, prev));
+			absenceAlert.show();
+		}
+		
+		private class OptionsListener implements DialogInterface.OnClickListener {
+
+			private Context mContext;
+			private AbsenceDAO prev;
+			
+			public OptionsListener(Context context, AbsenceDAO prev) {
+				mContext = context;
+				this.prev = prev;
+			}
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+					case 0:
+						// Clear absence
+						clearAbsence(prev);
+						Intent i = new Intent(ReportAbsenceActivity.this, ReportAbsenceActivity.class);
+						i.putExtra(LoginActivity.UserNameTag, username);
+						i.putExtra(MainActivity.OrgNameTag, orgName);
+						i.putExtra(PublicProfileActivity.UserBeingViewedTag, userViewed);
+						startActivity(i);
+				}
+			}
+		}
+	}
+	
+	public void clearAbsence(AbsenceDAO prev) {
+		absenceToClear = prev;
+		ClearAbsenceTask mClearAbsenceTask = new ClearAbsenceTask();
+		mClearAbsenceTask.execute((Void) null);
+		
+		// Wait to finish
+		try {
+			mClearAbsenceTask.get(15000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	public class ClearAbsenceTask extends AsyncTask<Void, Void, Void> {
+		protected Void doInBackground(Void... params) {
+			DataTransfer.removeAbsence(userViewed, absenceToClear.eventID, orgName);
+			return null;
+		}
 	}
 	
 	public class ButtonClickListener implements OnClickListener {
@@ -186,7 +272,9 @@ public class ReportAbsenceActivity extends Activity {
 						i.putExtra(MainActivity.OrgNameTag, orgName);
 						i.putExtra(PublicProfileActivity.UserBeingViewedTag, userViewed);
 						startActivity(i);
-					}		
+					}
+				case R.id.reportAbsencesDoneButton:
+					goBack();
 			}
 		}
 		
@@ -215,6 +303,10 @@ public class ReportAbsenceActivity extends Activity {
 				return null;
 			}
 		}	
+	}
+	
+	public void goBack() {
+		onBackPressed();
 	}
 	
 	@Override
