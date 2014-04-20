@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/eventTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:textAlignment="center"
+        android:text="Formal"
+        android:gravity="center"
+        android:textSize="21sp"/>
+    
+    <TextView
+        android:id="@+id/eventTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/eventType"
+        android:text="Mar 25, 10:04"
+        android:paddingLeft="2dp"
+        android:paddingTop="5dp"
+        android:textSize="17.5sp"/>
+
+    <TextView
+        android:id="@+id/eventLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/eventType"
+        android:paddingRight="2dp"
+        android:paddingTop="5dp"
+        android:text="Dahlonega, GA"
+        android:textSize="17.5sp" />
+
+    <TextView
+        android:id="@+id/eventDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventTitle"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="5dp"
+        android:gravity="center"
+        android:text="Gonna be off the chain this year! Remember to bring sleeping bags!"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/eventType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventDescription"
+        android:layout_centerHorizontal="true"
+        android:text="Event Type: Social"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+</RelativeLayout>

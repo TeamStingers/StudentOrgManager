@@ -36,6 +36,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
+
+/**
+ * Report an absence for a specific member, view previous absences, and clear previous absences
+ * Only accessible by officers and admins
+ * @author Sanchit
+ *
+ */
 public class ReportAbsenceActivity extends Activity {
 
 	//UI Elements
@@ -214,6 +221,7 @@ public class ReportAbsenceActivity extends Activity {
 						i.putExtra(MainActivity.OrgNameTag, orgName);
 						i.putExtra(PublicProfileActivity.UserBeingViewedTag, userViewed);
 						startActivity(i);
+						break;
 				}
 			}
 		}
@@ -273,8 +281,10 @@ public class ReportAbsenceActivity extends Activity {
 						i.putExtra(PublicProfileActivity.UserBeingViewedTag, userViewed);
 						startActivity(i);
 					}
+					break;
 				case R.id.reportAbsencesDoneButton:
 					goBack();
+					break;
 			}
 		}
 		

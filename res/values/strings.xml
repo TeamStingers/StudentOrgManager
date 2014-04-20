@@ -53,5 +53,7 @@
     <string name="title_activity_message_view">MessageViewActivity</string>
     <string name="title_activity_public_profile">PublicProfileActivity</string>
     <string name="title_activity_report_absence">ReportAbsenceActivity</string>
+    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_view_absences">ViewAbsencesActivity</string>
 
 </resources>

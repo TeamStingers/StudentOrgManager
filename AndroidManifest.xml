@@ -93,6 +93,14 @@
             android:name="com.seniordesign.studentorgmanager.ReportAbsenceActivity"
             android:label="@string/title_activity_report_absence" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.EventActivity"
+            android:label="@string/title_activity_event" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.ViewAbsencesActivity"
+            android:label="@string/title_activity_view_absences" >
+        </activity>
     </application>
 
 </manifest>
