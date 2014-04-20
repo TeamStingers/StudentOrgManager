@@ -37,6 +37,7 @@ public class RosterActivity extends Activity {
 	private String orgName;
 	private String actionUser;
 	private String username;
+	private String memberType;
 	private TextView nameLabel;
 	private ArrayList<String> sampleMembers;
 	private ListView membersListView;
@@ -78,13 +79,17 @@ public class RosterActivity extends Activity {
 		membersListView.setOnItemClickListener(new MemberListener(this));
 		
 		addMemberButton = (Button) findViewById(R.id.addMemberButton);
+		addMemberButton.setVisibility(View.GONE);
 		addMemberButton.setOnClickListener(new AddMemberClickListener(this));
+		
+		if(!memberType.equals("RegularMember")) addMemberButton.setVisibility(View.VISIBLE);
 	}
 
 	private class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
 //			mLoggedIn = DataTransfer.getUser(actionUser);
 			orgMembers = DataTransfer.getUsersForOrg(orgName);
+			memberType = DataTransfer.getUserMemberType(username, orgName);
 			return null;
 		}
 	}
@@ -212,6 +217,11 @@ public class RosterActivity extends Activity {
 						break;
 					case 1:
 						//absence
+						Intent abs = new Intent(RosterActivity.this, ReportAbsenceActivity.class);
+						abs.putExtra(LoginActivity.UserNameTag, username);
+						abs.putExtra(MainActivity.OrgNameTag, orgName);
+						abs.putExtra(PublicProfileActivity.UserBeingViewedTag, actionUser);
+						startActivity(abs);						
 						break;
 					case 2:
 						//remove user

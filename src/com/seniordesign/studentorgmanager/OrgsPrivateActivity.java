@@ -64,6 +64,7 @@ public class OrgsPrivateActivity extends Activity {
 		rosterButton.setOnClickListener(new ButtonClickListener(this, rosterButton.getId()));
 		newsfeedButton.setOnClickListener(new ButtonClickListener(this, newsfeedButton.getId()));
 		deleteOrgBtn.setOnClickListener(new ButtonClickListener(this, deleteOrgBtn.getId()));
+		eventsButton.setOnClickListener(new ButtonClickListener(this, eventsButton.getId()));
 		
 		deleteOrgBtn.setVisibility(View.GONE);
 		
@@ -122,7 +123,13 @@ public class OrgsPrivateActivity extends Activity {
 							DeleteOrgTask dorg = new DeleteOrgTask();
 							dorg.execute((Void) null);
 					    }})
-					 .setNegativeButton(android.R.string.no, null).show();		
+					 .setNegativeButton(android.R.string.no, null).show();
+					break;
+				case R.id.eventsButton:
+					Intent ev = new Intent(mContext, EventActivity.class);
+					ev.putExtra(LoginActivity.UserNameTag, username);
+					ev.putExtra(MainActivity.OrgNameTag, orgName);
+					startActivity(ev);
 			}
 			
 		}

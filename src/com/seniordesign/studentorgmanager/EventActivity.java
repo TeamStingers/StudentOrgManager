@@ -234,7 +234,6 @@ public class EventActivity extends Activity {
 			i.putExtra(LoginActivity.UserNameTag, username);
 			i.putExtra(MainActivity.OrgNameTag, orgName);
 			startActivity(i);
-			
 		}
 		
 	}
