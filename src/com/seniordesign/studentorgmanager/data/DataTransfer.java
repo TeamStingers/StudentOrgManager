@@ -445,7 +445,7 @@ public class DataTransfer extends Helper{
 				String username = (String) jo.get(TAG_USERNAME);
 				String org = (String) jo.get(TAG_ORGANIZATION);
 				
-				AbsenceDAO a = new AbsenceDAO(username, eventID, org);
+				AbsenceDAO a = new AbsenceDAO(username, eventID, org, null, null);
 				result.add(a);			
 			}catch(JSONException e){
 				e.printStackTrace();
@@ -468,8 +468,10 @@ public class DataTransfer extends Helper{
 			try{
 				jo = jArr.getJSONObject(i);
 				String eventID = (String) jo.get(TAG_EVENTID);
+				String eventName = (String) jo.get(TAG_EVENTNAME);
+				String eventDateTime = (String) jo.get(TAG_EVENTDATETIME);
 				
-				AbsenceDAO a = new AbsenceDAO(user, eventID, org);
+				AbsenceDAO a = new AbsenceDAO(user, eventID, org, eventDateTime, eventName);
 				result.add(a);
 			}catch(JSONException e){
 				e.printStackTrace();

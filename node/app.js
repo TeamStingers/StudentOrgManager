@@ -413,7 +413,7 @@ app.post('/get_user_absences_for_org', function(req, res){
 	var post = req.body;
 
 	//post {Username:$username, Organization:$orgname}
-	var getUserAbsSql = "SELECT EventID, Username, Organization" +
+	var getUserAbsSql = "SELECT EventID, Username, Organization, EventName, EventDateTime" +
 				" FROM Events INNER JOIN Absences ON Absences.EventID=Events.EventID" +
 				" WHERE Organization="+ connection.escape(post.Organization) + " AND" +
 				" Username=" + connection.escape(post.Username);
