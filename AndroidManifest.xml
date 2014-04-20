@@ -89,6 +89,10 @@
             android:name="com.seniordesign.studentorgmanager.PublicProfileActivity"
             android:label="@string/title_activity_public_profile" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.ReportAbsenceActivity"
+            android:label="@string/title_activity_report_absence" >
+        </activity>
     </application>
 
 </manifest>

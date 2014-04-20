@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.ReportAbsenceActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/reportAbsenceTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Absence for Username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/chooseEventLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reportAbsenceTitleLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Choose which event to report absence for:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Spinner
+        android:id="@+id/eventForAbsenceSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chooseEventLabel"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/reportAbsenceButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventForAbsenceSpinner"
+        android:layout_centerHorizontal="true"
+        android:text="Report New Absence" />
+    
+    <View
+        android:id="@+id/horizontalRule"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reportAbsenceButton"
+        android:layout_marginTop="15dp"
+        android:background="#FFFFFF" />
+    
+    <TextView
+        android:id="@+id/previousAbsencesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontalRule"
+        android:layout_marginTop="15dp"
+        android:text="Previous Absences..."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ListView
+        android:id="@+id/previousAbsencesListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reportAbsencesDoneButton"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/previousAbsencesLabel" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/reportAbsencesDoneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Done" />
+
+</RelativeLayout>
