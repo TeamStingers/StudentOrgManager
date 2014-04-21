@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.AdminDuesActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/duesTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="An Organization"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/duesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/duesTitleLabel"
+        android:layout_centerHorizontal="true"
+        android:text="Dues Management"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/currentDuesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/duesLabel"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="2dp"
+        android:text="Organization Dues"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/dollarSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/currentDuesLabel"
+        android:layout_alignParentRight="true"
+        android:paddingRight="2dp"
+        android:text="$"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/duesEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dollarSign"
+        android:layout_toLeftOf="@+id/dollarSign"
+        android:ems="3"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/memberDuesStatusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/updateDuesButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Member Dues Status"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/memberDuesListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memberDuesStatusLabel"
+        android:layout_centerHorizontal="true" >
+    </ListView>
+
+    <Button
+        android:id="@+id/updateDuesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/currentDuesLabel"
+        android:layout_centerHorizontal="true"
+        android:text="Update Dues" />
+
+</RelativeLayout>

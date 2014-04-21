@@ -1,6 +1,13 @@
 package com.seniordesign.studentorgmanager.data;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
+import android.util.Log;
 
 
 public abstract class Helper {
@@ -59,34 +66,50 @@ public abstract class Helper {
 	//@TABLE UserMessage
 	protected static final String TAG_RECEIVINGMEMBER = "ReceivingMember";
 	protected static final String TAG_READSTATUS = "ReadStatus";
+		
+	static SimpleDateFormat sdfgmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static SimpleDateFormat sdfest = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
 	
-	public static SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-
 	public static String dateToString(int year, int monthOfYear, int dayOfMonth, 
 			int hourOfDay, int minuteOfHour, int secondOfMinute){
 		
-		String secondString;
+		Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfHour, secondOfMinute);
+		String result = sdfgmt.format(calendar.getTime());
+//		System.out.println("#1. " + sdf.format(calendar.getTime()));
+	 		
+//		String secondString;
+//		
+//		if (secondOfMinute < 10) {
+//			secondString = "0" + secondOfMinute;
+//		}
+//		else {
+//			secondString = "" + secondOfMinute;
+//		}
+//		
+//		String result = dayOfMonth+"-"+monthOfYear + "-" + year + " " + 
+//			hourOfDay + ":" + minuteOfHour + ":" + secondString;
 		
-		if (secondOfMinute < 10) {
-			secondString = "0" + secondOfMinute;
-		}
-		else {
-			secondString = "" + secondOfMinute;
-		}
-		
-		String result = dayOfMonth+"-"+monthOfYear + "-" + year + " " + 
-			hourOfDay + ":" + minuteOfHour + ":" + secondString;
+		Log.d("Helper", result);
 		
 		return result;
-		
 	}
 	
 	public static String formatJsonDate(String jd){
-		return jd.substring(0,19).replace('T', ' ');
+		sdfgmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+		sdfest.setTimeZone(TimeZone.getTimeZone("US/Eastern"));
+				
+		String stripped = jd.substring(0,19).replace('T', ' ');
+		Date date = new Date();
+		
+		try {
+			date = sdfgmt.parse(stripped);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return sdfest.format(date);
 	}
-	
-//	public static String dateTimeToSql(DateTime dt){
-//		return (dt.toString().substring(0,19).replace("T", " "));
-//	}
 	
 }

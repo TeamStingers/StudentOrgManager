@@ -34,14 +34,6 @@
         android:text="@string/events" />
 
     <Button
-        android:id="@+id/calendarButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/calendar" />
-
-    <Button
         android:id="@+id/profileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,30 +50,29 @@
         android:text="@string/options" />
 
     <Button
+        android:id="@+id/deleteOrgBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/optionsButton"
+        android:layout_alignBottom="@+id/optionsButton"
+        android:layout_centerHorizontal="true"
+        android:text="Delete Org" />
+
+    <Button
         android:id="@+id/newsfeedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/calendarButton"
-        android:layout_below="@+id/orgTitle"
+        android:layout_alignBaseline="@+id/rosterButton"
+        android:layout_alignBottom="@+id/rosterButton"
+        android:layout_alignRight="@+id/duesButton"
         android:text="@string/newsfeed" />
 
     <Button
         android:id="@+id/duesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/newsfeedButton"
-        android:layout_alignBottom="@+id/newsfeedButton"
-        android:layout_marginRight="14dp"
-        android:layout_toLeftOf="@+id/newsfeedButton"
+        android:layout_alignRight="@+id/optionsButton"
+        android:layout_centerVertical="true"
         android:text="@string/dues" />
-
-    <Button
-        android:id="@+id/deleteOrgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/profileButton"
-        android:layout_alignBottom="@+id/profileButton"
-        android:layout_toLeftOf="@+id/calendarButton"
-        android:text="Delete Org" />
 
 </RelativeLayout>

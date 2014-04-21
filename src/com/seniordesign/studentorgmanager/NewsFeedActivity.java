@@ -1,6 +1,7 @@
 package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -21,12 +22,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.os.Build;
+
 import com.seniordesign.studentorgmanager.data.*;
 
 public class NewsFeedActivity extends Activity {
@@ -40,6 +44,11 @@ public class NewsFeedActivity extends Activity {
 	private String username;
 	private ArrayList<NewsItemDAO> newsStories;
 	private String story;
+	
+	private boolean isOfficer = false;
+	private String memberType;
+	
+	private String timestampSelected;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +94,9 @@ public class NewsFeedActivity extends Activity {
 		
 		List<HashMap<String, Object>> fillMaps = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		Collections.reverse(newsStories);
+		
 		for (NewsItemDAO item : newsStories) {
 			map = new HashMap<String, Object>();
 			map.put("announcement", item.announcement);
@@ -95,11 +107,119 @@ public class NewsFeedActivity extends Activity {
 		
 		SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.news_feed_row, from, to);
 		mNewsFeedListView.setAdapter(adapter);
+		mNewsFeedListView.setOnItemClickListener(new MyItemClickListener(this));
 	}
 
 	public class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
 			newsStories = DataTransfer.getOrganizationNews(orgName);
+			memberType = DataTransfer.getUserMemberType(username, orgName);
+			if (!(memberType.equals("RegularMember"))) {
+				isOfficer = true;
+			}
+			return null;
+		}
+	}
+	
+	public class MyItemClickListener implements OnItemClickListener {
+
+		private Context mContext;
+		
+		public MyItemClickListener(Context context) {
+			mContext = context;
+		}
+		
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			String userViewed = ((TextView) view.findViewById(R.id.newsFeedPoster)).getText().toString();
+			timestampSelected = ((TextView) view.findViewById(R.id.newsFeedDateTime)).getText().toString();
+			AlertDialog.Builder newsFeedAlert = new AlertDialog.Builder(mContext);
+			newsFeedAlert.setTitle("Options");
+			String[] options;
+			
+			if (isOfficer) {
+				options = new String[2];
+				options[0] = "View " + userViewed + "'s profile";
+				options[1] = "Delete Post";
+			}
+			else {
+				options = new String[1];
+				options[0] = "View " + userViewed + "'s profile";
+			}
+			
+			newsFeedAlert.setItems(options, new OptionsListener(mContext, userViewed)).show();			
+		}
+		
+		private class OptionsListener implements DialogInterface.OnClickListener {
+
+			Context mContext;
+			String userViewed;
+			
+			public OptionsListener(Context context, String user) {
+				mContext = context;
+				userViewed = user;
+			}
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch(which) {
+					case 0:
+						// View profile
+						viewProfile(userViewed);
+						break;
+					case 1:
+						if (!isOfficer) {
+							break;
+						}
+						else {
+							deletePost();
+						}
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	public void viewProfile(String user) {
+		Intent i = new Intent(NewsFeedActivity.this, PublicProfileActivity.class);
+		i.putExtra(LoginActivity.UserNameTag, username);
+		i.putExtra(MainActivity.OrgNameTag, orgName);
+		i.putExtra(PublicProfileActivity.UserBeingViewedTag, user);
+		startActivity(i);
+	}
+	
+	public void deletePost() {
+		DeletePostTask mDeleteTask = new DeletePostTask();
+		mDeleteTask.execute((Void) null);
+		
+		//Wait for DB actions to complete
+		try {
+			mDeleteTask.get(15000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Intent i = new Intent(NewsFeedActivity.this, NewsFeedActivity.class);
+		i.putExtra(LoginActivity.UserNameTag, username);
+		i.putExtra(MainActivity.OrgNameTag, orgName);
+		startActivity(i);
+		finish();
+		
+	}
+	
+	public class DeletePostTask extends AsyncTask<Void, Void, Void> {
+		protected Void doInBackground(Void... params) {
+			DataTransfer.deleteNewsItem(orgName, timestampSelected);
 			return null;
 		}
 	}

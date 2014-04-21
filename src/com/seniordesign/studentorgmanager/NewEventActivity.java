@@ -9,6 +9,7 @@ import com.seniordesign.studentorgmanager.data.Helper;
 
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -90,11 +91,6 @@ public class NewEventActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			createEvent();
-			Intent i = new Intent(NewEventActivity.this, EventActivity.class);
-			i.putExtra(LoginActivity.UserNameTag, username);
-			i.putExtra(MainActivity.OrgNameTag, orgName);
-			startActivity(i);
-			finish();
 		}
 	}
 	
@@ -109,7 +105,7 @@ public class NewEventActivity extends Activity {
 		description = mDescriptionEdit.getText().toString();
 		// Get datetime info once data transfer stuff is sorted out
 		datetime = Helper.dateToString(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), 0);
-		
+				
 		if (TextUtils.isEmpty(name)) {
 			mNameEdit.setError(getString(R.string.error_field_required));
 			mNameEdit.requestFocus();
@@ -131,12 +127,18 @@ public class NewEventActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			Intent i = new Intent(NewEventActivity.this, EventActivity.class);
+			i.putExtra(LoginActivity.UserNameTag, username);
+			i.putExtra(MainActivity.OrgNameTag, orgName);
+			startActivity(i);
+			finish();
 		}
 	}
 	
 	public class CreateEventTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
-			DataTransfer.createEvent(orgName, datetime, location, description, type);
+			DataTransfer.createEvent(orgName, datetime, location, description, type, name);
 			return null;
 		}
 	}

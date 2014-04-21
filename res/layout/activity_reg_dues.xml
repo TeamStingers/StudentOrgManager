@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.RegDuesActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/regDuesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="An Organization"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/regDuesStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regDuesTitle"
+        android:layout_centerHorizontal="true"
+        android:text="Dues Status"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/regDuesStatusMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regDuesStatus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/regDuesCurrentLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="130dp"
+        android:text="Current Organization Dues Amount"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/regDuesAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/regDuesCurrentLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+</RelativeLayout>

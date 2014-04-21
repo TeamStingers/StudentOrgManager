@@ -18,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -122,10 +123,12 @@ public class ReportAbsenceActivity extends Activity {
 
 	
 	public void setEventSpinner() {
+//		Log.d("ReportAbs1", "setEventSpinner begin");
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eventNames);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mEventSpinner.setAdapter(adapter);
 		mEventSpinner.setOnItemSelectedListener(new MyItemSelectedListener());
+//		Log.d("ReportAbs1", "setEventSpinner end");
 	}
 	
 	public void setPreviousAbsences() {
@@ -169,13 +172,13 @@ public class ReportAbsenceActivity extends Activity {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			String selectedEventName = parent.getItemAtPosition(position).toString();
+			Log.d("SelectedEvent", selectedEventName);
 			selectedEvent = nameToEvent.get(selectedEventName);			
 		}
 
 		@Override
 		public void onNothingSelected(AdapterView<?> parent) {
-			selectedEvent = null;
-			
+			selectedEvent = null;	
 		}
 		
 	}

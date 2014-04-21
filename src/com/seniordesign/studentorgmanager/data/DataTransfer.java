@@ -338,7 +338,7 @@ public class DataTransfer extends Helper{
 			try {
 				JSONObject jo = jArr.getJSONObject(i);
 								
-				String id = (String) jo.get(TAG_EVENTID);
+				String id = new Integer((Integer) jo.get(TAG_EVENTID)).toString();
 				String name = (String) jo.get(TAG_EVENTNAME); 
 				String orgName = (String) jo.get(TAG_ORGANIZATION);
 				String dt = (String) jo.get(TAG_EVENTDATETIME); 
@@ -353,7 +353,7 @@ public class DataTransfer extends Helper{
 				e.printStackTrace();
 			}
 		}
-		
+				
 		return result;
 	}
 	
@@ -383,14 +383,15 @@ public class DataTransfer extends Helper{
 	//EVENT
 	
 	public static boolean createEvent(String org, String datetime, String location, 
-			String desc, String type) {
+			String desc, String type, String name) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_ORGANIZATION, org));
 		params.add(new BasicNameValuePair(TAG_EVENTDATETIME, datetime));
 		params.add(new BasicNameValuePair(TAG_LOCATION, location));
 		params.add(new BasicNameValuePair(TAG_DESCRIPTION, desc));
 		params.add(new BasicNameValuePair(TAG_TYPE, type));
-
+		params.add(new BasicNameValuePair(TAG_EVENTNAME, name));
+		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/create_event", "POST", params);
 
 		return (jArr.length() > 0);
@@ -467,7 +468,7 @@ public class DataTransfer extends Helper{
 		for(int i=0; i<jArr.length() ;i++){
 			try{
 				jo = jArr.getJSONObject(i);
-				String eventID = (String) jo.get(TAG_EVENTID);
+				String eventID = new Integer( (Integer) jo.get(TAG_EVENTID)).toString();
 				String eventName = (String) jo.get(TAG_EVENTNAME);
 				String eventDateTime = (String) jo.get(TAG_EVENTDATETIME);
 				
@@ -477,6 +478,8 @@ public class DataTransfer extends Helper{
 				e.printStackTrace();
 			}
 		}
+		
+		Log.d("DataTest", "" + result.size());
 		
 		return result;
 	}

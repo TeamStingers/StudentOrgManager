@@ -130,7 +130,6 @@ app.post('/get_user_info', function(req, res){
 
 	connection.query('SELECT * FROM Users WHERE Username= ?', [post.Username], function(err, result){
 		if(err) console.log(err);
-		console.log('req recv' + post.Username);
 		console.log(result);
 		res.json(result);
 	});
@@ -332,13 +331,13 @@ app.post('/create_news_item', function(req, res){
 
 app.post('/delete_news_item', function(req, res){
 	var post = req.body;
-	var sqlFormattedDateTime = toSqlDateTime(post.NewsTimeStamp);
 
 	var deleteNewsSql = "DELETE FROM NewsItems WHERE Organization=" + connection.escape(post.Organization) +
-						" AND NewsTimeStamp=" + sqlFormattedDateTime;
+						" AND NewsTimeStamp=" + connection.escape(post.NewsTimeStamp);
 
 	//POST {Organization:'OrgName' AND Announcement='AnouncementText'}
 	connection.query(deleteNewsSql, function(err, result){
+		// console.log(result);
 		if(err) console.log(err);
 		res.send([{success:true}]);
 	});
@@ -346,13 +345,13 @@ app.post('/delete_news_item', function(req, res){
 
 app.post('/create_event', function(req, res){
 	var post = req.body;
-	var sqlFormattedDateTime = toSqlDateTime(post.EventDateTime);
 
 	var createEventSql = "INSERT INTO Events SET Organization=" + connection.escape(post.Organization) +
 						", Location=" + connection.escape(post.Location) +
 						", Description=" + connection.escape(post.Description) +
 						", Type=" + connection.escape(post.Type) +
-						", EventDateTime=" + sqlFormattedDateTime;
+						", EventDateTime=" + connection.escape(post.EventDateTime) + 
+						", EventName=" + connection.escape(post.EventName);
 
 	connection.query(createEventSql, function(err, results){
 		if(err) console.log(err);
@@ -393,7 +392,7 @@ app.post('/get_org_events', function(req, res){
 
 	//post {Organization:$OrgName}
 	connection.query("SELECT * FROM Events WHERE ?", post, function(err, result){
-		res.json(result);
+		res.send(result);
 	});
 });
 
@@ -413,12 +412,14 @@ app.post('/get_user_absences_for_org', function(req, res){
 	var post = req.body;
 
 	//post {Username:$username, Organization:$orgname}
-	var getUserAbsSql = "SELECT EventID, Username, Organization, EventName, EventDateTime" +
+	var getUserAbsSql = "SELECT Absences.EventID, Username, Absences.Organization, EventName, EventDateTime" +
 				" FROM Events INNER JOIN Absences ON Absences.EventID=Events.EventID" +
-				" WHERE Organization="+ connection.escape(post.Organization) + " AND" +
+				" WHERE Absences.Organization="+ connection.escape(post.Organization) + " AND" +
 				" Username=" + connection.escape(post.Username);
 
 	connection.query(getUserAbsSql, function(err, result){
+		if(err) console.log(err);
+		console.log(result);
 		res.json(result);
 	});
 });
@@ -540,8 +541,8 @@ app.post('/update_org_dues', function(req, res){
 	var post = req.body;
 
 	//post {Organization:$orgname, AnnualDues:$anualdue}
-	var updateDuesSql = "UPDATE Organizations SET AnnualDues=" + connect.escape(post.AnnualDues) +
-		" WHERE Organization=" + connection.escape(post.Organization);
+	var updateDuesSql = "UPDATE Organizations SET AnnualDues=" + connection.escape(post.AnnualDues) +
+		" WHERE OrgName=" + connection.escape(post.Organization);
 
 	connection.query(updateDuesSql, function(err, result){
 		if(err) console.log(err);
@@ -553,7 +554,7 @@ app.post('/update_user_dues', function(req, res){
 	var post = req.body;
 
 	//post {OrgName:$orgname, Username:$un, Status:} .. where status is paid or unpaid
-	var updateDuesSql = "UPDATE UserOrgs SET DuesPaid=" + connect.escape(post.Status) +
+	var updateDuesSql = "UPDATE UserOrgs SET DuesPaid=" + connection.escape(post.Status) +
 		" WHERE Username=" + connection.escape(post.Username) + " AND Organization=" +
 		connection.escape(post.Organization);
 
@@ -572,9 +573,10 @@ function queryConnection(sql, cb){
 	});
 }
 
-function toSqlDateTime(dateString){
-	return new Date(dateString).toISOString().slice(0, 19).replace('T', ' ');
-}
+// function toSqlDateTime(dateString){
+// 	console.log(dateString);
+// 	return new Date(dateString).toISOString().slice(0, 19).replace('T', ' ');
+// }
 
 
 // setInterval(function(){ 

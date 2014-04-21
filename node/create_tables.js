@@ -95,7 +95,7 @@ function createTables(toExecute){
 	function createMessagesTable(){
 		var sql = 	"CREATE TABLE Messages(" + 
 					"MessageID INT NOT NULL AUTO_INCREMENT, MsgContent TEXT, SendingUser VARCHAR(255), " +
-					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255) " + 
+					"MsgTimeStamp TIMESTAMP DEFAULT NOW(), MessageType VARCHAR(255), " + 
 					"FOREIGN KEY(SendingUser) REFERENCES Users(Username), " +
 					"PRIMARY KEY(MessageID))";
 

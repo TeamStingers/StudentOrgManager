@@ -105,6 +105,14 @@
             android:name="com.seniordesign.studentorgmanager.NewEventActivity"
             android:label="@string/title_activity_new_event" >
         </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.AdminDuesActivity"
+            android:label="@string/title_activity_admin_dues" >
+        </activity>
+        <activity
+            android:name="com.seniordesign.studentorgmanager.RegDuesActivity"
+            android:label="@string/title_activity_reg_dues" >
+        </activity>
     </application>
 
 </manifest>

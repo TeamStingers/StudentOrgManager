@@ -1,16 +1,15 @@
 package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.seniordesign.studentorgmanager.MailBoxActivity.InitTask;
 import com.seniordesign.studentorgmanager.data.*;
 
-import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,19 +17,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.os.Build;
 
 /**
  * View events for an organization
@@ -55,7 +52,7 @@ public class EventActivity extends Activity {
 	private boolean isOfficer = false;
 	
 	private ArrayList<EventDAO> orgEvents;
-	private HashMap<String, EventDAO> nameToEvent;
+	private HashMap<String, EventDAO> nameToEvent = new HashMap<String, EventDAO>();
 	private EventDAO selectedEvent;
 	
 	@Override
@@ -68,6 +65,7 @@ public class EventActivity extends Activity {
 		orgName = i.getStringExtra(MainActivity.OrgNameTag);
 		
 		mTitleLabel = (TextView) findViewById(R.id.eventsOrgTitle);
+		mTitleLabel.setText(orgName);
 		mEventsList = (ListView) findViewById(R.id.eventsList);
 		mAddEventButton = (Button) findViewById(R.id.addEventButton);
 		mAddEventButton.setOnClickListener(new ButtonClickListener(this));
@@ -103,6 +101,7 @@ public class EventActivity extends Activity {
 		protected void onPostExecute(final Void param) {
 			for (EventDAO event : orgEvents) {
 				nameToEvent.put(event.name, event);
+				Log.d("EventTest", event.dateTime);
 			}
 			if (!(memberType.equals("RegularMember"))) {
 				isOfficer = true;
@@ -116,6 +115,8 @@ public class EventActivity extends Activity {
 		
 		List<HashMap<String, Object>> fillMaps = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		Collections.reverse(orgEvents);
 		
 		for (EventDAO event : orgEvents) {
 			map = new HashMap<String, Object>();
@@ -178,6 +179,7 @@ public class EventActivity extends Activity {
 						i.putExtra(LoginActivity.UserNameTag, username);
 						i.putExtra(MainActivity.OrgNameTag, orgName);
 						startActivity(i);
+						finish();
 						break;
 					default:
 						break;

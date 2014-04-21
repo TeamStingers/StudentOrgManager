@@ -46,7 +46,7 @@ public class ViewAbsencesActivity extends Activity {
 	private String eventID;
 	
 	private ArrayList<AbsenceDAO> eventAbsences;
-	private ArrayList<String> memberNames;
+	private ArrayList<String> memberNames = new ArrayList<String>();
 	private String userViewed;
 	
 	@Override

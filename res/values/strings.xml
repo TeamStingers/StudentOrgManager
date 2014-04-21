@@ -45,22 +45,23 @@
         <item>Public</item>
         <item>Private</item>
     </string-array>
-    
     <string-array name="event_types">
         <item>Meeting</item>
         <item>Social</item>
         <item>Volunteering</item>
     </string-array>
 
-    <string name="title_activity_orgs_public">Public Profile</string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_activity_news_feed">NewsFeedActivity</string>
-    <string name="title_activity_mail_box">MailBoxActivity</string>
-    <string name="title_activity_message_view">MessageViewActivity</string>
-    <string name="title_activity_public_profile">PublicProfileActivity</string>
-    <string name="title_activity_report_absence">ReportAbsenceActivity</string>
-    <string name="title_activity_event">EventActivity</string>
-    <string name="title_activity_view_absences">ViewAbsencesActivity</string>
-    <string name="title_activity_new_event">NewEventActivity</string>
+    <string name="title_activity_orgs_public">Organization</string>
+    <string name="title_activity_profile">My Profile</string>
+    <string name="title_activity_news_feed">News Feed</string>
+    <string name="title_activity_mail_box">MailBox</string>
+    <string name="title_activity_message_view">Message View</string>
+    <string name="title_activity_public_profile">Profile</string>
+    <string name="title_activity_report_absence">Report Absence</string>
+    <string name="title_activity_event">Events</string>
+    <string name="title_activity_view_absences">View Absences</string>
+    <string name="title_activity_new_event">New Event</string>
+    <string name="title_activity_admin_dues">Dues Management</string>
+    <string name="title_activity_reg_dues">Dues Status</string>
 
 </resources>

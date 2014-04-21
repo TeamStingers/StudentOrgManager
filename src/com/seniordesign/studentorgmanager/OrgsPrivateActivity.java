@@ -28,6 +28,7 @@ public class OrgsPrivateActivity extends Activity {
 
 	private String orgName;
 	private String username;
+	private boolean isOfficer = false;
 	
 	private TextView nameLabel;
 	private Button rosterButton;
@@ -53,7 +54,6 @@ public class OrgsPrivateActivity extends Activity {
 		nameLabel.setText(orgName);
 		
 		rosterButton = (Button) findViewById(R.id.rosterButton);
-		calendarButton = (Button) findViewById(R.id.calendarButton);
 		profileButton = (Button) findViewById(R.id.profileButton);
 		duesButton = (Button) findViewById(R.id.duesButton);
 		newsfeedButton = (Button) findViewById(R.id.newsfeedButton);
@@ -65,6 +65,7 @@ public class OrgsPrivateActivity extends Activity {
 		newsfeedButton.setOnClickListener(new ButtonClickListener(this, newsfeedButton.getId()));
 		deleteOrgBtn.setOnClickListener(new ButtonClickListener(this, deleteOrgBtn.getId()));
 		eventsButton.setOnClickListener(new ButtonClickListener(this, eventsButton.getId()));
+		duesButton.setOnClickListener(new ButtonClickListener(this, duesButton.getId()));
 		
 		deleteOrgBtn.setVisibility(View.GONE);
 		
@@ -130,6 +131,19 @@ public class OrgsPrivateActivity extends Activity {
 					ev.putExtra(LoginActivity.UserNameTag, username);
 					ev.putExtra(MainActivity.OrgNameTag, orgName);
 					startActivity(ev);
+					break;
+				case R.id.duesButton:
+					Intent dues = new Intent();
+					Log.d("OrgPirvate", new Boolean(isOfficer).toString());
+					if (isOfficer) {
+						dues = new Intent(mContext, AdminDuesActivity.class);	
+					}
+					else {
+						dues = new Intent(mContext, RegDuesActivity.class);
+					}
+					dues.putExtra(LoginActivity.UserNameTag, username);
+					dues.putExtra(MainActivity.OrgNameTag, orgName);
+					startActivity(dues);
 			}
 			
 		}
@@ -147,8 +161,10 @@ public class OrgsPrivateActivity extends Activity {
 		}
 		protected void onPostExecute(final Void param) {
 			if(pos.equals("Admin")){
-				//
 				deleteOrgBtn.setVisibility(View.VISIBLE);
+			}
+			if(!(pos.equals("RegularMember"))) {
+				isOfficer = true;
 			}
 		}
 	}
