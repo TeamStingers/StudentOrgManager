@@ -64,8 +64,18 @@ public abstract class Helper {
 
 	public static String dateToString(int year, int monthOfYear, int dayOfMonth, 
 			int hourOfDay, int minuteOfHour, int secondOfMinute){
+		
+		String secondString;
+		
+		if (secondOfMinute < 10) {
+			secondString = "0" + secondOfMinute;
+		}
+		else {
+			secondString = "" + secondOfMinute;
+		}
+		
 		String result = dayOfMonth+"-"+monthOfYear + "-" + year + " " + 
-			hourOfDay + ":" + minuteOfHour + ":" + secondOfMinute;
+			hourOfDay + ":" + minuteOfHour + ":" + secondString;
 		
 		return result;
 		

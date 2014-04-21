@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import com.seniordesign.studentorgmanager.data.DataTransfer;
+import com.seniordesign.studentorgmanager.data.Helper;
 
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -107,7 +108,7 @@ public class NewEventActivity extends Activity {
 		type = mTypeSpinner.getSelectedItem().toString();
 		description = mDescriptionEdit.getText().toString();
 		// Get datetime info once data transfer stuff is sorted out
-		datetime = "";
+		datetime = Helper.dateToString(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute(), 0);
 		
 		if (TextUtils.isEmpty(name)) {
 			mNameEdit.setError(getString(R.string.error_field_required));
@@ -135,7 +136,7 @@ public class NewEventActivity extends Activity {
 	
 	public class CreateEventTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
-			// Create event here
+			DataTransfer.createEvent(orgName, datetime, location, description, type);
 			return null;
 		}
 	}

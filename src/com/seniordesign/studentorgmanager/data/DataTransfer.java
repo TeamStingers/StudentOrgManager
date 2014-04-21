@@ -382,12 +382,12 @@ public class DataTransfer extends Helper{
 	
 	//EVENT
 	
-	public static boolean createEvent(String org, String announce, String poster, 
+	public static boolean createEvent(String org, String datetime, String location, 
 			String desc, String type) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_ORGANIZATION, org));
-		params.add(new BasicNameValuePair(TAG_EVENTDATETIME, announce));
-		params.add(new BasicNameValuePair(TAG_LOCATION, poster));
+		params.add(new BasicNameValuePair(TAG_EVENTDATETIME, datetime));
+		params.add(new BasicNameValuePair(TAG_LOCATION, location));
 		params.add(new BasicNameValuePair(TAG_DESCRIPTION, desc));
 		params.add(new BasicNameValuePair(TAG_TYPE, type));
 
