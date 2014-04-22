@@ -3,7 +3,6 @@ package com.seniordesign.studentorgmanager;
 import com.seniordesign.studentorgmanager.MailBoxActivity.SendMailTask;
 import com.seniordesign.studentorgmanager.data.DataTransfer;
 
-import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -188,18 +187,5 @@ public class MessageViewActivity extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_message_view,
-					container, false);
-			return rootView;
-		}
-	}
 
 }

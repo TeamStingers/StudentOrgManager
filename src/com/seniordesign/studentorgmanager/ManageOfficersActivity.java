@@ -10,7 +10,6 @@ import java.util.concurrent.TimeoutException;
 import com.seniordesign.studentorgmanager.ProfileActivity.InitTask;
 import com.seniordesign.studentorgmanager.data.*;
 
-import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
