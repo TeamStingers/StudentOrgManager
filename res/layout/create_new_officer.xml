@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/createOfficerUsernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/createOfficerUsernameSpinner"
+        android:layout_alignParentLeft="true"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/createOfficerMemberTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/createOfficerUsernameSpinner"
+        android:layout_toRightOf="@+id/createOfficerMemberTypeLabel" />
+
+    <TextView
+        android:id="@+id/createOfficerMemberTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/createOfficerMemberTypeSpinner"
+        android:layout_alignParentLeft="true"
+        android:text="Member Type"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/createOfficerUsernameSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/createOfficerMemberTypeSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp" />
+
+    <EditText
+        android:id="@+id/createOfficerPositionEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/createOfficerMemberTypeSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/createOfficerMemberTypeSpinner"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        android:ems="10" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/createOfficerPositionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/createOfficerPositionEdit"
+        android:layout_alignParentLeft="true"
+        android:text="Postion"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

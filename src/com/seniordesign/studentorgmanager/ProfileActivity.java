@@ -152,10 +152,12 @@ public class ProfileActivity extends Activity {
 					Intent saveIntent = new Intent(ProfileActivity.this, MainActivity.class);
 					saveIntent.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(saveIntent);
+					break;
 				case R.id.cancelButton:
 					Intent cancelIntent = new Intent(ProfileActivity.this, MainActivity.class);
 					cancelIntent.putExtra(LoginActivity.UserNameTag, username);
 					startActivity(cancelIntent);
+					break;
 				case R.id.deleteAcctBtn:
 					new AlertDialog.Builder(ProfileActivity.this)
 					.setTitle("Delete Account")
@@ -167,6 +169,7 @@ public class ProfileActivity extends Activity {
 							dt.execute((Void) null);
 					    }})
 					 .setNegativeButton(android.R.string.no, null).show();
+					break;
 					
 			}
 		}

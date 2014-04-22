@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/createNewOrg"
+        android:text="Create Organization"
         android:textSize="15sp" />
 
     <Button
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/searchForOrgs"
+        android:text="Browse"
         android:textSize="15sp" />
 
     <Button

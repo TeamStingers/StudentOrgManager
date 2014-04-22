@@ -34,29 +34,12 @@
         android:text="@string/events" />
 
     <Button
-        android:id="@+id/profileButton"
+        android:id="@+id/duesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/profile" />
-
-    <Button
-        android:id="@+id/optionsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/options" />
-
-    <Button
-        android:id="@+id/deleteOrgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/optionsButton"
-        android:layout_alignBottom="@+id/optionsButton"
-        android:layout_centerHorizontal="true"
-        android:text="Delete Org" />
+        android:layout_centerVertical="true"
+        android:text="@string/dues" />
 
     <Button
         android:id="@+id/newsfeedButton"
@@ -64,15 +47,15 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/rosterButton"
         android:layout_alignBottom="@+id/rosterButton"
-        android:layout_alignRight="@+id/duesButton"
+        android:layout_alignParentRight="true"
         android:text="@string/newsfeed" />
 
     <Button
-        android:id="@+id/duesButton"
+        android:id="@+id/deleteOrgBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/optionsButton"
-        android:layout_centerVertical="true"
-        android:text="@string/dues" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Delete Org" />
 
 </RelativeLayout>

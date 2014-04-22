@@ -54,11 +54,9 @@ public class OrgsPrivateActivity extends Activity {
 		nameLabel.setText(orgName);
 		
 		rosterButton = (Button) findViewById(R.id.rosterButton);
-		profileButton = (Button) findViewById(R.id.profileButton);
 		duesButton = (Button) findViewById(R.id.duesButton);
 		newsfeedButton = (Button) findViewById(R.id.newsfeedButton);
-		eventsButton = (Button) findViewById(R.id.eventsButton);
-		optionsButton = (Button) findViewById(R.id.optionsButton);	
+		eventsButton = (Button) findViewById(R.id.eventsButton);	
 		deleteOrgBtn = (Button) findViewById(R.id.deleteOrgBtn);
 		
 		rosterButton.setOnClickListener(new ButtonClickListener(this, rosterButton.getId()));

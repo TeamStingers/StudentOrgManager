@@ -172,20 +172,19 @@
         android:text="Cancel" />
 
     <Button
-        android:id="@+id/doneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/deleteAcctBtn"
-        android:text="Done" />
-
-    <Button
         android:id="@+id/deleteAcctBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Delete Account" />
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Done" />
 
 </RelativeLayout>

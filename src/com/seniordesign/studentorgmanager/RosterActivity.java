@@ -23,12 +23,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +45,7 @@ public class RosterActivity extends Activity {
 	private ListView membersListView;
 	private ArrayAdapter<String> adapter;
 	private Button addMemberButton;
+	private Button mOfficersButton;
 	private ArrayList<String> orgMembers = new ArrayList<String>();;
 	
 	@Override
@@ -82,7 +85,19 @@ public class RosterActivity extends Activity {
 		addMemberButton.setVisibility(View.GONE);
 		addMemberButton.setOnClickListener(new AddMemberClickListener(this));
 		
-		if(!memberType.equals("RegularMember")) addMemberButton.setVisibility(View.VISIBLE);
+		mOfficersButton = (Button) findViewById(R.id.officersButton);
+		mOfficersButton.setOnClickListener(new OfficerClickListener());
+		
+		if(!memberType.equals("RegularMember")) {
+			// Is an officer
+			addMemberButton.setVisibility(View.VISIBLE);
+		}
+		else {
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)LayoutParams.WRAP_CONTENT, (int)LayoutParams.WRAP_CONTENT);
+			params.addRule(RelativeLayout.CENTER_VERTICAL);
+			params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+			mOfficersButton.setLayoutParams(params);
+		}
 	}
 
 	private class InitTask extends AsyncTask<Void, Void, Void> {
@@ -178,6 +193,25 @@ public class RosterActivity extends Activity {
 		
 	}
 	
+	private class OfficerClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			Intent i = new Intent();
+			if (memberType.equals("RegularMember")) {
+				
+			}
+			else {
+				i = new Intent(RosterActivity.this, ManageOfficersActivity.class);
+				i.putExtra(LoginActivity.UserNameTag, username);
+				i.putExtra(MainActivity.OrgNameTag, orgName);
+			}
+			startActivity(i);
+			
+		}
+		
+	}
+	
 	private class MemberListener implements OnItemClickListener {
 		Context mContext;
 		
@@ -191,7 +225,16 @@ public class RosterActivity extends Activity {
 			actionUser = (String) ((TextView) arg1).getText();
 			AlertDialog.Builder memberAlert = new AlertDialog.Builder(mContext);
 			memberAlert.setTitle("Member Options");
-			String[] options = {"Profile","Report Absence", "Remove Member"};
+			
+			String[] options;
+			
+			if (!(memberType.equals("RegularMember"))) {
+				options = new String[]{"Profile","Report Absence", "Remove Member"};
+			}
+			else {
+				options = new String[]{"Profile"};
+			}
+			
 			memberAlert.setItems(options, new OptionsListener(mContext, (String) adapter.getItemAtPosition(index)));
 			memberAlert.show();
 		}
