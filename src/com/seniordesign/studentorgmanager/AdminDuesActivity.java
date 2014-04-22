@@ -279,22 +279,52 @@ public class AdminDuesActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.admin_dues, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		
+		Intent i = new Intent();
+		
+		switch (id) {
+			case R.id.action_home:
+				i = new Intent(this, MainActivity.class);
+				i.putExtra(LoginActivity.UserNameTag, username);
+				startActivity(i);
+				break;
+			case R.id.action_profile:
+				i = new Intent(this, ProfileActivity.class);
+				i.putExtra(LoginActivity.UserNameTag, username);
+				startActivity(i);
+				break;
+			case R.id.action_logout:
+				new AlertDialog.Builder(this)
+				.setTitle("Logging Out")
+				.setMessage("Do you really want to log out?")
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int whichButton) {
+						logout();
+				    }})
+				 .setNegativeButton(android.R.string.no, null).show();
+				break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void logout() {
+		Intent i = new Intent(this, LoginActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
+		finish();
+	}
+
 
 }

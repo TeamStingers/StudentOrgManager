@@ -36,10 +36,9 @@ public final class R {
         public static final int EMail=0x7f090096;
         public static final int absentMembersLabel=0x7f090082;
         public static final int absentMembersListView=0x7f090083;
-        public static final int action_forgot_password=0x7f0900aa;
-        public static final int action_home=0x7f0900ab;
-        public static final int action_logout=0x7f0900ad;
-        public static final int action_profile=0x7f0900ac;
+        public static final int action_home=0x7f0900aa;
+        public static final int action_logout=0x7f0900ac;
+        public static final int action_profile=0x7f0900ab;
         public static final int action_settings=0x7f0900a9;
         public static final int addEventButton=0x7f090015;
         public static final int addMemberButton=0x7f09007f;
@@ -379,6 +378,7 @@ public final class R {
         public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
+ <item name="android:background">#C2FFC2</item> 
          */
         public static final int AppTheme=0x7f070001;
         public static final int LoginFormContainer=0x7f070002;
