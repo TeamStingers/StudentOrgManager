@@ -96,9 +96,13 @@ public class ManageOfficersActivity extends Activity {
 		mOfficersList = (ListView) findViewById(R.id.currentOfficersListView);
 		mAddOfficerButton = (Button) findViewById(R.id.newOfficerButton);
 		mAddOfficerButton.setOnClickListener(new ButtonClickListener(this));
-		mMembersSpinner = (Spinner) findViewById(R.id.createOfficerUsernameSpinner);
-		mTypesSpinner = (Spinner) findViewById(R.id.createOfficerMemberTypeSpinner);
-		mPositionEdit = (EditText) findViewById(R.id.createOfficerPositionEdit);
+		
+		LayoutInflater inflater = LayoutInflater.from(this);
+		View view = inflater.inflate(R.layout.create_new_officer, null);
+		
+		mMembersSpinner = (Spinner) view.findViewById(R.id.createOfficerUsernameSpinner);
+		mTypesSpinner = (Spinner) view.findViewById(R.id.createOfficerMemberTypeSpinner);
+		mPositionEdit = (EditText) view.findViewById(R.id.createOfficerPositionEdit);
 		
 		
 		
@@ -325,14 +329,14 @@ public class ManageOfficersActivity extends Activity {
 			Log.d("debug", "notOfficers null");
 		}
 		else {
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, notOfficers);
+			ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, (String[])notOfficers.toArray());
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			mMembersSpinner.setAdapter(adapter);
 		}
 		
 		
 		
-		ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
+		ArrayAdapter<CharSequence> adapter1 = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, types);
 		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mTypesSpinner.setAdapter(adapter1);
 		
