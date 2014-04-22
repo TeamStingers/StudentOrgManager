@@ -96,7 +96,6 @@ public class ReportAbsenceActivity extends Activity {
 		//Represents currently selected element of event spinner
 		selectedEvent = null;
 		
-		
 		// Run DB tasks
 		InitTask mInitTask = new InitTask();
 		mInitTask.execute((Void) null);
@@ -116,19 +115,30 @@ public class ReportAbsenceActivity extends Activity {
 					e.printStackTrace();
 				}
 				
-		setEventSpinner(); // Populate spinner with all events for org
+				  
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eventNames);
+				
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				mEventSpinner.setAdapter(adapter);
+				mEventSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				    @Override
+				    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				        // your code here
+						String selectedEventName = parentView.getItemAtPosition(position).toString();
+						Log.d("RP1", String.valueOf(mEventSpinner.getSelectedItem()));
+						Log.d("SelectedEvent", selectedEventName);
+						selectedEvent = nameToEvent.get(selectedEventName);	
+				    }
+
+				    @Override
+				    public void onNothingSelected(AdapterView<?> parentView) {
+				        // your code here
+				    }
+
+				});
+				
 		setPreviousAbsences(); // Populate list with previous absences of user
 		
-	}
-
-	
-	public void setEventSpinner() {
-//		Log.d("ReportAbs1", "setEventSpinner begin");
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eventNames);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mEventSpinner.setAdapter(adapter);
-		mEventSpinner.setOnItemSelectedListener(new MyItemSelectedListener());
-//		Log.d("ReportAbs1", "setEventSpinner end");
 	}
 	
 	public void setPreviousAbsences() {
@@ -172,6 +182,7 @@ public class ReportAbsenceActivity extends Activity {
 		public void onItemSelected(AdapterView<?> parent, View view,
 				int position, long id) {
 			String selectedEventName = parent.getItemAtPosition(position).toString();
+			Log.d("RP1", String.valueOf(mEventSpinner.getSelectedItem()));
 			Log.d("SelectedEvent", selectedEventName);
 			selectedEvent = nameToEvent.get(selectedEventName);			
 		}
@@ -191,9 +202,11 @@ public class ReportAbsenceActivity extends Activity {
 			mContext = context;
 		}
 		
+		
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+		
 			String eventName = ((TextView) view.findViewById(R.id.prevAbsenceEvent)).getText().toString();
 			AbsenceDAO prev = nameToAbsence.get(eventName);
 			AlertDialog.Builder absenceAlert = new AlertDialog.Builder(mContext);

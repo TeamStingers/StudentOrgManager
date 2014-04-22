@@ -62,7 +62,6 @@ public class DataTransfer extends Helper{
 						phoneNumber, pictureRef, gradYear);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
-				Log.d("getUser", "fuck");
 				e.printStackTrace();
 			}
 		}
@@ -204,14 +203,11 @@ public class DataTransfer extends Helper{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_USERNAME, username));
 		params.add(new BasicNameValuePair(TAG_ORGANIZATION, organization));
-		
-		Log.d("removeFrom", "in");
-		
+				
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/remove_user_from_org", "POST", params);
 		
 		try {
 			Boolean res = (Boolean) jArr.getJSONObject(0).get("success");
-			Log.d("removeFromRes", "res");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -268,7 +264,6 @@ public class DataTransfer extends Helper{
 			}			
 			
 		}else{
-			Log.d("getOrganization", "organization not in db");
 			return null;
 		}		
 		
@@ -304,9 +299,7 @@ public class DataTransfer extends Helper{
 		
 		JSONArray jArr = jsonParser.makeHttpRequest(HOST+"/get_org_news", "POST", params);
 		ArrayList<NewsItemDAO> result = new ArrayList<NewsItemDAO>();
-		
-		Log.d("dd" , new Integer(jArr.length()).toString());
-		
+				
 		for(int i=0; i<jArr.length(); i++){
 			try {
 				JSONObject jo = jArr.getJSONObject(i);
@@ -346,7 +339,6 @@ public class DataTransfer extends Helper{
 				String type	= (String) jo.get(TAG_TYPE);
 				
 				EventDAO n = new EventDAO(id, name, orgName, dt, loc, desc, type);
-				Log.d("DataTransferT1", n.dateTime);
 				result.add(n);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -478,9 +470,7 @@ public class DataTransfer extends Helper{
 				e.printStackTrace();
 			}
 		}
-		
-		Log.d("DataTest", "" + result.size());
-		
+				
 		return result;
 	}
 	
