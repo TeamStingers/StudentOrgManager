@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +54,9 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
 		setContentView(R.layout.activity_login);
+		
 		
 		mRegisterButton = (Button) findViewById(R.id.registerButton);
 		mRegisterButton.setOnClickListener(new RegisterClickListener(this));		
