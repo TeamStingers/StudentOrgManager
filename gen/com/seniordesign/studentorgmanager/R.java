@@ -34,6 +34,7 @@ public final class R {
         public static final int org_admin_logo=0x7f020001;
         public static final int org_manager_logo=0x7f020002;
         public static final int orgmanager_launcher=0x7f020003;
+        public static final int orgmanager_launcher2=0x7f020004;
     }
     public static final class id {
         public static final int EMail=0x7f090097;
