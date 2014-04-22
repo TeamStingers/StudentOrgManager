@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.seniordesign.studentorgmanager.OrgsPrivateActivity.DeleteOrgTask;
 import com.seniordesign.studentorgmanager.data.DataTransfer;
 import com.seniordesign.studentorgmanager.data.OrganizationDAO;
 import com.seniordesign.studentorgmanager.data.UserDAO;
@@ -12,10 +13,14 @@ import com.seniordesign.studentorgmanager.data.UserDAO;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -121,11 +126,51 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		Log.d("Debug", "create menu");
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		
+		Intent i = new Intent();
+		
+		switch (id) {
+			case R.id.action_home:
+				i = new Intent(this, MainActivity.class);
+				i.putExtra(LoginActivity.UserNameTag, username);
+				startActivity(i);
+				break;
+			case R.id.action_profile:
+				i = new Intent(this, ProfileActivity.class);
+				i.putExtra(LoginActivity.UserNameTag, username);
+				startActivity(i);
+				break;
+			case R.id.action_logout:
+				new AlertDialog.Builder(this)
+				.setTitle("Logging Out")
+				.setMessage("Do you really want to log out?")
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int whichButton) {
+						logout();
+				    }})
+				 .setNegativeButton(android.R.string.no, null).show();
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	public void logout() {
+		Intent i = new Intent(this, LoginActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
+		finish();
+	}
 
 	public class myItemClickListener implements OnItemClickListener {
 		private Context context;

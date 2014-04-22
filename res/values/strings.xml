@@ -18,7 +18,7 @@
     <string name="profile">Profile</string>
     <string name="calendar">Calendar</string>
     <string name="events">Events</string>
-    <string name="title_activity_roster">RosterActivity</string>
+    <string name="title_activity_roster">Roster</string>
     <string name="title_activity_organization_list">Organization List</string>
     <string name="title_activity_all_users">All Users</string>
     <string name="title_activity_edit_users">Edit Users</string>
@@ -32,7 +32,7 @@
     <string name="password">Password</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="email">Email</string>
-    <string name="title_activity_create_org">CreateOrgActivity</string>
+    <string name="title_activity_create_org">Create Organization</string>
     <string name="orgName">Organization Name</string>
     <string name="orgTypeLabel">Organization Type</string>
     <string name="create">Create</string>
@@ -63,7 +63,7 @@
     <string name="title_activity_new_event">New Event</string>
     <string name="title_activity_admin_dues">Dues Management</string>
     <string name="title_activity_reg_dues">Dues Status</string>
-    <string name="title_activity_manage_officers">ManageOfficersActivity</string>
-    <string name="title_activity_view_officers">ViewOfficersActivity</string>
+    <string name="title_activity_manage_officers">Manage Officers</string>
+    <string name="title_activity_view_officers">View Officers</string>
 
 </resources>
