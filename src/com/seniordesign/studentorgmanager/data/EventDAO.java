@@ -1,5 +1,7 @@
 package com.seniordesign.studentorgmanager.data;
 
+import android.util.Log;
+
 public class EventDAO {
 	
 	public String id;
@@ -15,7 +17,7 @@ public class EventDAO {
 		this.id = id;
 		this.name = name;
 		organization = org;
-		dateTime = Helper.formatJsonDate(dt);
+		this.dateTime = Helper.formatJsonDate(dt);
 		location = loc;
 		description = desc;
 		this.type = type;

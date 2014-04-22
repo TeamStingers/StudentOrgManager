@@ -322,7 +322,6 @@ public class DataTransfer extends Helper{
 				e.printStackTrace();
 			}
 		}
-		Log.d("getOrgNews", "" + result.size());
 
 		return result;
 	}
@@ -347,6 +346,7 @@ public class DataTransfer extends Helper{
 				String type	= (String) jo.get(TAG_TYPE);
 				
 				EventDAO n = new EventDAO(id, name, orgName, dt, loc, desc, type);
+				Log.d("DataTransferT1", n.dateTime);
 				result.add(n);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

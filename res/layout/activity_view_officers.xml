@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seniordesign.studentorgmanager.ViewOfficersActivity"
+    tools:ignore="MergeRootFrame" >
+    
+        <TextView
+        android:id="@+id/viewOfficersOrgTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="An Organization"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/viewOfficersSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewOfficersOrgTitle"
+        android:layout_centerHorizontal="true"
+        android:text="Officers"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/currentOfficersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/viewOfficersSubtitle"
+        android:layout_marginTop="20dp"
+        android:text="Current Officers"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/viewOfficersListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/currentOfficersLabel"
+        android:layout_centerHorizontal="true" >
+
+    </ListView>
+
+</RelativeLayout>

@@ -64,5 +64,6 @@
     <string name="title_activity_admin_dues">Dues Management</string>
     <string name="title_activity_reg_dues">Dues Status</string>
     <string name="title_activity_manage_officers">ManageOfficersActivity</string>
+    <string name="title_activity_view_officers">ViewOfficersActivity</string>
 
 </resources>

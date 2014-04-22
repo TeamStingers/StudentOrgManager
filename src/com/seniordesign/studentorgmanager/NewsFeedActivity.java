@@ -231,18 +231,18 @@ public class NewsFeedActivity extends Activity {
 		task.execute((Void) null);
 
 		//Wait for DB actions to complete
-				try {
-					task.get(15000, TimeUnit.MILLISECONDS);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (TimeoutException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		try {
+			task.get(15000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Bundle extras = new Bundle();
 		extras.putString(LoginActivity.UserNameTag, username);
@@ -250,7 +250,7 @@ public class NewsFeedActivity extends Activity {
 		Intent i = new Intent(this, NewsFeedActivity.class);
 		i.putExtras(extras);
 		startActivity(i);
-		
+		finish();
 	}
 	
 	public class NewStoryTask extends AsyncTask<Void, Void, Void> {

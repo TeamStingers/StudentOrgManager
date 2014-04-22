@@ -101,7 +101,6 @@ public class EventActivity extends Activity {
 		protected void onPostExecute(final Void param) {
 			for (EventDAO event : orgEvents) {
 				nameToEvent.put(event.name, event);
-				Log.d("EventTest", event.dateTime);
 			}
 			if (!(memberType.equals("RegularMember"))) {
 				isOfficer = true;
@@ -236,6 +235,7 @@ public class EventActivity extends Activity {
 			i.putExtra(LoginActivity.UserNameTag, username);
 			i.putExtra(MainActivity.OrgNameTag, orgName);
 			startActivity(i);
+			finish();
 		}
 		
 	}

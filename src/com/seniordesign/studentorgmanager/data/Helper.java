@@ -109,7 +109,9 @@ public abstract class Helper {
 			e.printStackTrace();
 		}
 
-		return sdfest.format(date);
+		String result = sdfest.format(date);
+		
+		return result;
 	}
 	
 }

@@ -108,15 +108,12 @@ app.post('/login', function(req, res){
 
 	// post {Username: $Username, Password: $Password}
 	queryConnection(sql, function(result){
-		console.log('login req');
 		res.json(result);
 	});
 });
 
 app.post('/get_all_orgs', function(req, res){
 	var post = req.body;
-
-	console.log('get user info');
 
 	connection.query("SELECT * FROM Organizations", function(err, result){
 		res.json(result);
@@ -126,11 +123,8 @@ app.post('/get_all_orgs', function(req, res){
 app.post('/get_user_info', function(req, res){
 	var post = req.body;
 
-	console.log('get user info');
-
 	connection.query('SELECT * FROM Users WHERE Username= ?', [post.Username], function(err, result){
 		if(err) console.log(err);
-		console.log(result);
 		res.json(result);
 	});
 });
@@ -177,6 +171,8 @@ app.post('/update_user', function(req, res){
 app.post('/add_user_to_org', function(req, res){
 	var post = req.body;
 	
+	console.log(post);
+
 	//need to post Position = Member and MemberType=RegularMember and DuesPaid=Unpaid by default
 	var insertQuery = connection.query('INSERT INTO UserOrgs SET ?', post, function(err, result) {
 		if(err){
@@ -346,11 +342,17 @@ app.post('/delete_news_item', function(req, res){
 app.post('/create_event', function(req, res){
 	var post = req.body;
 
+	var d1 = new Date(post.EventDateTime);	
+	var d2 = new Date(post.EventDateTime);
+	d1.setHours(d2.getHours()-4);
+
+	console.log(d1);
+
 	var createEventSql = "INSERT INTO Events SET Organization=" + connection.escape(post.Organization) +
 						", Location=" + connection.escape(post.Location) +
 						", Description=" + connection.escape(post.Description) +
 						", Type=" + connection.escape(post.Type) +
-						", EventDateTime=" + connection.escape(post.EventDateTime) + 
+						", EventDateTime=" + connection.escape(d1) + 
 						", EventName=" + connection.escape(post.EventName);
 
 	connection.query(createEventSql, function(err, results){
@@ -573,10 +575,9 @@ function queryConnection(sql, cb){
 	});
 }
 
-// function toSqlDateTime(dateString){
-// 	console.log(dateString);
-// 	return new Date(dateString).toISOString().slice(0, 19).replace('T', ' ');
-// }
+function toSqlDateTime(dateString){
+	return new Date(dateString).toISOString().slice(0, 19).replace('T', ' ');
+}
 
 
 // setInterval(function(){ 

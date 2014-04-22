@@ -162,13 +162,15 @@ public class RosterActivity extends Activity {
 			addAlert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 				  newMemberName = input.getText().toString();
+				  actionUser = newMemberName;
+				  
+				  Log.d("RosterActivity", newMemberName);
 				  
 				  //add user db task
-				  
 					JoinOrgTask jot = new JoinOrgTask(new FI(){
 						public void doWork(boolean result){
 							if(result){
-								Toast.makeText(RosterActivity.this, "Added " + orgName, Toast.LENGTH_LONG).show();
+								Toast.makeText(RosterActivity.this, "Added " + newMemberName, Toast.LENGTH_LONG).show();
 								adapter.add(newMemberName);
 								membersListView.setAdapter(adapter);
 							}else{

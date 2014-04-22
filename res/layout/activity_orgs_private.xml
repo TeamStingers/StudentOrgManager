@@ -18,12 +18,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/rosterButton"
+        android:id="@+id/deleteOrgBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/orgTitle"
-        android:text="@string/roster" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Delete Org" />
 
     <Button
         android:id="@+id/eventsButton"
@@ -42,20 +42,21 @@
         android:text="@string/dues" />
 
     <Button
+        android:id="@+id/rosterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/orgTitle"
+        android:layout_marginTop="15dp"
+        android:text="@string/roster" />
+
+    <Button
         android:id="@+id/newsfeedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/rosterButton"
-        android:layout_alignBottom="@+id/rosterButton"
+        android:layout_below="@+id/orgTitle"
+        android:layout_marginTop="15dp"
         android:layout_alignParentRight="true"
         android:text="@string/newsfeed" />
-
-    <Button
-        android:id="@+id/deleteOrgBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Delete Org" />
 
 </RelativeLayout>
