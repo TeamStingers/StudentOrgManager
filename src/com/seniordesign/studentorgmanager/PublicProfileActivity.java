@@ -88,14 +88,21 @@ public class PublicProfileActivity extends Activity {
 	}
 	
 	public void updateLabels() {
-		publicUsername.setText(userViewed.username);
-		publicEmail.setText(userViewed.email);
-		publicFirstName.setText(userViewed.firstName);
-		publicLastName.setText(userViewed.lastName);
-		publicMajor.setText(userViewed.major);
-		publicGradYear.setText(userViewed.gradYear);
-		publicPhoneNumber.setText(userViewed.phoneNumber);
-		publicBio.setText(userViewed.bio);
+		publicUsername.setText(nullCheck(userViewed.username));
+		publicEmail.setText(nullCheck(userViewed.email));
+		publicFirstName.setText(nullCheck(userViewed.firstName));
+		publicLastName.setText(nullCheck(userViewed.lastName));
+		publicMajor.setText(nullCheck(userViewed.major));
+		publicGradYear.setText(nullCheck(userViewed.gradYear));
+		publicPhoneNumber.setText(nullCheck(userViewed.phoneNumber));
+		publicBio.setText(nullCheck(userViewed.bio));
+	}
+	
+	public String nullCheck(String s) {
+		if (s == null || s.equals("null")) {
+			return "";
+		}
+		else return s;
 	}
 	
 	@Override

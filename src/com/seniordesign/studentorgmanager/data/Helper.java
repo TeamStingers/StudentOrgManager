@@ -11,9 +11,10 @@ import android.util.Log;
 
 
 public abstract class Helper {
-
+	
 	protected static final JSONParser jsonParser = new JSONParser();
-	protected static final String HOST = "http://10.0.2.2";
+//	protected static final String HOST = "http://10.0.2.2";
+	protected static final String HOST = "http://ec2-54-234-173-152.compute-1.amazonaws.com";
 	
 	//@TABLE User
 	protected static final String TAG_USERNAME = "Username";

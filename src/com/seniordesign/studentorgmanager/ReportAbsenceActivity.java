@@ -80,7 +80,7 @@ public class ReportAbsenceActivity extends Activity {
 		
 		//Initialize UI elements
 		mTitleLabel = (TextView) findViewById(R.id.reportAbsenceTitleLabel);
-		mTitleLabel.setText("Absences for " + username);
+		mTitleLabel.setText("Absences for " + userViewed);
 		mEventSpinner = (Spinner) findViewById(R.id.eventForAbsenceSpinner);
 		mReportButton = (Button) findViewById(R.id.reportAbsenceButton);
 		mReportButton.setOnClickListener(new ButtonClickListener(this, mReportButton.getId()));
