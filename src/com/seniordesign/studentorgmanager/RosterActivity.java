@@ -202,7 +202,9 @@ public class RosterActivity extends Activity {
 		public void onClick(View v) {
 			Intent i = new Intent();
 			if (memberType.equals("RegularMember")) {
-				
+				i = new Intent(RosterActivity.this, ViewOfficersActivity.class);
+				i.putExtra(LoginActivity.UserNameTag, username);
+				i.putExtra(MainActivity.OrgNameTag, orgName);
 			}
 			else {
 				i = new Intent(RosterActivity.this, ManageOfficersActivity.class);

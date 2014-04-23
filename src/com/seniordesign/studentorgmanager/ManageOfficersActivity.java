@@ -157,8 +157,8 @@ public class ManageOfficersActivity extends Activity {
 		for (UserOfficer user : officers) {
 			map = new HashMap<String, Object>();
 			map.put("username", user.username);
-			map.put("type", "Type " + user.memberType);
-			map.put("position", "Position " + user.position);
+			map.put("type", user.memberType);
+			map.put("position", user.position);
 			fillMaps.add(map);
 		}
 		
@@ -226,8 +226,11 @@ public class ManageOfficersActivity extends Activity {
 		if (modified.memberType.equals("Admin")) {
 			pos = 0;
 		}
-		else {
+		else if (modified.memberType.equals("Officer")){
 			pos = 1;
+		}
+		else {
+			pos = -1;
 		}
 		builder.setSingleChoiceItems(types, pos, new DialogInterface.OnClickListener() {
 
