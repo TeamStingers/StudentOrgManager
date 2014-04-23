@@ -11,7 +11,7 @@ var portNum = 80;
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'password',
+	password : 'root',
 	database : 'StudentOrgManager',
 	port 	 : '3306'
 });
@@ -341,18 +341,18 @@ app.post('/delete_news_item', function(req, res){
 
 app.post('/create_event', function(req, res){
 	var post = req.body;
-
+/*
 	var d1 = new Date(post.EventDateTime);	
 	var d2 = new Date(post.EventDateTime);
 	d1.setHours(d2.getHours()-4);
 
 	console.log(d1);
-
+*/
 	var createEventSql = "INSERT INTO Events SET Organization=" + connection.escape(post.Organization) +
 						", Location=" + connection.escape(post.Location) +
 						", Description=" + connection.escape(post.Description) +
 						", Type=" + connection.escape(post.Type) +
-						", EventDateTime=" + connection.escape(d1) + 
+						", EventDateTime=" + connection.escape(post.EventDateTime) + 
 						", EventName=" + connection.escape(post.EventName);
 
 	connection.query(createEventSql, function(err, results){

@@ -1,0 +1,116 @@
+req rec
+INSERT INTO UserOrgs SET Username='test', Organization='Tennis Team', Position='Admin', MemberType='Admin', DuesPaid='Unpaid'
+in the thing
+req rec
+{ Username: 'Sanchit',
+  Organization: 'Tennis Team',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+INSERT INTO UserOrgs SET Username='Sanchit', Organization='Chess Club', Position='Admin', MemberType='Admin', DuesPaid='Unpaid'
+in the thing
+Sat Apr 26 2014 06:00:00 GMT+0000 (UTC)
+Fri Apr 25 2014 20:00:00 GMT+0000 (UTC)
+req rec
+Tue Apr 22 2014 23:00:00 GMT+0000 (UTC)
+INSERT INTO UserOrgs SET Username='dhalima', Organization='Programming Team', Position='Admin', MemberType='Admin', DuesPaid='Unpaid'
+in the thing
+{ Username: 'Sanchit',
+  Organization: 'Programming Team',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+req rec
+INSERT INTO UserOrgs SET Username='Oudy', Organization='League of Legends Club', Position='Admin', MemberType='Admin', DuesPaid='Unpaid'
+in the thing
+{ Username: 'Oudy',
+  Organization: 'Programming Team',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+req rec
+{ Username: 'uvaidya3',
+  Organization: 'Programming Team',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+INSERT INTO UserOrgs SET Username='uvaidya3', Organization='Alpha Kappa Psi', Position='Admin', MemberType='Admin', DuesPaid='Unpaid'
+in the thing
+{ Username: 'test',
+  Organization: 'Alpha Kappa Psi',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+[]
+[]
+[]
+{ Username: 'test',
+  Organization: 'Programming Team',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+[ { EventID: 4,
+    Username: 'uvaidya3',
+    Organization: 'Alpha Kappa Psi',
+    EventName: 'Brother Retreat',
+    EventDateTime: Thu May 15 2014 11:00:00 GMT+0000 (UTC) } ]
+[]
+{ Username: 'uvaidya3',
+  Organization: 'Tennis Team',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+[ { EventID: 1,
+    Username: 'uvaidya3',
+    Organization: 'Tennis Team',
+    EventName: 'Exhibition Match',
+    EventDateTime: Sat Apr 26 2014 06:00:00 GMT+0000 (UTC) } ]
+[ { EventID: 1,
+    Username: 'uvaidya3',
+    Organization: 'Tennis Team',
+    EventName: 'Exhibition Match',
+    EventDateTime: Sat Apr 26 2014 06:00:00 GMT+0000 (UTC) } ]
+req rec
+INSERT INTO UserOrgs SET Username='test2', Organization='India Club', Position='Admin', MemberType='Admin', DuesPaid='Unpaid'
+in the thing
+{ Username: 'test2',
+  Organization: 'Chess Club',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+{ Username: 'test2',
+  Organization: 'Chess Club',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+{ Username: 'test',
+  Organization: 'India Club',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+{ Username: 'test2',
+  Organization: 'Alpha Kappa Psi',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+{ Username: 'Sanchit',
+  Organization: 'Alpha Kappa Psi',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+{ Username: 'test',
+  Organization: 'Chess Club',
+  Position: 'Member',
+  MemberType: 'RegularMember',
+  DuesPaid: 'Unpaid' }
+[ { EventID: 4,
+    Username: 'uvaidya3',
+    Organization: 'Alpha Kappa Psi',
+    EventName: 'Brother Retreat',
+    EventDateTime: Thu May 15 2014 11:00:00 GMT+0000 (UTC) } ]
+[ { EventID: 1,
+    Username: 'uvaidya3',
+    Organization: 'Tennis Team',
+    EventName: 'Exhibition Match',
+    EventDateTime: Sat Apr 26 2014 06:00:00 GMT+0000 (UTC) } ]
+[]
