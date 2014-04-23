@@ -328,8 +328,15 @@ app.post('/create_news_item', function(req, res){
 app.post('/delete_news_item', function(req, res){
 	var post = req.body;
 
+	var d1 = new Date(post.NewsTimeStamp);	
+	var d2 = new Date(post.NewsTimeStamp);
+	d1.setHours(d2.getHours()+4);
+	d1 = toSqlDateTime(d1);
+
+	console.log(d1);
+
 	var deleteNewsSql = "DELETE FROM NewsItems WHERE Organization=" + connection.escape(post.Organization) +
-						" AND NewsTimeStamp=" + connection.escape(post.NewsTimeStamp);
+						" AND NewsTimeStamp=" + connection.escape(d1);
 
 	//POST {Organization:'OrgName' AND Announcement='AnouncementText'}
 	connection.query(deleteNewsSql, function(err, result){
