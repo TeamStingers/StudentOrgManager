@@ -7,7 +7,7 @@
     <string name="button_send">Send</string>
     <string name="hello_world">Hello world!</string>
     <string name="myOrganizations">My Organizations</string>
-    <string name="title_activity_orgs">OrgsActivity</string>
+    <string name="title_activity_orgs">My Organizations</string>
     <string name="title_activity_homepage">My Organizations</string>
     <string name="AnOrg">An Organization</string>
     <string name="newsfeed">News Feed</string>

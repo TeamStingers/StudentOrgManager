@@ -64,7 +64,9 @@ public class ManageOfficersActivity extends Activity {
 	private static String[] types = {"Admin", "Officer", "Regular Member"};
 	private ArrayList<String> notOfficers;
 	private String currentType;
-	private UserOfficer modified;
+	private UserOfficer modified = new UserOfficer("", "", "");
+	private LayoutInflater inflater;
+	private View dialogView;
 	
 	private class UserOfficer {
 		public String username;
@@ -96,12 +98,12 @@ public class ManageOfficersActivity extends Activity {
 		mAddOfficerButton = (Button) findViewById(R.id.newOfficerButton);
 		mAddOfficerButton.setOnClickListener(new ButtonClickListener(this));
 		
-		LayoutInflater inflater = LayoutInflater.from(this);
-		View view = inflater.inflate(R.layout.create_new_officer, null);
+		inflater = LayoutInflater.from(this);
+		dialogView = inflater.inflate(R.layout.create_new_officer, null);
 		
-		mMembersSpinner = (Spinner) view.findViewById(R.id.createOfficerUsernameSpinner);
-		mTypesSpinner = (Spinner) view.findViewById(R.id.createOfficerMemberTypeSpinner);
-		mPositionEdit = (EditText) view.findViewById(R.id.createOfficerPositionEdit);
+		mMembersSpinner = (Spinner) dialogView.findViewById(R.id.createOfficerUsernameSpinner);
+		mTypesSpinner = (Spinner) dialogView.findViewById(R.id.createOfficerMemberTypeSpinner);
+		mPositionEdit = (EditText) dialogView.findViewById(R.id.createOfficerPositionEdit);
 		
 		
 		
@@ -324,14 +326,12 @@ public class ManageOfficersActivity extends Activity {
 	public AlertDialog.Builder newOfficerDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("New Officer");
-		LayoutInflater inflater = LayoutInflater.from(this);
-		View view = inflater.inflate(R.layout.create_new_officer, null);
 		
 		if (notOfficers == null || notOfficers.size() == 0) {
 			Log.d("debug", "notOfficers null");
 		}
 		else {
-			ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, (String[])notOfficers.toArray());
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, notOfficers);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			mMembersSpinner.setAdapter(adapter);
 		}
@@ -342,12 +342,15 @@ public class ManageOfficersActivity extends Activity {
 		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mTypesSpinner.setAdapter(adapter1);
 		
-		builder.setView(view);
+		builder.setView(dialogView);
 		
 		builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				if (mMembersSpinner.getSelectedItem() == null) {
+				Log.d("spinner", "spinner null");
+				}
 				modified.username = mMembersSpinner.getSelectedItem().toString();
 				modified.memberType = mTypesSpinner.getSelectedItem().toString();
 				modified.position = mPositionEdit.getText().toString();

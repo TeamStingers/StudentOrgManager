@@ -1,6 +1,8 @@
 package com.seniordesign.studentorgmanager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -18,7 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -88,8 +93,30 @@ public class ViewOfficersActivity extends Activity {
 			e.printStackTrace();
 		}
 		
+		setOfficersList();
+		
 	}
 
+	public void setOfficersList() {
+		String[] from = {"username", "type", "position"};
+		int[] to = {R.id.officerRowUsername, R.id.officerRowType, R.id.officerRowPosition};
+		
+		List<HashMap<String, Object>> fillMaps = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		for (UserOfficer user : officers) {
+			map = new HashMap<String, Object>();
+			map.put("username", user.username);
+			map.put("type", user.memberType);
+			map.put("position", user.position);
+			fillMaps.add(map);
+		}
+		
+		SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.officer_row, from, to);
+		mOfficersList.setAdapter(adapter);
+		
+	}
+	
 	public class InitTask extends AsyncTask<Void, Void, Void> {
 		protected Void doInBackground(Void... params) {
 			allMembers = DataTransfer.getUsersForOrg(orgName);
